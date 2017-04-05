@@ -4,7 +4,7 @@
 
 # Site
 title: 一只特立独行的鸟
-subtitle: 分享我的学习心得，记录我的学习笔记。趁着年轻多学点东西总是正确的~~~
+subtitle: 记录我的学习笔记,分享我的学习心得
 description: 一只特立独行的鸟
 author: Kuring Lyu
 language: zh-Hans
@@ -74,5 +74,5 @@ deploy:
 
 links_title: 友情链接
 links:
-  Github地址: https://github.com/kuring
-  新浪微博: http://weibo.com/ilvkai
+  酷壳: http://http://coolshell.cn/
+  阮一峰的网络日志: http://www.ruanyifeng.com/blog/
