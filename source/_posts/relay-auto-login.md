@@ -1,5 +1,5 @@
 ---
-title: relay_auto_login
+title: 自动通过跳板机登录到其他服务器
 date: 2017-05-17 16:04:01
 tags:
 ---
