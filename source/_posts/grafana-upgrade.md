@@ -1,5 +1,5 @@
 ---
-title: grafana_upgrade
+title: grafana升级
 date: 2017-09-13 00:22:51
 tags:
 ---
