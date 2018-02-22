@@ -98,55 +98,6 @@ raw表中的规则可以被链使用：prerouting output
 
 表的名字为小写，链的名字为大写
 
-![image](http://kuring.me/images/iptables_04.gif)
-
-路径A：
-
-```
-# 默认查看为filter表规则
-[vagrant@localhost ~]$ sudo iptables -L
-Chain INPUT (policy ACCEPT)
-target     prot opt source               destination
-
-Chain FORWARD (policy ACCEPT)
-target     prot opt source               destination
-
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination
-
-# 查看nat表规则
-[vagrant@localhost ~]$ sudo iptables -L -t nat
-Chain PREROUTING (policy ACCEPT)
-target     prot opt source               destination
-
-Chain INPUT (policy ACCEPT)
-target     prot opt source               destination
-
-Chain OUTPUT (policy ACCEPT)
-target     prot opt source               destination
-
-Chain POSTROUTING (policy ACCEPT)
-target     prot opt source               destination
-
-# 用于保存规则
-[vagrant@localhost ~]$ iptables-save
-
-# 用于清除规则
-[vagrant@localhost ~]$ sudo iptables -F
-
-# 删除自定义chain
-[vagrant@localhost ~]$ sudo iptables -X
-
-# 将chaind的计数和流量清零
-[vagrant@localhost ~]$ sudo iptables -Z
-```
-
-target代表进行的动作，包括accept reject drop
-prot：使用的协议，有tcp udp icmp
-opt：额外的选项说明
-source：限制的来源ip
-destination：限制的目的ip
-
 # command
 
 ## query

@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 一只特立独行的鸟
-subtitle: 记录我的学习笔记,分享我的学习心得
-description: 一只特立独行的鸟
-author: Kuring Lyu
+title: 伊图
+subtitle: 学习笔记
+description: 
+author: 
 language: zh-Hans
 timezone:
 
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: hexo-theme-next
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
