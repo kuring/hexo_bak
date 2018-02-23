@@ -56,6 +56,29 @@ toc: yes
 
 由于对外增加了10001端口号，aws的默认安全策略为仅对外提供22端口，需要在EC2主机的安全策略中增加外放访问tcp端口10001的权限。
 
+# 脚本
+
+为了安装方便，我简单写了个脚本如下
+
+```
+yum -y install epel-release
+#yum update -y
+yum install python2-pip -y
+pip install shadowsocks
+mkdir ~/shadowsocks
+echo '{
+    "server":"0.0.0.0",
+    "server_port":10001,
+    "local_port":1080,
+    "password":"xxx",
+    "timeout":600,
+    "method":"aes-256-cfb"
+}' > ~/shadowsocks/config.json
+systemctl disable firewalld.service
+systemctl stop firewalld.service
+nohup ssserver -c ~/shadowsocks/config.json &
+```
+
 # 安装shadowsocks客户端
 
 这里是支持的[客户端列表](https://shadowsocks.com/client.html)，​我这里仅使用的mac客户端ShadowsocksX，支持Auto Proxy Mode和Global Mode两种方式，其中Auto方式会自动下载使用sock5代理的列表，非常方便。
