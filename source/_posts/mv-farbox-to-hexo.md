@@ -48,6 +48,8 @@ theme项目中也包含了部分自己的配置及修改，我这里选择的同
 * 部署到github：`hexo d`
 * 发布文章：`hexo new 文章url`
 
+使用`hexo new draft test`会在source/_drafts目录下创建对应文件，此时文件不会生成页面，用于存放未写完的文章。`hexo publish draft test`命令可将_drafts下的文章移动到_posts目录下，并添加创建时间等信息。
+
 # 收个尾
 
 blog总算迁移完成了，期望今年能多写上几篇。
