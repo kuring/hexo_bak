@@ -1,3 +1,3 @@
 #!/bin/bash
 
-hexo d
+hexo g && hexo d
