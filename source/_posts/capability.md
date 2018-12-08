@@ -10,7 +10,7 @@ linux内核中引入了capability，用于消除需要执行某些操作的程�
 
 capability用于分割root用户的权限，将root的权限分割为不同的能力，每一种能力代表一定的特权操作。例如，CAP_SYS_MODULE用于表示用户加载内核模块的特权操作。根据进程具有的能力来进行特权操作的访问控制。
 
-只有进程和可执行文件才有能力，每个进程拥有三组能力集(set)。
+只有进程和可执行文件才有能力，每个进程拥有以下几组能力集(set)。
 
 - cap_effective: 进程当前可用的能力集
 - cap_inheritable: 进程可以传递给子进程的能力集
@@ -172,10 +172,22 @@ Cap data 0xffffffff, 0xffffffff, 0x0
 
 ## runc项目中的应用
 
-runc的容器配置文件可以定义各个能力集的能力，用来限制容器的能力。
+runc的容器配置文件`spec.Process.Capabilities`可以定义各个能力集的能力，用来限制容器的能力。
+
+## docker中的应用
+
+docker默认情况下给容器去掉了一些比较危险的capabilities，比如`cap_sys_admin`。
+
+例如在docker中使用gdb命令默认是不允许的，这是因为docker已经将SYS_PTRACE相关的能力给去掉了。
+
+在docker中使用`--cap-add`和`--cap-drop`命令来增加和删除capabilities，
+
+可以使用`--privileged`赋予容器所有的capabilities，该操作谨慎使用。
 
 ## ref
 
 * [Linux的capability深入分析(1)](https://blog.csdn.net/wangpengqi/article/details/9821227)
 * [Linux的capability深入分析(2)](https://blog.csdn.net/wangpengqi/article/details/9821231)
 * [Linux Programmer's Manual CAPABILITIES](http://man7.org/linux/man-pages/man7/capabilities.7.html)
+* [如何在Docker内部使用gdb调试器](https://mp.weixin.qq.com/s?__biz=MzI0NjI4MDg5MQ==&mid=2715292188&idx=1&sn=2b7f26203aa594027550e324460bc901&chksm=cd6d15c8fa1a9cde757868fd34c8336433c4877d3e7689ed0a2bd90eb1ef6271bda97aa3bb03&mpshare=1&scene=1&srcid=12045vIwpmKLu97HvFOssitt%23rd)
+* [docker run](https://docs.docker.com/engine/reference/commandline/run/)

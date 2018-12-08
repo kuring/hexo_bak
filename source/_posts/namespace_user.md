@@ -69,7 +69,7 @@ ID-inside-ns ID-outside-ns length
 
 /proc/${pid}/[u|g]id的拥有者为创建新user namespace的用户，拥有map文件写入权限的仅有两个用户：和该用户在同一个user namespace中的root用户，创建新的user namespace的用户。创建新的user namespace有没有写入map文件的权限，还要取决于capability中的CAP_SETUID和CAP_SETGID两个权限。
 
-为了方便写入/proc/<pid>/uid_map和/proc/<pid>/gid_map文件，可以使用newuidmap和newgidmap命令来完成。
+为了方便写入/proc/${pid}/uid_map和/proc/${pid}/gid_map文件，可以使用newuidmap和newgidmap命令来完成。
 
 继续上述例子
 
