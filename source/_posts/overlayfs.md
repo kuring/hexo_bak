@@ -4,6 +4,18 @@ date: 2018-07-28 21:30:25
 tags: overlay overlay2
 ---
 
+## docker image结构
+
+docker可以通过命令`docker image inspect ${image}`来查看image的详细信息，其中包含了所使用的底层文件系统及各层的信息。
+
+docker container的存储结构分为了只读层、init层和可读写层。
+
+只读层跟docker image的层次结构恰好对应，主要包含操作系统的文件、配置、目录等信息，不包含操作系统镜像。
+
+init层在只读层和读写层中间，用来专门存放/etc/hosts /etc/resolv.conf等信息，这些文件往往需要在启动的时候写入一些指定值，但不期望`docker commit`命令对其进行提交。
+
+可读写层为容器在运行中可以进行写入的层。
+
 ## overlay
 
 ![image](https://arkingc.github.io/img/in-post/post-docker-filesystem/overlay_constructs.jpg)
