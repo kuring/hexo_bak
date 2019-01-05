@@ -66,13 +66,24 @@ mount namespace是Linux中第一个namespace，是基于chroot技术改良而来
 
 ## Docker Volume
 
-为了解决容器中能够访问宿主机上文件的问题，docker引入了Volume机制，将宿主机上指定的文件或者目录挂载到容器中。
+为了解决容器中能够访问宿主机上文件的问题，docker引入了Volume机制，将宿主机上指定的文件或者目录挂载到容器中。而整个的docker Volume机制跟mount namespace的关系不太大。
+
+Volume用到的技术为Linux的绑定挂载机制，该机制将一个指定的目录或者文件挂载到一个指定的目录上。
+
+容器启动顺序如下：
+
+1. 创建新的mount namespace
+2. dockerinit根据容器镜像准备好rootfs
+3. dockerinit使用绑定挂载机制将一个指定的目录挂载到rootfs的某个目录上
+4. dockerinit调用chroot
 
 容器启动时需要创建新的mount namespace，根据容器镜像准备好rootfs，调用chroot。docker volume的挂载时机是在rootfs准备好之后，调用chroot之前完成。
 
 上文提到进入新的mount namespace后，mount namespace会继承父mount namespace的挂载, docker volume一定是在新的mount namespce中执行，否则会影响到宿主机上的mount。在调用chroot之后已经看不到宿主机上的文件系统，无法进行挂载。
 
 执行这一操作的进程为docker的容器进程dockerinit，该进程会负责完成根目录的准备、挂载设备和目录、配置hostname等一系列需要在容器内进行的初始化操作。在初始化完成后，会调用execv()系统调用，用容器中的ENTRYPOINT进程取代，成为容器中的1号进程。
+
+volume挂载的目录是挂载在读写层，由于使用了mount namespace，在宿主机上看不到挂载目录的信息，因此docker commit操作不会将挂载的目录提交。
 
 下面使用例子来演示docker volume的用法
 
