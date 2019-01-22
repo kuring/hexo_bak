@@ -88,6 +88,10 @@ CMD [ "world" ]
 
 ![https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact](https://kuring.me/images/entrypoint-cmd.png)
 
+## 如何查看ENTRYPOINT和CMD
+
+可以通过`docker history ${image} --no-trunc`来查生成镜像的所有Dockerfile命令
+
 ## ref
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#entrypoint)
