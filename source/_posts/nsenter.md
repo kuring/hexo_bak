@@ -12,6 +12,8 @@ CentOS用户可以直接使用`yum install util-linux`来进行安装。
 
 启动要进入的容器：`docker run -d ubuntu /bin/bash -c "sleep 1000"`
 
+获取容器的pid可以使用`docker inspect 9f7f7a7f0f26 -f '{{.State.Pid}}'`命令
+
 要进入容器执行如下命令：
 
 ```
