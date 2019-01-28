@@ -21,8 +21,6 @@ CentOS用户可以直接使用`yum install util-linux`来进行安装。
 docker inspect 9f7f7a7f0f26 -f '{{.State.Pid}}'
 # 进入pid对应的namespace
 sudo nsenter --target $PID --mount --uts --ipc --net --pid
-# 要想使用宿主机上的文件系统，即使用文件系统的命令等
-sudo nsenter --target $PID --uts --ipc --net --pid
 ```
 
 ## ref
