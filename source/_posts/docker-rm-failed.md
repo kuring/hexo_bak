@@ -154,7 +154,7 @@ Storage Driver: overlay2
 
 ## 处理方式
 
-在/usr/lib/systemd/system/docker.service的[Service]中增加`MountFlags=slave`，并重新启动docker服务。
+在/usr/lib/systemd/system/docker.service的[Service]中增加`MountFlags=slave`，并重新启动docker服务，注意重启docker后，容器会重启。
 
 当然也可以通过重启ntpd服务的方式来临时解决问题，但当下次删除容器时还需要重启ntpd。
 
