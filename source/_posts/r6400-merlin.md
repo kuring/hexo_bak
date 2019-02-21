@@ -56,11 +56,11 @@ R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的C
 
 在dd-wrt的固件升级中选择“R6400_380.70_0-X7.9.1-koolshare.trx”，刷入梅林固件。待路由器重启完成后，即完成梅林固件的刷入。此时路由器的Wifi SSID变为“NETGEAR”。
 
-![](https://kuring.me/images/r6400/r6400-7.png)
+![](https://kuring.me/images/r6400/r6400-8.png)
 
 访问192.168.1.1，会出现梅林系统的管理界面，依次设置即可。
 
-![](https://kuring.me/images/r6400/r6400-8.png)
+![](https://kuring.me/images/r6400/r6400-9.png)
 
 题外话：无线的密码修改完后，悲剧的事情发生了，路由器重启后居然连不上wifi，提示密码错误。不得不找来一台带有网口的笔记本用有线连接。在梅林管理系统中查看，未发现密码输入错误，明明输入的密码是对的，但SSID换一个密码居然奇迹般的可以无线连接了，怀疑是一个bug。
 
@@ -70,7 +70,7 @@ R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的C
 
 要想使用软件中心，需要在系统设置中开启下图选项，并重启路由器。重启后，Format JFFS partition at next boot会自动设置为false。
 
-![](https://kuring.me/images/r6400/r6400-9.png)
+![](https://kuring.me/images/r6400/r6400-10.png)
 
 ## ASUS Router
 
@@ -81,4 +81,3 @@ R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的C
 - [网件Netgear R6400 v2 开箱 刷梅林固件](https://www.youtube.com/watch?v=sM3IJrXI7g0)
 - [梅林系统官网](https://asuswrt.lostrealm.ca/)
 - [梅林固件下载地址](http://koolshare.cn/thread-139324-1-1.html)
-
