@@ -11,7 +11,7 @@ $ cat /etc/redhat-release
 CentOS Linux release 7.2.1511 (Core)
 
 $ uname -a
-Linux c3-a05-136-45-10.yidian.com 3.10.0-327.el7.x86_64 #1 SMP Thu Nov 19 22:10:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
+Linux c3-a05-136-45-10.com 3.10.0-327.el7.x86_64 #1 SMP Thu Nov 19 22:10:57 UTC 2015 x86_64 x86_64 x86_64 GNU/Linux
 
 $ docker info | grep "Storage Driver"
 Storage Driver: devicemapper
@@ -33,10 +33,10 @@ httpserver-prod-1-6cb97dfbcc-zghhr   0/1       Terminating   0          54d     
 查看docker的日志发现有如下报错信息如下，含义为在删除pod时由于/var/lib/docker/overlay/*/merged目录被其他应用占用，从而导致容器无法清除。
 
 ```
-Jan 30 14:57:47 c3-a05-136-45-4.yidian.com dockerd[1510]: time="2019-01-30T14:57:47.704641914+08:00" level=error msg="Error removing mounted layer e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9: remove /var/lib/docker/overlay/98a56d695c9e3d0b6a9f3b5e0e60abf7cdb3ce73e976b00e36ca59028e585a36/merged: device or resource busy"
-Jan 30 14:57:47 c3-a05-136-45-4.yidian.com dockerd[1510]: time="2019-01-30T14:57:47.704772288+08:00" level=error msg="Handler for DELETE /v1.31/containers/e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9 returned error: driver \"overlay\" failed to remove root filesystem for e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9: remove /var/lib/docker/overlay/98a56d695c9e3d0b6a9f3b5e0e60abf7cdb3ce73e976b00e36ca59028e585a36/merged: device or resource busy"
-Jan 30 14:57:48 c3-a05-136-45-4.yidian.com dockerd[1510]: time="2019-01-30T14:57:48.228837657+08:00" level=error msg="Error removing mounted layer 2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030: remove /var/lib/docker/overlay/0ff0f98e1abf43c10711f2804cae3cf37efd597016d38b4753e2af19c2e27eb9/merged: device or resource busy"
-Jan 30 14:57:48 c3-a05-136-45-4.yidian.com dockerd[1510]: time="2019-01-30T14:57:48.228953497+08:00" level=error msg="Handler for DELETE /v1.31/containers/2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030 returned error: driver \"overlay\" failed to remove root filesystem for 2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030: remove /var/lib/docker/overlay/0ff0f98e1abf43c10711f2804cae3cf37efd597016d38b4753e2af19c2e27eb9/merged: device or resource busy"
+Jan 30 14:57:47 c3-a05-136-45-4.com dockerd[1510]: time="2019-01-30T14:57:47.704641914+08:00" level=error msg="Error removing mounted layer e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9: remove /var/lib/docker/overlay/98a56d695c9e3d0b6a9f3b5e0e60abf7cdb3ce73e976b00e36ca59028e585a36/merged: device or resource busy"
+Jan 30 14:57:47 c3-a05-136-45-4.com dockerd[1510]: time="2019-01-30T14:57:47.704772288+08:00" level=error msg="Handler for DELETE /v1.31/containers/e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9 returned error: driver \"overlay\" failed to remove root filesystem for e6b7378c58a34cb42c6fa7924f7a52b7a19a64b2166d7a56f363e73ecba6e5a9: remove /var/lib/docker/overlay/98a56d695c9e3d0b6a9f3b5e0e60abf7cdb3ce73e976b00e36ca59028e585a36/merged: device or resource busy"
+Jan 30 14:57:48 c3-a05-136-45-4.com dockerd[1510]: time="2019-01-30T14:57:48.228837657+08:00" level=error msg="Error removing mounted layer 2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030: remove /var/lib/docker/overlay/0ff0f98e1abf43c10711f2804cae3cf37efd597016d38b4753e2af19c2e27eb9/merged: device or resource busy"
+Jan 30 14:57:48 c3-a05-136-45-4.com dockerd[1510]: time="2019-01-30T14:57:48.228953497+08:00" level=error msg="Handler for DELETE /v1.31/containers/2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030 returned error: driver \"overlay\" failed to remove root filesystem for 2851b80d5c45d1cac3e7384116da0ad022af21701f9aa0d9ba3598efd5723030: remove /var/lib/docker/overlay/0ff0f98e1abf43c10711f2804cae3cf37efd597016d38b4753e2af19c2e27eb9/merged: device or resource busy"
 ```
 
 通过`docker ps -a`看到容器的状态为"Removal In Progress"。通过`docker inspect`可以看到容器的进程已经退出了。
@@ -44,7 +44,7 @@ Jan 30 14:57:48 c3-a05-136-45-4.yidian.com dockerd[1510]: time="2019-01-30T14:57
 ```
 # docker ps -a
 CONTAINER ID        IMAGE                                                                  COMMAND                  CREATED             STATUS                    PORTS               NAMES
-e6b7378c58a3        103-17-184-lg-201-k08.yidian.com:5000/centos7/golang-httpserver        "/bin/sh -c 'go ru..."   7 weeks ago         Removal In Progress                           k8s_golang-httpserver_httpserver-prod-1-6cb97dfbcc-f9flb_default_9e3d2cbb-f9d4-11e8-b61c-f01fafd10a1b_0
+e6b7378c58a3        golang-httpserver        "/bin/sh -c 'go ru..."   7 weeks ago         Removal In Progress                           k8s_golang-httpserver_httpserver-prod-1-6cb97dfbcc-f9flb_default_9e3d2cbb-f9d4-11e8-b61c-f01fafd10a1b_0
 
 # docker inspect e6b7378c58a3 --format '{{.State.Pid}}'
 0
@@ -101,10 +101,10 @@ WantedBy=multi-user.target
 
 ```
 # 在系统上启动一个容器，此时ntpd必须处于running状态
-$ docker run -d docker2.yidian.com:5000/devops/test/httpserver:1 /bin/sh -c "while : ; do sleep 1000 ; done"
+$ docker run -d httpserver:1 /bin/sh -c "while : ; do sleep 1000 ; done"
 
 # 启动容器
-$ docker run -d docker2.yidian.com:5000/devops/test/httpserver:1 /bin/sh -c "while : ; do sleep 1000 ; done"
+$ docker run -d httpserver:1 /bin/sh -c "while : ; do sleep 1000 ; done"
 200222b438aac43bbe32a6c54e31ced0848482b9dec3e519d2f847c70c1ce801
 
 # 重启ntpd
@@ -115,7 +115,7 @@ $ docker stop 200222b438aa
 # 此时容器的相关信息还存在
 $ docker ps -a
 CONTAINER ID        IMAGE                                               COMMAND                  CREATED              STATUS                       PORTS               NAMES
-200222b438aa        docker2.yidian.com:5000/devops/test/httpserver:1    "/bin/sh -c 'while..."   About a minute ago   Exited (137) 7 seconds ago                       hardcore_yalow
+200222b438aa        httpserver:1    "/bin/sh -c 'while..."   About a minute ago   Exited (137) 7 seconds ago                       hardcore_yalow
 
 # 强制删除容器失败
 $ docker rm -f 200222b438aa
@@ -125,7 +125,7 @@ Error response from daemon: driver "devicemapper" failed to remove root filesyst
 # 此时容器处于Removal In Progress状态
 $ docker ps -a
 CONTAINER ID        IMAGE                                               COMMAND                  CREATED             STATUS                PORTS               NAMES
-200222b438aa        docker2.yidian.com:5000/devops/test/httpserver:1    "/bin/sh -c 'while..."   2 minutes ago       Removal In Progress                       hardcore_yalow
+200222b438aa        httpserver:1    "/bin/sh -c 'while..."   2 minutes ago       Removal In Progress                       hardcore_yalow
 
 # 再次重启ntpd进程
 $ systemctl restart ntpd
@@ -157,6 +157,8 @@ Storage Driver: overlay2
 在/usr/lib/systemd/system/docker.service的[Service]中增加`MountFlags=slave`，并重新启动docker服务，注意重启docker后，容器会重启。
 
 当然也可以通过重启ntpd服务的方式来临时解决问题，但当下次删除容器时还需要重启ntpd。
+
+还有一种办法是修改ntpd.service中的`PrivateTmp=true`，然后重启ntpd服务。
 
 ## ref
 

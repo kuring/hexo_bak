@@ -79,6 +79,8 @@ systemctl stop firewalld.service
 nohup ssserver -c ~/shadowsocks/config.json &
 ```
 
+在某些云主机的CentOS7系统发现无法使用`yum install python2-pip`进行安装，原因是有些源被禁用了，可以使用`yum repolist disabled`来查看被禁用的源，其中会包含epel源。可以使用`yum install python2-pip -y --enablerepo=epel`的方式来安装。
+
 # 安装shadowsocks客户端
 
 这里是支持的[客户端列表](https://shadowsocks.com/client.html)，​我这里仅使用的mac客户端ShadowsocksX，支持Auto Proxy Mode和Global Mode两种方式，其中Auto方式会自动下载使用sock5代理的列表，非常方便。
