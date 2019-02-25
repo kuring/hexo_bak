@@ -27,7 +27,7 @@ func pase_student() {
 }
 ```
 
-每次遍历的时候stu变量的地址并改变，即&stu的地址未改变，遍历结束后stu指向stus中的最后一个元素。可修改为如下形式：
+每次遍历的时候stu变量的地址未改变，即&stu未改变，遍历结束后stu指向stus中的最后一个元素。可修改为如下形式：
 
 ```go
 for i, _ := range stus {
@@ -106,9 +106,9 @@ type People interface {
 	Speak(string) string
 }
 
-type Stduent struct{}
+type Student struct{}
 
-func (stu *Stduent) Speak(think string) (talk string) {
+func (stu *Student) Speak(think string) (talk string) {
 	if think == "bitch" {
 		talk = "You are a good boy"
 	} else {
@@ -118,7 +118,7 @@ func (stu *Stduent) Speak(think string) (talk string) {
 }
 
 func main() {
-	var peo People = Stduent{}
+	var peo People = Student{}
 	think := "bitch"
 	fmt.Println(peo.Speak(think))
 }
@@ -158,7 +158,7 @@ func main() {
 }
 ```
 
-涉及到goroutine的切换时机，仅系统调用或者有函数调用的情况下才会切换goroutine，for循环情况下一直没有系统调用或函数切换发生，需要等到for循环结束后才会启动新的goroutine。
+一直输出9999.涉及到goroutine的切换时机，仅系统调用或者有函数调用的情况下才会切换goroutine，for循环情况下一直没有系统调用或函数切换发生，需要等到for循环结束后才会启动新的goroutine。
 
 ## 以下代码打印出来什么内容，说出为什么。。。
 
@@ -195,7 +195,7 @@ func main() {
 
 打印`BBBBBBB`。
 
-- # byte与rune的关系
+## byte与rune的关系
 
 - byte alias for uint8
 - rune alias for uint32，用来表示unicode
