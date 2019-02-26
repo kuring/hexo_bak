@@ -288,13 +288,19 @@ func DeferFunc4(i int) (t int) {
 
 输出结果为: `4 1 3 2`
 
-return语句分为两个阶段，执行return后面的表达式和返回表达式的结果。defer函数在返回表达式之前执行。
+return语句不是一个原子指令，分为两个阶段，执行return后面的表达式和返回表达式的结果。defer函数在返回表达式之前执行。
 
-DeferFunc2在调用defer时，函数返回值已经确定为t，因此返回1.
+1. 执行return后的表达式给返回值赋值
+2. 调用defer函数
+3. 空的return
 
-DeferFunc3搞不懂为什么返回3.
+DeferFunc1在第一步执行表达式后t=1，执行defer后t=4，返回值为4
 
-DeferFunc4会使用return的返回值2，而不会使用t的值10
+DeferFunc2在第一步执行表达式后t=1，执行defer后t=4，返回值为第一步表达式的结果1
+
+DeferFunc3在第一步表达式为t=2，执行defer后t=3，返回值为t=3
+
+DeferFunc4在第一步执行表达式后t=2，返回值为t=2
 
 ## 是否可以编译通过？如果通过，输出什么？
 
@@ -351,7 +357,6 @@ func main() {
 还有一点需要注意的是结构体是相同的，但是结构体属性中有不可以比较的类型，如map,slice。 如果该结构属性都是可以比较的，那么就可以使用“==”进行比较操作。
 
 ## 是否可以编译通过？如果通过，输出什么？
-
 
 ```
 package main
@@ -488,6 +493,31 @@ func main(){
 
 1. goroutine之间的传值
 2. goroutine之间的控制
+
+## 在单核cpu的情况下，下面输出什么内容？
+
+```
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+func main() {
+	wg := sync.WaitGroup{}
+	for _, i:=range []int{1, 2, 3, 4, 5} {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			fmt.Println(i)
+		} ()
+	}
+	wg.Wait()
+}
+```
+
+考察golang的runtime机制，goroutine的切换时机只有在有系统调用或者函数调用时才会发生，本例子中的for循环结束之前不会发生goroutine的切换，所以最终输出结果为5.
 
 # ref
 
