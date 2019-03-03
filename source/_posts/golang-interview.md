@@ -27,7 +27,11 @@ func pase_student() {
 }
 ```
 
-每次遍历的时候stu变量的地址未改变，即&stu未改变，遍历结束后stu指向stus中的最后一个元素。可修改为如下形式：
+每次遍历的时候stu变量为值拷贝，stu变量的地址未改变，即&stu未改变，遍历结束后stu指向stus中的最后一个元素。
+
+使用`reflect.TypeOf(str)`打印出的类型为main.student，如果使用`stu.Age += 10`这样的语法是不会修改stus中的值的。
+
+可修改为如下形式：
 
 ```go
 for i, _ := range stus {
@@ -518,6 +522,56 @@ func main() {
 ```
 
 考察golang的runtime机制，goroutine的切换时机只有在有系统调用或者函数调用时才会发生，本例子中的for循环结束之前不会发生goroutine的切换，所以最终输出结果为5.
+
+## 下面输出什么
+
+```
+package main
+
+import (
+	"fmt"
+)
+
+type People interface {
+	Speak(string) string
+}
+
+type Stduent struct{}
+
+func (stu *Stduent) Speak(think string) (talk string) {
+	if think == "bitch" {
+		talk = "You are a good boy"
+	} else {
+		talk = "hi"
+	}
+	return
+}
+
+func main() {
+	var peo People = Stduent{}
+	think := "bitch"
+	fmt.Println(peo.Speak(think))
+}
+```
+
+编译不通过，仅`*Student`实现了People接口，更改为`var peo People = &Student{}`即可编译通过。
+
+## 下面输出什么
+
+```
+package main
+
+const cl = 100
+
+var bl = 123
+
+func main() {
+	println(&bl, bl)
+	println(&cl, cl)
+}
+```
+
+编译失败，常量cl通常在预处理阶段会直接展开，无法取其地址。
 
 # ref
 
