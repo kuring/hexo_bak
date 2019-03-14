@@ -18,7 +18,7 @@ toc: yes
 
 我这里通过图表的形式对建大顶堆的过程进行了展示，不再对文字进行叙述。在堆排序的过程中会不断进行建最大堆过程的调用。
 
-![堆的初始化](http://7fvfr0.com1.z0.glb.clouddn.com/heap_sort_create.png)
+![堆的初始化](https://kuring.me/images/heap_sort_create.png)
 
 # 堆排序的核心步骤
 
