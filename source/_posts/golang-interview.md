@@ -6,7 +6,9 @@ tags: golang
 
 本文绝大多数题目来源于网络，部分题目为原创。
 
-## 以下代码有什么问题，说明原因
+## slice相关
+
+### 以下代码有什么问题，说明原因
 
 ```go
 type student struct {
@@ -36,6 +38,71 @@ func pase_student() {
 ```go
 for i, _ := range stus {
     m[stus[i].Name] = &stus[i]
+}
+```
+
+### 有一个slice of object, 遍历slice修改name为指定的值
+
+```
+type foo struct {
+ name string
+ value string
+}
+
+func mutate(s []foo, name string) {
+// TODO
+}
+```
+
+意在考察range遍历的时候是值拷贝，以及slice的内部数据结构，slice的数据结构如下：
+
+```
+struct    Slice
+{    // must not move anything
+    byte*    array;        // actual data
+    uintgo    len;        // number of elements
+    uintgo    cap;        // allocated number of elements
+};
+```
+
+执行append函数后会返回一个新的Slice对象，新的Slice对象跟旧Slice对象共用相同的数据存储，但是len的值并不相同。
+
+该题目中，可以通过下面的方式来修改值:
+
+```
+// range方式
+for i, _ := range s {
+	s[i].name = name
+}
+
+// for i形式
+for i:=0; i<len(s); i++ {
+  s[i].name = name
+}
+```
+
+### 从slice中找到一个元素匹配name，并将该元素的指针添加到一个新的slice中，返回新slice
+
+```
+func find(s []foo, name string) []*foo {
+// TODO
+
+}
+```
+
+仍旧是考察range是值拷贝的用法，此处使用for i 循环即可
+
+```
+func find(s []foo, name string) []*foo {
+	res := []*foo{}
+
+	for i := 0; i < len(s); i++ {
+		if s[i].name == name {
+			res = append(res, &(s[i]))
+			break
+		}
+	}
+	return res
 }
 ```
 
@@ -572,6 +639,58 @@ func main() {
 ```
 
 编译失败，常量cl通常在预处理阶段会直接展开，无法取其地址。
+
+## 以下代码是否存在问题，请解释你的判断和理由
+
+```
+import "sync"
+
+func f(m sync.Mutex) {
+   m.Lock()
+   defer m.Unlock()
+
+   // Do something...
+}
+```
+
+Mutex对象不能被值拷贝,后续传递需要使用指针的形式
+
+## 以下代码输出是什么 解释一下
+
+```
+func    main()  {
+    case1()
+    case2()
+}
+
+func    case1() {
+   s1   :=  make([]string,  1,  20)
+   s1[0]    =   "hello"
+   p1   :=  &s1[0]
+   s1   =   append(s1,  "world")
+   *p1  =   "hello2"
+   fmt.Printf("value    of  p1  is  %s, value   of  s1[0]   is  %s  \n",    *p1,    s1[0])
+}
+
+func    case2() {
+   s1   :=  make([]string)
+   s1[0]    =   "hello"
+   p1   :=  &s1[0]
+   s1   =   append(s1,  "world")
+   *p1  =   "hello2"
+   fmt.Printf("value    of  p1  is  %s, value   of  s1[0]   is  %s  \n",    *p1,    s1[0])
+}
+```
+
+本题意在考察string和slice的数据结构，string的数据结构如下：
+
+![http://research.swtch.com/godata2.png](https://kuring.me/images/golang_string.png)
+
+case1的内存结构变化情况如下：
+
+![](https://kuring.me/images/golang_interview_1.jpeg)
+
+case2由于s1默认长度为0，直接使用s1[0]复制会出现panic错误。
 
 # ref
 
