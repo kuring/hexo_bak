@@ -106,6 +106,31 @@ func find(s []foo, name string) []*foo {
 }
 ```
 
+## goroutine
+
+## 以下代码输出内容：
+
+```
+package main
+
+import (
+	"fmt"
+	"runtime"
+)
+
+func main() {
+	runtime.GOMAXPROCS(1)
+	go func() {
+		fmt.Println(1)
+	}()
+	for {
+	}
+	fmt.Println(1)
+}
+```
+
+不会有任何输出
+
 ## 下面输出的内容
 
 ```Go
@@ -691,6 +716,7 @@ case1的内存结构变化情况如下：
 ![](https://kuring.me/images/golang_interview_1.jpeg)
 
 case2由于s1默认长度为0，直接使用s1[0]复制会出现panic错误。
+
 
 # ref
 
