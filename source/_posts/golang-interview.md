@@ -106,6 +106,46 @@ func find(s []foo, name string) []*foo {
 }
 ```
 
+### 下面输出什么内容
+
+```
+package main
+
+import "fmt"
+
+func m(s []int) {
+	s[0] = -1
+	s = append(s, 4)
+}
+
+func main() {
+	s1 := []int{1, 2, 3}
+	m(s1)
+	s2 := make([]int, 3, 6)
+	m(s2)
+	s2 = append(s2, 7)
+	s3 := [3]int{1, 2, 3}
+	fmt.Println(s1)
+	fmt.Println(s2)
+	fmt.Println(s3)
+}
+```
+slice的函数传递为值拷贝方式，在函数m中对下标为0的元素的修改会直接修改原slice中的值，因为slice中的指针指向的地址是相同的。
+
+append之后的slice虽然可能是在原数组上增加了元素，但原slice中的len字段并没有变化。
+
+make([]int, 3, 6)虽然指定了slice的cap，但对于append没有影响，还是会在slice中最后一个元素的下一个位置增加新元素。
+
+数组由于是值拷贝，对新数组的修改不会影响到原数组。
+
+输出内容如下：
+
+```
+[-1 2 3]
+[-1 0 0 7]
+[1 2 3]
+```
+
 ## goroutine
 
 ## 以下代码输出内容：
