@@ -4,7 +4,7 @@ date: 2019-03-28 20:32:42
 tags:
 ---
 
-![](https://kuring.me/images/snowflake.png)
+![](https://kuring.me/images/flower.png)
 
 古语有云，一年之计在于春，这句话对于很多植物而言再合适不过。在经历了寒冬之后，很多植物选择将最美好的一面在春天里绽放。
 
