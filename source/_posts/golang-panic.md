@@ -6,7 +6,7 @@ tags: golang
 
 golang中的panic用于异常处理，个人感觉没有try catch finally方式直观和易用。
 
-`func panic(v interface{})`函数的作用为抛出一个错误信息，同时函数的执行流程会结束，但panic之前的defer语句会执行，之后该goroutine会立即停止执行。
+`func panic(v interface{})`函数的作用为抛出一个错误信息，同时函数的执行流程会结束，但panic之前的defer语句会执行，之后该goroutine会立即停止执行，进而当前进程会退出执行。
 
 `func recover() interface{}`定义在panic之前的defer语句中，用于将panic()进行捕获，这样触发panic时，当前gotoutine不会被退出。
 
