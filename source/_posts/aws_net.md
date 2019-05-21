@@ -85,6 +85,21 @@ nohup ssserver -c ~/shadowsocks/config.json &
 
 这里是支持的[客户端列表](https://shadowsocks.com/client.html)，​我这里仅使用的mac客户端ShadowsocksX，支持Auto Proxy Mode和Global Mode两种方式，其中Auto方式会自动下载使用sock5代理的列表，非常方便。
 
+# kcptun
+
+为了加快访问速度，推荐使用kcp + shadowsocks
+
+kcp的服务端配置如下，即启用20001端口，该端口会将流量导入到127.0.0.1:10001端口，即本机的shadowsocks端口
+
+```
+cd ~ && mkdir kcptun && cd kcptun
+wget https://github.com/xtaci/kcptun/releases/download/v20190109/kcptun-linux-amd64-20190109.tar.gz
+tar zvxf kcptun-linux-amd64-20190109.tar.gz
+nohup ./server_linux_amd64 -l :20001 -t 127.0.0.1:10001 -key xxx -mode fast2 --log 20001.log &
+```
+
+配置了kcptun的shadowsocks客户端仅需要配置代理为远程的kcpdun端口即可，不再需要指定shadowsocks的端口，相当于shadowsocks是透明的。
+
 # 监控
 
 为了避免aws产生额外的费用，一定要设置一下费用报警，否则被扣费了就麻烦了。
