@@ -95,7 +95,7 @@ kcp的服务端配置如下，即启用20001端口，该端口会将流量导入
 cd ~ && mkdir kcptun && cd kcptun
 wget https://github.com/xtaci/kcptun/releases/download/v20190109/kcptun-linux-amd64-20190109.tar.gz
 tar zvxf kcptun-linux-amd64-20190109.tar.gz
-nohup ./server_linux_amd64 -l :20001 -t 127.0.0.1:10001 -key xxx -mode fast2 --log 20001.log &
+nohup ./server_linux_amd64 -l :20001 -t 127.0.0.1:10001 -key xxx -mode fast2 --log ~/kcptun/20001.log &
 ```
 
 配置了kcptun的shadowsocks客户端仅需要配置代理为远程的kcpdun端口即可，不再需要指定shadowsocks的端口，相当于shadowsocks是透明的。
