@@ -220,3 +220,4 @@ int main(int argc, char *argv[]) {
 
 * [DOCKER基础技术：LINUX NAMESPACE（下）](https://coolshell.cn/articles/17029.html)
 * 极客时间-深入剖析Kubernetes
+* [一文搞懂 Linux network namespace](https://www.cnblogs.com/bakari/p/10443484.html)
