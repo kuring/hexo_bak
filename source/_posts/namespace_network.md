@@ -10,7 +10,7 @@ tags: docker
 
 docker daemon负责在宿主机上创建veth pair，把一端绑定到docker0网桥，另一端到新建的network namespace进程中。建立的过程中，docker daemon和dockerinit通过pipe进行通讯。
 
-## 测试例子
+## 一、测试例子
 
 测试network namespace的过程比较复杂。
 
@@ -172,24 +172,34 @@ default via 192.168.10.1 dev eth0
 [root@localhost software]# echo "nameserver 8.8.8.8" > /etc/netns/ns1/resolv.conf
 ```
 
-## /proc/[pid]/ns文件
+## 二、常用命令
 
-可以使用如下命令查看当前容器在宿主机上的进程id。
-
-```docker inspect --format '{{.State.Pid}}' a1bf0119d891```
-
-每个进程在/proc/${pid}/ns/目录下都会创建其对应的虚拟文件，并链接到一个真实的namespace文件上，如果两个进程下的链接文件链接到同一个地方，说明两个进程同属于一个namespace。
+### 1. 列出当前的network namespace
 
 ```
-[root@localhost runc]# ls -l /proc/4913/ns/
-total 0
-lrwxrwxrwx 1 root root 0 Sep 11 00:21 ipc -> ipc:[4026532130]
-lrwxrwxrwx 1 root root 0 Sep 11 00:21 mnt -> mnt:[4026532128]
-lrwxrwxrwx 1 root root 0 Sep 11 00:18 net -> net:[4026532133]
-lrwxrwxrwx 1 root root 0 Sep 11 00:21 pid -> pid:[4026532131]
-lrwxrwxrwx 1 root root 0 Sep 11 00:21 user -> user:[4026531837]
-lrwxrwxrwx 1 root root 0 Sep 11 00:21 uts -> uts:[4026532129]
+# lsns -t net
+        NS TYPE NPROCS   PID USER  COMMAND
+4026531956 net     383     1 root  /usr/lib/systemd/systemd --switched-root --system --deserialize 21
+4026532490 net       1  1026 rtkit /usr/libexec/rtkit-daemon
+4026532762 net       2 24872 root  /pause
+4026532866 net      20 25817 root  /pause
+4026532965 net       3 30763 root  /pause
+4026533059 net       3  2794 root  /bin/sh -c python /usr/src/app/clean.py "${endpoints}" "${expire}"
+4026533163 net       2  1122 102   /docker-java-home/jre/bin/java -Xms2g -Xmx2g -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupan
+4026533266 net       4 13920 root  /pause
+4026533371 net       2  1844 root  /pause
+4026533559 net       3  1067 root  sleep 4
 ```
+
+### 2. 通过pid进入具体的network namespace
+
+#### 2.1 通过nsenter命令
+
+#### 2.2 docker `--net`参数
+
+docker提供了`--net`参数用于加入另一个容器的网络命名空间`docker run -it --net container:7835490487c1 busybox ifconfig`。
+
+#### 2.3 setns系统调用
 
 一个进程可以通过setns()系统调用来进入到另外一个namespace中。
 
@@ -214,7 +224,27 @@ int main(int argc, char *argv[]) {
 
 如果执行`./setns /proc/4913/ns/net /bin/bash`，在宿主机上查看docker进程和/bin/bash进程的网络命名空间/proc/${pid}/ns/net，会发现都指向`lrwxrwxrwx 1 root root 0 Sep 14 14:42 net -> net:[4026532133]`同一个位置。
 
-另外，docker还提供了`--net`参数用于加入另一个容器的网络命名空间`docker run -it --net container:7835490487c1 busybox ifconfig`。
+### 3. pid的获取方式
+
+最简单的方式上文第1点中的PID列
+
+#### 3.1 /proc/[pid]/ns文件
+
+可以使用如下命令查看当前容器在宿主机上的进程id。
+`docker inspect --format '{{.State.Pid}}' a1bf0119d891`
+
+每个进程在/proc/${pid}/ns/目录下都会创建其对应的虚拟文件，并链接到一个真实的namespace文件上，如果两个进程下的链接文件链接到同一个地方，说明两个进程同属于一个namespace。
+
+```
+[root@localhost runc]# ls -l /proc/4913/ns/
+total 0
+lrwxrwxrwx 1 root root 0 Sep 11 00:21 ipc -> ipc:[4026532130]
+lrwxrwxrwx 1 root root 0 Sep 11 00:21 mnt -> mnt:[4026532128]
+lrwxrwxrwx 1 root root 0 Sep 11 00:18 net -> net:[4026532133]
+lrwxrwxrwx 1 root root 0 Sep 11 00:21 pid -> pid:[4026532131]
+lrwxrwxrwx 1 root root 0 Sep 11 00:21 user -> user:[4026531837]
+lrwxrwxrwx 1 root root 0 Sep 11 00:21 uts -> uts:[4026532129]
+```
 
 ## reference
 
