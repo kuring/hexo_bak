@@ -176,6 +176,10 @@ default via 192.168.10.1 dev eth0
 
 ### 1. 列出当前的network namespace
 
+#### 1.1 使用`lsns`命令
+
+lsns命令通过读取/proc/${pid}/ns目录下进程所属的命名空间来实现，如果是通过`ip netns add`场景的命名空间，但是没有使用该命名空间的进程，该命令是看不到的。
+
 ```
 # lsns -t net
         NS TYPE NPROCS   PID USER  COMMAND
@@ -191,9 +195,18 @@ default via 192.168.10.1 dev eth0
 4026533559 net       3  1067 root  sleep 4
 ```
 
+#### 1.2 通过`ip netns`命令
+
+该命令仅会列出有名字的namespace，对于未命名的不能显示。
+
+- `ip netns identify ${pid}` 可以找到进程所属的网络命名空间
+- `ip netns list`: 显示所有有名字的namespace
+
 ### 2. 通过pid进入具体的network namespace
 
 #### 2.1 通过nsenter命令
+
+`nsenter --target $PID --net`可以进入到对应的命名空间
 
 #### 2.2 docker `--net`参数
 
