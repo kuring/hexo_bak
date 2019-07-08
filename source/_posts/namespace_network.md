@@ -241,9 +241,10 @@ int main(int argc, char *argv[]) {
 
 最简单的方式上文第1点中的PID列
 
-#### 3.1 `/proc/[pid]/ns`文件
+#### 3.1 `/proc/[pid]/ns`
 
 可以使用如下命令查看当前容器在宿主机上的进程id。
+
 `docker inspect --format '{{.State.Pid}}' a1bf0119d891`
 
 每个进程在/proc/${pid}/ns/目录下都会创建其对应的虚拟文件，并链接到一个真实的namespace文件上，如果两个进程下的链接文件链接到同一个地方，说明两个进程同属于一个namespace。
