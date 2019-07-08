@@ -241,7 +241,7 @@ int main(int argc, char *argv[]) {
 
 最简单的方式上文第1点中的PID列
 
-#### 3.1 /proc/[pid]/ns文件
+#### 3.1 `/proc/[pid]/ns`文件
 
 可以使用如下命令查看当前容器在宿主机上的进程id。
 `docker inspect --format '{{.State.Pid}}' a1bf0119d891`
