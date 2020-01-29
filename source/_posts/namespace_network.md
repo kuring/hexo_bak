@@ -4,6 +4,8 @@ date: 2018-09-15 00:40:49
 tags: docker
 ---
 
+network namespace用来隔离Linux系统的网络设备、ip地址、端口号、路由表、防火墙等网络资源。用户可以随意将虚拟网络设备分配到自定义的networknamespace里，而连接真实硬件的物理设备则只能放在系统的根networknamesapce中。
+
 一个物理的网络设备最多存在于一个network namespace，可以通过创建veth pair在不同的network namespace之间创建通道，来达到通讯的目的。
 
 容器的bridge模式的实现思路为创建一个veth pair，一端放置在新的namespace，通常命名为eth0，另外一端放在原先的namespace中连接物理网络设备，以此实现网络通信。
@@ -91,7 +93,7 @@ ns1
     link/ether c6:b7:4d:7f:f8:90 brd ff:ff:ff:ff:ff:ff
 20: lxcbr0.1@if21: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN mode DEFAULT group default qlen 1000
     link/ether c6:8a:26:3d:ba:de brd ff:ff:ff:ff:ff:ff link-netnsid 1
-# 同时在命名空间ns1中看到了设备veth-ns1
+# 同时在命名空间ns1中看到了设备veth-ns1，同时可以看到veth-ns1设备的状态为DOWN
 [root@localhost software]# ip netns exec ns1  ip link
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
