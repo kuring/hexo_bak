@@ -34,7 +34,7 @@ veth pair是一对虚拟的网络设备，两个网络设备彼此连接。常�
              physical network
 ```
 
-## example
+## 实战
 
 ### veth设备的ping测试
 
@@ -128,13 +128,20 @@ echo 0 > /proc/sys/net/ipv4/conf/veth0/rp_filter
 echo 0 > /proc/sys/net/ipv4/conf/veth1/rp_filter
 ```
 
+## veth pair设备的删除
+
+```
+# 删除veth0后会自动删除veth1
+$ ip link delete veth0
+```
+
 ## container与host veth pair的关系
 
 veth pair的其中一个设备位于container中备位于container中，另外一个设备位于host network namespace中，如何知道container中的eth0和host network namesapce中的veth设备的对应关系呢？
 
 原理为veth pair设备都有一个ifindex和iflink值，，容器中的eth0设备的ifindex值跟host network namespace中的对应veth pair设备的iflink值相等，反之亦然。
 
-### 1. 在容器中找到eth0的iflink
+### 在容器中找到eth0的iflink
 
 方法一
 
@@ -152,7 +159,7 @@ $ ip link show eth0
 
 其中的3为eth0的ifindex。18为eth0的iflink，即对应的veth pair的另外一个设备的ifindex。
 
-### 2. host network namespace中找到对应ifindex值的veth pair设备
+### host network namespace中找到对应ifindex值的veth pair设备
 
 ```
 $ ip addr 
