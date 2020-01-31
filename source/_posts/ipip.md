@@ -4,7 +4,7 @@ date: 2020-02-01 00:00:15
 tags:
 ---
 
-ipip协议为在ip协议报文的基础上继续封装ip报文，基于tun设备实现。
+ipip协议为在ip协议报文的基础上继续封装ip报文，基于tun设备实现，是一种点对点的通讯技术。
 
 ## install
 
@@ -72,6 +72,8 @@ echo 1 >  /proc/sys/net/ipv4/ip_forward
 在host1的eth1上抓包，可以看到已经是ipip的数据包了。
 
 ![](https://kuring.oss-cn-beijing.aliyuncs.com/common/ipip-wireshark.jpg)
+
+[tun1.pcap](https://kuring.oss-cn-beijing.aliyuncs.com/common/ipip-wireshark.jpg)
 
 清理现场分别在两台主机上执行
 
