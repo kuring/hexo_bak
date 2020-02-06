@@ -54,7 +54,6 @@ fi
 ifconfig br0 down
 brctl delbr br0
 echo "delete bridge br0 success"
-
 ```
 
 # 注意事项

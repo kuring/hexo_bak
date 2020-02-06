@@ -34,6 +34,8 @@ iptables是用户态的工具，用于向netfilter中添加规则从而实现报
 * 由本机转发的报文：PREROUTING -> FORWARD -> POSTROUTING
 * 由本机某进程发出的报文：OUTPUT -> POSTROUTING
 
+当一个网络包进入一台机器的时候，首先拿下 MAC 头看看，是不是我的。如果是，则拿下 IP 头来。得到目标 IP 之后呢，就开始进行路由判断。在路由判断之前，这个节点我们称为 PREROUTING。如果发现 IP 是我的，包就应该是我的，就发给上面的传输层，这个节点叫作 INPUT。如果发现 IP 不是我的，就需要转发出去，这个节点称为 FORWARD。如果是我的，上层处理完毕完毕后，一般会返回一个处理结果，这个处理结果会发出去，这个节点称为 OUTPUT，无论是 FORWARD 还是 OUTPUT，都是路由判断之后发生的，最后一个节点是 POSTROUTING。
+
 # table
 
 有了chain的概念后，为了便于chain中rule的管理，又引入了table的概念，用于存放相同功能的rule，不同功能的rule放到不同的table中。
@@ -58,7 +60,7 @@ output：与发出去的包有关
 
 ## mangle
 
-较少使用，用于拆解报文，做出修改，并重新封装。
+较少使用，用于拆解报文，修改数据包，并重新封装。
 
 ## raw
 
@@ -70,9 +72,10 @@ output：与发出去的包有关
 
 处理动作包括：
 
-* accept
+* accept: 将包交给协议栈
 * drop：直接丢弃数据包，不给任何回应
 * reject：拒绝数据包通过，并给一个响应信息，客户端会收到拒绝消息
+* queue: 交个某个用户态进程处理
 * snat：源地址转换
 * dnat：目的地址转换
 
@@ -121,8 +124,15 @@ raw表中的规则可以被链使用：prerouting output
 
 -F: 清空规则
 -I: 表示插入规则
+-A: 表示以追加的方式插入规则
 
 `iptables -F INPUT`：清空filter表中的INPUT链中的所有规则。
+
+## 删除
+
+-D: 删除一条规则
+
+`iptables -D 链名 规则编号`，其中规则编号可以通过`--line-number`查看到。
 
 # 实战 基本规则管理
 
@@ -409,6 +419,38 @@ iptables: Directory not empty.
 # 先清空自定义链的规则后可以删除
 [root@localhost vagrant]# iptables -F WEB
 [root@localhost vagrant]# iptables -X WEB
+```
+
+# trace
+
+开启trace功能
+
+```
+# centos7 系统下有效，centos6下内核模块为ipt_LOG
+$ modprobe nf_log_ipv4
+
+# 用来验证module是否加载成功
+$ sysctl net.netfilter.nf_log.2
+```
+
+要开启icmp协议的追踪
+
+```
+iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j trace
+iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
+```
+
+追踪日志最终会在/var/log/message或者/var/log/kern下看到：
+
+```
+Feb  6 11:22:04 c43k09006.cloud.k09.am17 kernel: TRACE: raw:PREROUTING:policy:3 IN=docker0 OUT= PHYSIN=bond0.9 MAC=02:42:30:fb:43:94:5c:c9:99:de:c4:8b:08:00 SRC=10.45.8.10 DST=10.45.4.99 LEN=84 TOS=0x00 PREC=0x00 TTL=62 ID=25550 DF PROTO=ICMP TYPE=0 CODE=0 ID=24191 SEQ=2
+```
+
+环境清理，删除刚刚创建的规则即可：
+
+```
+iptables -t raw -D PREROUTING 1
+iptables -t raw -D OUTPUT 1
 ```
 
 # ref
