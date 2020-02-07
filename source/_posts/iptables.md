@@ -76,8 +76,9 @@ output：与发出去的包有关
 * drop：直接丢弃数据包，不给任何回应
 * reject：拒绝数据包通过，并给一个响应信息，客户端会收到拒绝消息
 * queue: 交个某个用户态进程处理
-* snat：源地址转换
 * dnat：目的地址转换
+* snat：源地址转换，必须要指定SNAT地址，即--to-source参数，可以是单个ip，也可以是网段
+* masquerade: 源地址伪装，跟snat类似，不需要指定SNAT地址，会自动从服务器上获取SNAT的ip地址
 
 # table filter rule的关系
 
