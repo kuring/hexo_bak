@@ -8,8 +8,6 @@ tags:
 
 linux在内核中对数据包过滤和修改的模块为netfilter，netfilter模块本身并不对数据包进行过滤，只是允许将过滤数据包或修改数据包的函数hook到内核网络协议栈的适当位置。
 
-![](https://kuring.oss-cn-beijing.aliyuncs.com/common/netfilter.png)
-
 <img src="https://kuring.oss-cn-beijing.aliyuncs.com/common/Netfilter-packet-flow.svg">
 
 iptables是用户态的工具，用于向netfilter中添加规则从而实现报文的过滤和修改等功能，工作在ip层。ebtables工作在数据链路层，用于处理以太网帧。
