@@ -4,15 +4,17 @@ date: 2018-01-31 23:25:12
 tags:
 ---
 
-长期以来对iptables了解都比较浅，知道table chain rule的概念，但具体细节并不清楚，尤其是涉及到table chain之间的关联关系。
-
-本文为iptables的学习笔记，原文见底部链接。
-
 # netfilter与iptables的关系
 
 linux在内核中对数据包过滤和修改的模块为netfilter，netfilter模块本身并不对数据包进行过滤，只是允许将过滤数据包或修改数据包的函数hook到内核网络协议栈的适当位置。
 
-iptables是用户态的工具，用于向netfilter中添加规则从而实现报文的过滤和修改等功能。centos7已经由filewalld来代替iptables工具。
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/netfilter.png)
+
+<img src="https://kuring.oss-cn-beijing.aliyuncs.com/common/Netfilter-packet-flow.svg">
+
+iptables是用户态的工具，用于向netfilter中添加规则从而实现报文的过滤和修改等功能，工作在ip层。ebtables工作在数据链路层，用于处理以太网帧。
+
+图中绿色代表iptables的表，可以看到有部分位于了数据链路层，之所以产生这种奇怪的架构，原因是bridge_nf模块，因为bridge工作在数据链路层，不一定会经过网络层，但仍然需要iptables的功能。详细信息可以在[ebtables/iptables interaction on a Linux-based bridge](http://ebtables.netfilter.org/br_fw_ia/br_fw_ia.html)中了解。
 
 概念：tables -> chains -> rules
 
