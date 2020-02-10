@@ -44,7 +44,7 @@ iptables是用户态的工具，用于向netfilter中添加规则从而实现报
 
 ## filter
 
-管理本机数据包的进出，用于实现包的过滤，对应内核模块iptables_filter
+默认表，管理本机数据包的进出，用于实现包的过滤，对应内核模块iptables_filter
 
 input：想要进入linux主机的包
 output：linux主机要发送的包
@@ -78,7 +78,7 @@ output：与发出去的包有关
 * queue: 交个某个用户态进程处理
 * dnat：目的地址转换
 * snat：源地址转换，必须要指定SNAT地址，即--to-source参数，可以是单个ip，也可以是网段
-* masquerade: 源地址伪装，跟snat类似，不需要指定SNAT地址，会自动从服务器上获取SNAT的ip地址
+* masquerade: 源地址伪装，跟snat类似，不需要指定SNAT地址，会自动从服务器上获取SNAT的ip地址。如果有多个网卡的情况下，会使用路由选择算法。
 
 # table filter rule的关系
 
@@ -447,7 +447,7 @@ iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
 Feb  6 11:22:04 c43k09006.cloud.k09.am17 kernel: TRACE: raw:PREROUTING:policy:3 IN=docker0 OUT= PHYSIN=bond0.9 MAC=02:42:30:fb:43:94:5c:c9:99:de:c4:8b:08:00 SRC=10.45.8.10 DST=10.45.4.99 LEN=84 TOS=0x00 PREC=0x00 TTL=62 ID=25550 DF PROTO=ICMP TYPE=0 CODE=0 ID=24191 SEQ=2
 ```
 
-环境清理，删除刚刚创建的规则即可：
+环境清理，删除刚刚创建的规则即可，其中1为规则的编号：
 
 ```
 iptables -t raw -D PREROUTING 1
@@ -457,3 +457,4 @@ iptables -t raw -D OUTPUT 1
 # ref
 
 * [iptables详解系列](http://www.zsythink.net/archives/tag/iptables/page/2/)
+* [Iptables Tutorial 1.2.2](https://www.frozentux.net/iptables-tutorial/iptables-tutorial.html#ACCEPTTARGET)
