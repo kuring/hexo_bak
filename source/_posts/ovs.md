@@ -227,7 +227,15 @@ ip netns del ns1
 ip netns del ns2
 ```
 
+## 常用操作
+
+- `ovs-appctl fdb/show ovs1`: 查看mac地址表
+- `ovs-ofctl show ovs1`: 可以查看网桥的端口号
+- `ovs-vsctl set bridge ovs1 stp_enable=false`: 开启网桥的生成树协议
+- `ovs-appctl ofproto/trace ovs1 in_port=1,dl_dst=7a:42:0a:ca:04:65`: 可用来验证一个包到达网桥后的处理流程
+
 ## reference
 
 - [CentOS 7 安装 Open vSwitch](https://zhuanlan.zhihu.com/p/63114462)
 - [OpenvSwitch初探 - FLOW篇](https://zpzhou.com/archives/ovs_flow.html)
+- [Open vSwitch (OVS) commands for troubleshooting](https://kb.juniper.net/InfoCenter/index?page=content&id=KB32283&actp=METADATA)
