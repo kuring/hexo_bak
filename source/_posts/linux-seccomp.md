@@ -4,7 +4,7 @@ date: 2018-12-08 17:21:40
 tags:
 ---
 
-seccomp机制用于限制应用程序可以使用的系统调用，增加系统的安全性。
+seccomp是secure computing mode的缩写，是Linux内核中的一个安全计算工具，机制用于限制应用程序可以使用的系统调用，增加系统的安全性。可以理解为系统调用的防火墙，利用BPF来规律系统调用。
 
 在/proc/${pid}/status文件中的Seccomp字段可以看到进程的Seccomp。
 
@@ -99,7 +99,14 @@ Bad system call
 
 ## docker中的应用
 
-docker每个容器默认都设置了一个seccomp profile，屏蔽掉了其中的44个系统调用。
+通过如下方式可以查看docker是否启用seccomp：
+
+```
+# docker info --format "{{ .SecurityOptions }}"
+[name=seccomp,profile=default]
+```
+
+docker每个容器默认都设置了一个seccomp profile，启用的系统调用可以从[default.json](https://github.com/moby/moby/blob/master/profiles/seccomp/default.json)中看到。
 
 docker会将seccomp传递给runc中的sepc.linux.seccomp。
 

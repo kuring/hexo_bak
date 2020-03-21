@@ -74,13 +74,13 @@ spec:
 - Service ClusterIP：192.168.249.119
 - nginx pod的两个ip地址：10.254.9.148 10.254.6.217
 
-## 使用nodeport访问的情况
+## 使用clusterip访问的情况
 
-k8s针对NodePort创建了KUBE-NODEPORTS链
+通过下面的KUBE-SERVICES链匹配到KUBE-SVC-xxx链，后面的iptabels规则会跟nodeport一致，经过了一次dnat转换，其源ip地址并不会发生变化。
 
 ```
--A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-MARK-MASQ
--A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
+-A KUBE-SERVICES ! -s 10.254.0.0/18 -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-MARK-MASQ
+-A KUBE-SERVICES -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
 
 # 使用random模块，50%概率进入到KUBE-SEP-JY4YVH4LP7UWS56K链中，50%概率进入到KUBE-SEP-JELAHTLD2S3MLAIG
 -A KUBE-SVC-Y5VDFIEGM3DY2PZE -m statistic --mode random --probability 0.50000000000 -j KUBE-SEP-JY4YVH4LP7UWS56K
@@ -94,25 +94,27 @@ k8s针对NodePort创建了KUBE-NODEPORTS链
 -A KUBE-SEP-JELAHTLD2S3MLAIG -p tcp -m tcp -j DNAT --to-destination 10.254.9.148:80
 ```
 
-其中这些规则的执行是在PREROUTING阶段。
+## 使用nodeport访问的情况
 
-## 使用clusterip访问的情况
-
-通过下面的KUBE-SERVICES链匹配到KUBE-SVC-xxx链，后面的iptabels链跟上面nodeport一致
+k8s针对NodePort创建了KUBE-NODEPORTS链，在包离开宿主机发往目的pod时还会做一次snat，最终pod看到的源ip地址为node的ip。
 
 ```
--A KUBE-SERVICES ! -s 10.254.0.0/18 -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-MARK-MASQ
--A KUBE-SERVICES -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
+# PREROUTING阶段规则
+-A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-MARK-MASQ
+-A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
+
+# POSTROUTING阶段规则，仅NodePort模式会用到
+-A KUBE-POSTROUTING -m comment --comment "kubernetes service traffic requiring SNAT" -m mark --mark 0x4000/0x4000 -j MASQUERADE
 ```
 
-## 关于KUBE-MARK-MASQ链的说明
+上面用到了KUBE-MARK-MASQ链
 
 ```
 # 设置mark
 -A KUBE-MARK-MASQ -j MARK --set-xmark 0x4000/0x4000
 ```
 
-KUBE-MARK-MASQ链的作用仅为mark，很多地方都有调用该链，如使用ClusterIP访问Service的KUBE-SERVICES链，使用NodePort访问Service的KUBE-NODEPORTS链。
+KUBE-MARK-MASQ链的作用仅为mark，很多地方都有调用该链，如使用NodePort访问Service的KUBE-NODEPORTS链。
 
 ```
 # 匹配mark
@@ -121,22 +123,28 @@ KUBE-MARK-MASQ链的作用仅为mark，很多地方都有调用该链，如使�
 
 上面的匹配mark规则在POSTROUTING阶段，用于匹配mark为0x4000/0x4000的数据包，并进行一次MASQUERADE转换，将ip包替换为宿主上的ip地址。
 
-这里之所以要做MASQUERADE，还是以上面的例子进行说明。
+加入这里不做MASQUERADE，流量发到目的的pod后，pod回包时目的地址为发起端的源地址，而发起端的源地址很可能是在k8s集群外部的，此时pod发回的包是不能回到发起端的。NodePort跟ClusterIP的最大不同就是NodePort的发起端很可能是在集群外部的，从而这里必须做一层SNAT转换。
 
-环境信息说明如下：
+在上述分析中，访问NodePort类型的Service会经过snat，从而服务端的pod不能获取到正确的客户端ip。可以设置Service的spec.externalTrafficPolicy为Local，此时iptables规则只会将ip包转发给运行在这台宿主机上的pod，而不需要经过snat。pod回包时，直接回复源ip地址即可，此时源ip地址是可达的，因为源ip地址跟宿主机是可达的。如果所在的宿主机上没有pod，那么此时流量就不可以转发，此为限制。
 
-- Service ClusterIP：192.168.249.119
-- nginx pod的两个ip地址：10.254.9.148 10.254.6.217
-- 访问client：使用pod ip 10.254.6.1
-- 访问client所在的宿主机ip：172.16.3.1
+## 使用LoadBalancer类型访问的情况
 
-先看下假设没有配置MASQUERADE的情况下的网络流量，此时去向网络流量如下图所示：
+### externalTrafficPolicy为local
 
-![](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-iptables1.png)
+```
+-A KUBE-SERVICES -d 10.149.30.186/32 -p tcp -m comment --comment "acs-system/nginx-ingress-lb-cloudbiz:http loadbalancer IP" -m tcp --dport 80 -j KUBE-FW-76HLDRT5IPNSMPF5
+-A KUBE-FW-76HLDRT5IPNSMPF5 -m comment --comment "acs-system/nginx-ingress-lb-cloudbiz:http loadbalancer IP" -j KUBE-XLB-76HLDRT5IPNSMPF5
+-A KUBE-FW-76HLDRT5IPNSMPF5 -m comment --comment "acs-system/nginx-ingress-lb-cloudbiz:http loadbalancer IP" -j KUBE-MARK-DROP
 
-当nginx pod 10.254.9.148接收到包后，回复的包跟接收的到源ip和目的ip恰好是相反的。包到达host 1后，由于目的ip为pod ip，会将包直接发给pod，pod由于识别不了该包，会将该包直接丢弃掉。包的回向如下图所示：
+# 10.149.112.0/23为pod网段
+-A KUBE-XLB-76HLDRT5IPNSMPF5 -s 10.149.112.0/23 -m comment --comment "Redirect pods trying to reach external loadbalancer VIP to clusterIP" -j KUBE-SVC-76HLDRT5IPNSMPF5
+-A KUBE-XLB-76HLDRT5IPNSMPF5 -m comment --comment "Balancing rule 0 for acs-system/nginx-ingress-lb-cloudbiz:http" -j KUBE-SEP-XZXLBWOKJBSJBGVU
 
-![](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-iptables2.png)
+-A KUBE-SVC-76HLDRT5IPNSMPF5 -m statistic --mode random --probability 0.50000000000 -j KUBE-SEP-XZXLBWOKJBSJBGVU
+-A KUBE-SVC-76HLDRT5IPNSMPF5 -j KUBE-SEP-GP4UCOZEF3X7PGLR
 
-为了解决该问题，需要将发出去的包再做一次MASQUERADE，即SNAT。这样回向的包，目的地址变为宿主机的ip地址172.16.3.1。
-
+-A KUBE-SEP-XZXLBWOKJBSJBGVU -s 10.149.112.45/32 -j KUBE-MARK-MASQ
+-A KUBE-SEP-XZXLBWOKJBSJBGVU -p tcp -m tcp -j DNAT --to-destination 10.149.112.45:80
+-A KUBE-SEP-GP4UCOZEF3X7PGLR -s 10.149.112.46/32 -j KUBE-MARK-MASQ
+-A KUBE-SEP-GP4UCOZEF3X7PGLR -p tcp -m tcp -j DNAT --to-destination 10.149.112.46:80
+```
