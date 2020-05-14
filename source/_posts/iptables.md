@@ -439,7 +439,7 @@ $ sysctl net.netfilter.nf_log.2
 要开启icmp协议的追踪
 
 ```
-iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j trace
+iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
 iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
 ```
 
@@ -452,6 +452,9 @@ Feb  6 11:22:04 c43k09006.cloud.k09.am17 kernel: TRACE: raw:PREROUTING:policy:3 
 环境清理，删除刚刚创建的规则即可，其中1为规则的编号：
 
 ```
+# 可以通过此来查询之前创建的规则编号
+iptables -t raw --line-number -nvL
+# 删除规则
 iptables -t raw -D PREROUTING 1
 iptables -t raw -D OUTPUT 1
 ```
