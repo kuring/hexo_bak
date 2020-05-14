@@ -443,6 +443,12 @@ iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
 iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
 ```
 
+可以通过如下的命令看到插入的iptabels规则：
+
+```
+iptables -t raw -nvL --line-number
+```
+
 追踪日志最终会在/var/log/message或者/var/log/kern下看到：
 
 ```
