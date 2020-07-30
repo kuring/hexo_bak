@@ -14,7 +14,7 @@ tags: 青海甘肃大环线
 
 因此，最终的决定是`北京自驾甘肃-青海大环线`。
 
-![](https://kuring.me/images/qinghai/1.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/1.png)
 
 此刻的我已经结束了整个行程，行程的时间段为2019.4.18 - 2019.4.30，共计13天时间。起点为北京市，终点为山东省，整个的行程达6000公里。
 
@@ -30,7 +30,7 @@ tags: 青海甘肃大环线
 
 行程：北京市 -> 山西省忻州市保德县
 
-![](https://kuring.me/images/qinghai/day1-1.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day1-1.png)
 
 上午11点从北京出发，驱车700公里，晚上八点半到达山西省忻州市保德县城。
 
@@ -50,9 +50,9 @@ tags: 青海甘肃大环线
 
 山西省境内有那么几段高速，连一辆车都看不到，让我一度怀疑已经抵达大西北的感觉。
 
-![服务区已成为乌鸦的聚集地](https://kuring.me/images/qinghai/day1-2.jpeg)
+![服务区已成为乌鸦的聚集地](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day1-2.jpeg)
 
-![从服务区鸟瞰村庄](https://kuring.me/images/qinghai/day1-3.jpeg)
+![从服务区鸟瞰村庄](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day1-3.jpeg)
 
 晚上到达保德县，县城傍黄河而建，位于河道东侧。离黄河稍远的地方是黄土高坡，大部分楼房都离建在离黄河较劲的地势平坦处，而黄土高坡上由于地势的原因房屋逐渐变少。一进入县城，道路上到处都是开着远光灯的，仿佛对面一颗颗行进中的太阳，闪的我实在有些难受。有点匪夷所思，明明有路灯，实在想不明白远光灯的用途。真期望每个人作为社会中的一份子，在做事情的时候要多为他人考虑一分，而不是仅顾及自己的感受。
 

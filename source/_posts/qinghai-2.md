@@ -6,7 +6,7 @@ tags: 青海甘肃大环线
 
 ## 第二天
 
-![](https://kuring.me/images/qinghai/day2-1.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-1.png)
 
 行程：山西省保德县 -> 陕西省榆林市府谷县 -> 宁夏回族自治区中宁县
 
@@ -16,15 +16,15 @@ tags: 青海甘肃大环线
 
 第一天留宿的保德县临近黄河，早上醒来后本想去黄河边看下景色，其实最关心的是中段黄河的河水是什么颜色的，可惜黄河边是一条公路沿着黄河蜿蜒，而且局部在修，因为黄河的地势较低，视线受阻严重，连黄河都没看到。
 
-![](https://kuring.me/images/qinghai/day2-6.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-6.jpeg)
 
 索性直接导航到了黄河对岸的府谷县，山西省保德县跟陕西省榆林市府谷县隔黄河相望，仅一河之遥，可以在跨河大桥上非常方便的在两个省之间通行。跨河大桥并不是特别宽，两车会车是没任何问题的，桥上还有一些行人在通行。上图为连接两省的大桥，在府谷县可以看到“秦晋之好“几个大字。
 
-![](https://kuring.me/images/qinghai/day2-2.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-2.png)
 
 保德县虽紧挨着黄河，却没有依靠上黄河的任何优势，反而黄河成为了一大劣势。相反，府谷县却非常明智的，楼房离着黄河稍有一段距离，选择在黄河边修建了滨河公园供休闲娱乐。
 
-![](https://kuring.me/images/qinghai/day2-5.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-5.jpeg)
 
 在府谷县的滨河公园可以清晰看到和对面的山西省保德县城，建筑物的朝向大多都是面向黄河，或者面向对面的府谷县城的。
 
@@ -34,17 +34,17 @@ tags: 青海甘肃大环线
 
 下午一点从府谷县出发，直奔西宁方向而去，最终到达了宁夏回族自治州中卫市中宁县城，最初地貌还是黄土高坡，大概从榆林市之后逐渐沙漠化，地上草还没长出来，在高速上很难判断远处是草原，还是完全的荒漠。
 
-![](https://kuring.me/images/qinghai/day2-7.jpg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-7.jpg)
 
 上图为在高速上的简陋厕所，与其说是黄土高坡地貌，我感觉更像是荒漠。
 
-![](https://kuring.me/images/qinghai/day2-3.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-3.png)
 
 本以为到达宁夏后，地貌会变成接近于草原，因为提到宁夏我最先想到的是黄河冲积而成的河套平原。一路上一直在期盼，但一直也没遇到梦中的草肥水美的河套平原。事后一查资料才发现，即使河套平原最南的“西套”地区也在银川市周边，而我走的高速在银川市的南边大约100多公里的距离，可以说是跟河套平原擦肩而过。从卫星地图上可以清晰的看出河套地区的植被还是比较茂密的。上图中绿色的线为我经过的路线。
 
 ### 终点站 - 中宁县
 
-![](https://kuring.me/images/qinghai/day2-4.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/qinghai/day2-4.png)
 
 最终到达了宁夏回族自治州中卫市中宁县城，到达中宁县后，恰巧赶上了一次沙尘暴，停车吃饭的时候，车上已经积了厚厚的一层土。本以为沙尘暴在当地是家常便饭，问下了当地人，说是沙尘暴也不常有，沙尘是从北部的腾格里沙漠吹过来的。从上图中可以看出，中宁县离得腾格里沙漠还是特别近的，刮个北风，沙尘天气还是非常容易出现的。
 
