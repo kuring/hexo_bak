@@ -114,7 +114,7 @@ local               4ad97e6356707b66cd1cacc4a2e223d9c79d11eca26fe12b1becc9dd664f
 
 ## docker文件系统
 
-![](http://kuring.me/images/docker_fs.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/docker_fs.png)
 
 rootfs在最下层为docker镜像的只读层。
 

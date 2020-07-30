@@ -40,7 +40,7 @@ vepa和passthru都会将不同macvlan接口之间的数据发送到交换机，�
 
 物理网卡收到包后，根据包的mac地址来判断这个包交给哪个虚拟接口。
 
-![image](http://kuring.me/images/macvlan-workmode-1.png)
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/images/macvlan-workmode-1.png)
 
 ## 手工创建实践
 

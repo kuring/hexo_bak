@@ -37,7 +37,7 @@ tags:
 
 Go中采用三色标记算法，本质上还是标记清除算法，但是对标记阶段有改进。
 
-![https://upload.wikimedia.org/wikipedia/commons/1/1d/Animation_of_tri-color_garbage_collection.gif](https://kuring.me/images/golang-gc.gif)
+![https://upload.wikimedia.org/wikipedia/commons/1/1d/Animation_of_tri-color_garbage_collection.gif](https://kuring.oss-cn-beijing.aliyuncs.com/images/golang-gc.gif)
 
 步骤如下：
 
@@ -51,7 +51,7 @@ Go中采用三色标记算法，本质上还是标记清除算法，但是对标
 
 详细过程如下图：
 
-![](https://kuring.me/images/golang-gc-2.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/golang-gc-2.png)
 
 通过上图可以看出，STW有两个过程：
 

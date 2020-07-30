@@ -5,7 +5,7 @@ tags:
 ---
 
 
-![](https://kuring.me/images/railway-museum.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/railway-museum.jpeg)
 
 题图为中国铁道博物馆东郊馆中的毛泽东号列车
 
@@ -37,7 +37,7 @@ Amazon开源的轻量级的虚拟机软件，使用KVM来创建和管理虚拟�
 
 6.[NginxConfig.io](https://nginxconfig.io/)
 
-![](https://kuring.me/images/nginxconfig.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/nginxconfig.png)
 
 NginxConfig.io是一款在线生成nginx配置文件的工具，可以通过点点鼠标，在文本框中内容的方式轻松生成nginx的配置文件。
 
@@ -75,7 +75,7 @@ Apache Kafka的开源SQL引擎，可以使用SQL的形式查询kafka中的消息
 
 2.[深入浅出Serverless：技术原理与应用实践](http://product.china-pub.com/8054378)
 
-![http://images.china-pub.com/ebook8050001-8055000/8054378/zcover.jpg](https://kuring.me/images/serverless-zcover.jpg)
+![http://images.china-pub.com/ebook8050001-8055000/8054378/zcover.jpg](https://kuring.oss-cn-beijing.aliyuncs.com/images/serverless-zcover.jpg)
 
 要想能够对Serverless技术的概念和现状有所了解，该书还是挺合适的。
 

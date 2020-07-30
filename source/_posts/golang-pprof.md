@@ -30,6 +30,6 @@ make install
 
 在浏览器中打开`10.103.17.184:20000`即可得到性能分析的结果。
 
-![调用关系图](https://kuring.me/images/pprof_graph.png)
+![调用关系图](https://kuring.oss-cn-beijing.aliyuncs.com/images/pprof_graph.png)
 
-![火焰图](https://kuring.me/images/pprof_flame.png)
+![火焰图](https://kuring.oss-cn-beijing.aliyuncs.com/images/pprof_flame.png)

@@ -4,7 +4,7 @@ date: 2018-08-26 17:38:29
 tags: 知识分享
 ---
 
-![北京青龙峡](http://kuring.me/images/qinglongxia.jpeg)
+![北京青龙峡](https://kuring.oss-cn-beijing.aliyuncs.com/images/qinglongxia.jpeg)
 
 自从[阮一峰的博客](http://www.ruanyifeng.com/blog/)中增加了每周分享栏目，自己每周五都是主动的浏览一下阮老师的每周分享，一来阮老师的涉猎非常广泛，可以提高自己的视野；二来，阮老师的文章都特别容易懂，给人一种一直想看下去的冲动。
 
@@ -22,7 +22,7 @@ Golang的内存模型，建议Golang开发者读一遍。
 
 知名博客[酷壳](coolshell.cn)的作者陈皓的技术专栏，花钱购买一下专栏还是非常值得的，尤其是最近写的程序员练级攻略系列，能提供大量有价值的学习资料及方向指导，非常赞。
 
-![](http://kuring.me/images/WechatIMG47.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/WechatIMG47.jpeg)
 http://
 #### 3. [深入解析 kubernetes 资源管理，容器云牛人有话说](https://mp.weixin.qq.com/s?__biz=MjM5NzAwNDI4Mg==&mid=2652194459&idx=1&sn=b1191a35a1a87495f21a7e5296afd3ab&chksm=bd01700e8a76f918c0ab3c2efa6578db88b66f5ac7e14d9aa051ebabb9d5aba1079e58938539&mpshare=1&scene=1&srcid=0821WoBhwsd31yM8lGsEDEiF%23rd)
 
@@ -76,7 +76,7 @@ Github上的开源项目，将命令行工具单独保存为SVG动画。
 
 统计代码行数的工具，下面是kubernetes项目的v1.11.2版本的代码行数统计，go的代码行数已经超过了100万行。
 
-![](http://kuring.me/images/cloc.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/cloc.png)
 
 #### 2. [SpaceVim](https://spacevim.org/)
 

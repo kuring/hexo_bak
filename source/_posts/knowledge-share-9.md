@@ -4,7 +4,7 @@ date: 2019-01-19 20:18:13
 tags:
 ---
 
-![](https://kuring.me/images/fujishan.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/fujishan.jpeg)
 
 富士山&富士吉田市，富士山的海拔高达3776米，远在80公里外的东京都能够看到。令人称奇的是，富士山海拔3360米以上的土地并不是归日本政府所有，而是归富士山上的浅间寺所有，日本政府每年都要支付大量的租金给浅间寺。在富士山周边游览后，突然萌生了登顶富士山的想法，不知是否有志同道合的驴友，可以相约在某年的夏季去一起实现梦想。
 
@@ -67,7 +67,7 @@ umount /tmp/root
 
 1.《塞尔达传说-旷野之息》
 
-![](https://kuring.me/images/BreathoftheWildFinalCover.jpg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/BreathoftheWildFinalCover.jpg)
 
 任天堂Switch上的游戏神作，历时四年时间，300人的团队开发，最近一直在玩，已经深深被游戏设计的海拉鲁大陆所折服，完全开放的世界，不同于传统的闯关类游戏，该游戏的自由度非常高，有时候就单纯的在地图中瞎逛都是一种享受，随时都会有惊喜发生。
 

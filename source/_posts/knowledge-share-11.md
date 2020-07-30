@@ -4,7 +4,7 @@ date: 2019-03-28 20:32:42
 tags:
 ---
 
-![](https://kuring.me/images/flower.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/flower.jpeg)
 
 古语有云，一年之计在于春，这句话对于很多植物而言再合适不过。在经历了寒冬之后，很多植物选择将最美好的一面在春天里绽放。
 
@@ -16,7 +16,7 @@ PagerDuty是一家Sass平台厂商，其产品为一款告警处理平台，提�
 
 2.[Fathom](https://github.com/usefathom/fathom)
 
-![https://github.com/usefathom/fathom/raw/master/assets/src/img/fathom.jpg?v=7](https://kuring.me/images/fathom.jpg)
+![https://github.com/usefathom/fathom/raw/master/assets/src/img/fathom.jpg?v=7](https://kuring.oss-cn-beijing.aliyuncs.com/images/fathom.jpg)
 
 一款开源的简易网站数据分析工具，类似于Google Analytics或者百度分析。
 
@@ -26,7 +26,7 @@ PagerDuty是一家Sass平台厂商，其产品为一款告警处理平台，提�
 
 4.[snowflake](https://developer.twitter.com/en/docs/basics/twitter-ids.html)
 
-![https://user-gold-cdn.xitu.io/2018/2/11/16182507bcefae54?imageView2/0/w/1280/h/960/format/webp/ignore-error/1](https://kuring.me/images/snowflake.png)
+![https://user-gold-cdn.xitu.io/2018/2/11/16182507bcefae54?imageView2/0/w/1280/h/960/format/webp/ignore-error/1](https://kuring.oss-cn-beijing.aliyuncs.com/images/snowflake.png)
 
 Twitter开源的分布式算法，常用于分布式id的生成，使用毫秒时间戳、机器id、毫秒内的流水号来生成随机id。采用此种方法生成的id可以保证单机递增，但不能保证是全局递增的。
 

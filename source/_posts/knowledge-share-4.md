@@ -4,7 +4,7 @@ date: 2018-10-14 01:13:02
 tags:
 ---
 
-![](https://kuring.me/images/laiwushi.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/laiwushi.jpeg)
 
 今年以来，网络上一直在传言济南市要吞并莱芜市的消息，最近几天尤甚。市民们纷纷去市政府门前拍照留念，纪念莱芜市的最后一天，虽然到今天为止传言还未变成现实，但应该是迟早要到来的。
 
@@ -24,19 +24,19 @@ https越来越普及，通常CA颁发的证书都是收费的，Let's Encrypt是
 
 3.[openmetrics](https://openmetrics.io/)
 
-![](https://kuring.me/images/openmetrics.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/openmetrics.png)
 
 监控领域存在多款开源软件，比如premetheus、influxdb、opentsdb等，每种软件的写入数据格式都不一致，该开源项目旨在定义监控数据的标准格式，目前支持premetheus的文本格式和protobuf两种格式。该项目目前还在起步阶段，已经加入CNCF，期待后续一统行业标准。
 
 4.[NATS](https://github.com/nats-io)
 
-![](https://kuring.me/images/nats.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/nats.png)
 
 Go语言实现的消息队列，目前已经加入CNCF。
 
 5.[sequel fumpt](https://sqlfum.pt/)
 
-![](https://kuring.me/images/sqlfum.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/sqlfum.png)
 
 sql的在线格式化工具。
 
@@ -70,7 +70,7 @@ Linux下的日志审计工具，CentOS系统下默认安装，可以通过`man a
 
 1.电传打字机设备(Teletype)
 
-![tty](http://kuring.me/images/tty.png)
+![tty](https://kuring.oss-cn-beijing.aliyuncs.com/images/tty.png)
 
 早期的计算机设备比较笨重，计算机放在单独的一个房间中，操作计算机的人坐在另外一个房间中，通过终端机设备来操作计算机。
 

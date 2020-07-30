@@ -20,12 +20,12 @@ iowait仅能反应磁盘io的指标，并不能反应其他io设备的指标，�
 
 ## case 1
 
-![http://linuxperf.com/wp-content/uploads/2015/02/iowait1.png](https://kuring.me/images/iowait1.png)
+![http://linuxperf.com/wp-content/uploads/2015/02/iowait1.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/iowait1.png)
 
 仅cpu的繁忙程度变化的情况下，会影响到iowait的值。
 
 ## case 2
 
-![http://linuxperf.com/wp-content/uploads/2015/02/iowait.png](https://kuring.me/images/iowait2.png)
+![http://linuxperf.com/wp-content/uploads/2015/02/iowait.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/iowait2.png)
 
 在cpu繁忙程序不变的情况下，发起io请求的时间不同也会影响到iowait的值。

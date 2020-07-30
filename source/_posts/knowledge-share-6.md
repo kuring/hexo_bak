@@ -3,7 +3,7 @@ title: 知识分享第6期
 date: 2018-11-17 00:01:06
 tags:
 ---
-![](https://kuring.me/images/leaves.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/leaves.jpeg)
 
 题图为公司楼下公园的杨树林。时光易逝弹指间，又到一年叶落时。
 
@@ -23,7 +23,7 @@ operator机制利用CRD机制增强了kubernetes的灵活性，但operator的编
 
 4.[Tars](https://github.com/TarsCloud/Tars)
 
-![https://github.com/TarsCloud/Tars/blob/master/docs/images/tars_jiaohu.png](https://kuring.me/images/tars.png)
+![https://github.com/TarsCloud/Tars/blob/master/docs/images/tars_jiaohu.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/tars.png)
 
 腾讯开源的RPC框架，在腾讯内部已经有多年的使用历史，目前支持多种语言。
 
@@ -33,7 +33,7 @@ nginx module，可以提供Restful API的形式来动态修改upstream，而不�
 
 6.[Dragonfly](https://github.com/alibaba/Dragonfly)
 
-![https://github.com/alibaba/Dragonfly/raw/master/docs/images/logo/dragonfly-linear.png](https://kuring.me/images/dragonfly.png)
+![https://github.com/alibaba/Dragonfly/raw/master/docs/images/logo/dragonfly-linear.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/dragonfly.png)
 
 阿里巴巴开源的基于P2P的容器镜像分发系统。
 
@@ -83,7 +83,7 @@ Serverless给开发人员带来了非常大的便利性，但同时也软件跟�
 
 1.《[奈飞文化手册:“硅谷重要文件”的深度解读](https://www.amazon.cn/dp/B07J34BKTL)》
 
-![https://images-na.ssl-images-amazon.com/images/I/51UmLKXW9%2BL._SX366_BO1,204,203,200_.jpg](https://kuring.me/images/netflix_powerful.jpg)
+![https://images-na.ssl-images-amazon.com/images/I/51UmLKXW9%2BL._SX366_BO1,204,203,200_.jpg](https://kuring.oss-cn-beijing.aliyuncs.com/images/netflix_powerful.jpg)
 
 Netflix公司的技术文化一直非常被业界推崇，可以从[Netflix OSS](https://netflix.github.io/)已经开源的软件项目，很多的开源项目在社区也有不错的影响力，本书值得每一位技术从业者一读。
 

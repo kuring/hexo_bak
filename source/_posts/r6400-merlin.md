@@ -10,13 +10,13 @@ tags:
 
 拿到手后，R6400比我印象中的要大不少，可以通过下图中的苹果手机进行对比。
 
-![](https://kuring.me/images/r6400/r6400-11.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-11.jpeg)
 
-![](https://kuring.me/images/r6400/r6400-12.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-12.jpeg)
 
-![](https://kuring.me/images/r6400/r6400-13.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-13.jpeg)
 
-![](https://kuring.me/images/r6400/r6400-14.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-14.jpeg)
 
 R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的CPU频率为1GHz。v1版本的刷梅林系统和v2版本刷系统有所区别，v2版本需要先刷DD-WRT固件作为过渡固件，然后再刷梅林固件。
 
@@ -30,37 +30,37 @@ R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的C
 
 连接上路由器后，在chrome浏览器中输入http://www.routerlogin.net可跳转到网件管理系统，通过一堆路由器设置后会重启路由器，然后重新登录。
 
-![](https://kuring.me/images/r6400/r6400-1.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-1.png)
 
 选择“是”后会下载新网件固件，其实该步骤可以选择“否”即可。固件下载完成后，会升级固件，路由器会自动重启。
 
-![](https://kuring.me/images/r6400/r6400-2.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-2.png)
 
 下载DD-WRT固件文件“DD固件.chk”，并在路由器的管理界面“高级 -> 管理 -> 路由器升级”中上传固件。
 
-![](https://kuring.me/images/r6400/r6400-3.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-3.png)
 
-![](https://kuring.me/images/r6400/r6400-4.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-4.png)
 
 这里选择是，然后开始升级固件，升级完成后路由器会重启。
 
-![](https://kuring.me/images/r6400/r6400-5.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-5.png)
 
 重启完成后，Wifi信号变成dd-wrt，没有密码，可直接连接。
 
 在浏览器中输入192.168.1.1，会出现dd-wrt的界面。用户名和密码可以直接输入admin，因为该系统仅为中间过度系统。在dd-wrt这个偏工程师化的系统中有非常详细的信息，包括路由器的CPU和Memory等的硬件信息，甚至还有load average，多么熟悉的指标。
 
-![](https://kuring.me/images/r6400/r6400-6.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-6.png)
 
 ## 升级梅林固件
 
 在dd-wrt的固件升级中选择“R6400_380.70_0-X7.9.1-koolshare.trx”，刷入梅林固件。待路由器重启完成后，即完成梅林固件的刷入。此时路由器的Wifi SSID变为“NETGEAR”。
 
-![](https://kuring.me/images/r6400/r6400-8.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-8.png)
 
 访问192.168.1.1，会出现梅林系统的管理界面，依次设置即可。
 
-![](https://kuring.me/images/r6400/r6400-9.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-9.png)
 
 题外话：无线的密码修改完后，悲剧的事情发生了，路由器重启后居然连不上wifi，提示密码错误。不得不找来一台带有网口的笔记本用有线连接。在梅林管理系统中查看，未发现密码输入错误，明明输入的密码是对的，但SSID换一个密码居然奇迹般的可以无线连接了，怀疑是一个bug。
 
@@ -70,7 +70,7 @@ R6400有v1和v2两个版本，其中v1版本的CPU频率为800MHz，v2版本的C
 
 要想使用软件中心，需要在系统设置中开启下图选项，并重启路由器。重启后，Format JFFS partition at next boot会自动设置为false。
 
-![](https://kuring.me/images/r6400/r6400-10.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/r6400-10.png)
 
 ## ASUS Router
 

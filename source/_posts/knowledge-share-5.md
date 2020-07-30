@@ -4,7 +4,7 @@ date: 2018-10-26 21:02:27
 tags:
 ---
 
-![](https://kuring.me/images/tanzhesi.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/tanzhesi.jpeg)
 
 题图为北京城西部的潭柘寺，始建于西晋年间，有“先有潭柘寺，后有幽州城”的说法。
 
@@ -14,13 +14,13 @@ tags:
 
 1.[virtual-kubelet](https://github.com/virtual-kubelet/virtual-kubelet)
 
-![](https://kuring.me/images/virtual-kubelet.svg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/virtual-kubelet.svg)
 
 很多公有云厂商都提供了弹性容器服务实例，比如阿里云的ECI（Elastic Container Instance）、AWS Fargate、Azure Container Instances等，但这些平台都提供了私有的API，与kubernetes的API不兼容。该项目将公有云厂商的的容器组虚拟为kubernetes集群中的一个超级node，以便支持kubernetes的API，与此同时失去了很多kubernetes的特性。
 
 2.[Kata Containers](https://katacontainers.io/)
 
-![](https://kuring.me/images/katacontainers.jpg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/katacontainers.jpg)
 
 容器在部署服务方面有得天独厚的优势，但受限于内核特性，在隔离性和安全性方面仍然较弱。虚拟机（VM）在隔离性和安全性方面都比较好，但启动速度和占用资源方面却不如容器。Kata Containers项目作为轻量级的虚拟机，但提供了快速的启动速度。同时支持Docker容器的OCI标准和kubernetes的CRI。目前华为公有云已经将此技术用于生产环境中。
 
@@ -30,13 +30,13 @@ tags:
 
 4.[naftis](https://github.com/XiaoMi/naftis)
 
-![](https://kuring.me/images/naftis.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/naftis.png)
 
 小米信息部武汉研发中心开源的istio的dashboard。
 
 5.[kubespy](https://github.com/pulumi/kubespy)
 
-![](https://kuring.me/images/kubespy.gif)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/kubespy.gif)
 
 用来查看kubernetes中资源实时变化的命令行工具。
 
@@ -75,7 +75,7 @@ tags:
 
 1.[鸟哥的Linux私房菜：基础学习篇（第四版）](http://product.china-pub.com/8053114#ml)
 
-![](https://kuring.me/images/niaoge_linux.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/niaoge_linux.png)
 
 鸟哥的linux私房菜终于出新版了，最新版本是基于CentOS7的。
 
@@ -83,7 +83,7 @@ tags:
 
 1.嗝嗝老师
 
-![](https://kuring.me/images/hichki.jpg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/hichki.jpg)
 
 电影讲述了印度贫民窟中的孩子在学校上学总是遭受歧视不爱学习各种调皮捣蛋，在一位新老师来了后，将学生们带向正轨的故事。印度电影总能将平凡的电影演绎的很魔性，单就这些故事就已经足够了。偏偏这位老师还是抽动秽语综合征患者，在受到老师和学生们的双重歧视下，给故事情节增加了许多感人和励志色彩。
 

@@ -4,7 +4,7 @@ date: 2018-09-09 01:21:03
 tags: 知识分享
 ---
 
-![北京灵山](http://kuring.me/images/lingshan.jpeg)
+![北京灵山](https://kuring.oss-cn-beijing.aliyuncs.com/images/lingshan.jpeg)
 
 题图为北京灵山主峰，海拔2303米，北京最高峰。登上主峰的时候，恰巧一头牛就在山顶悠闲，拍照的时候，牛哥把我带上去的枣、葡萄、花生米全部吃光了，甚至连橘子皮都没剩下，吃完后牛哥又悠闲的去吃草了，让我见识了啥叫吃葡萄不吐葡萄皮。
 

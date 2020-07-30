@@ -4,7 +4,7 @@ date: 2019-03-01 19:41:57
 tags:
 ---
 
-![](https://kuring.me/images/beixiaohe.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/beixiaohe.jpeg)
 
 春回大地，题图为即将融化的河面以及还在冰面上行走的路人。
 
@@ -16,13 +16,13 @@ tags:
 
 2.[全球空气质量地图](https://www.purpleair.com/map)
 
-![](https://kuring.me/images/purpleair.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/purpleair.png)
 
 可以在线查看全球的PM2.5情况，很多国家的PM2.5都超过了200，但并不包含中国的数据，不知道是不是怕数据把其他国家吓死的缘故。
 
 3.[Walle](https://github.com/meolu/walle-web)
 
-![http://www.walle-web.io/docs/2/zh-cn/static/deploy-console.png](https://kuring.me/images/walle-deploy-console.png)
+![http://www.walle-web.io/docs/2/zh-cn/static/deploy-console.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/walle-deploy-console.png)
 
 使用Python3开发的CI/CD平台，有相对友好的界面，目前Github Star数在6000+。
 
@@ -32,7 +32,7 @@ tags:
 
 5.[kcptun](https://github.com/xtaci/kcptun)
 
-![https://github.com/xtaci/kcptun/blob/master/kcptun.png](https://kuring.me/images/kcptun.png)
+![https://github.com/xtaci/kcptun/blob/master/kcptun.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/kcptun.png)
 
 基于KCP协议的UDP隧道，[KCP](https://github.com/skywind3000/kcp)协议能以比 TCP浪费10%-20%的带宽的代价，换取平均延迟降低 30%-40%。
 
@@ -56,7 +56,7 @@ tags:
 
 10.[PowerDNS](https://www.powerdns.com/)
 
-![https://user-images.githubusercontent.com/6447444/44068603-0d2d81f6-9fa5-11e8-83af-14e2ad79e370.png](https://kuring.me/images/powerdns-admin.png)
+![https://user-images.githubusercontent.com/6447444/44068603-0d2d81f6-9fa5-11e8-83af-14e2ad79e370.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/powerdns-admin.png)
 
 Linux下除了bind外的另一个可选择的DNS服务器，数据存储在mysql中，还有一个可选择的漂亮UI。
 
@@ -64,6 +64,6 @@ Linux下除了bind外的另一个可选择的DNS服务器，数据存储在mysql
 
 - [《激荡十年，水大鱼大》](http://product.dangdang.com/25180345.html#ddclick_reco_reco_relate)
 
-![](https://kuring.me/images/jidang10.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/jidang10.jpeg)
 
 要想回顾一下过去的十年中都发生了哪些大事，中国发生了哪些变化，经济领域里有哪些大起大落，本书可以拿来一读。

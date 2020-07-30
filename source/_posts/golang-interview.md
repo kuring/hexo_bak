@@ -773,11 +773,11 @@ func    case2() {
 
 本题意在考察string和slice的数据结构，string的数据结构如下：
 
-![http://research.swtch.com/godata2.png](https://kuring.me/images/golang_string.png)
+![http://research.swtch.com/godata2.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/golang_string.png)
 
 case1的内存结构变化情况如下：
 
-![](https://kuring.me/images/golang_interview_1.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/golang_interview_1.jpeg)
 
 case2由于s1默认长度为0，直接使用s1[0]复制会出现panic错误。
 

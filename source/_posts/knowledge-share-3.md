@@ -4,7 +4,7 @@ date: 2018-09-26 00:01:27
 tags:
 ---
 
-![玉渡山](http://kuring.me/images/yudushan.jpeg)
+![玉渡山](https://kuring.oss-cn-beijing.aliyuncs.com/images/yudushan.jpeg)
 
 题图为北京玉渡山风景区中的盘山公路，旁边有个观景台，在观景台上可以鸟瞰官厅水库。
 
@@ -20,7 +20,7 @@ Intel RDT(Resource Director Technology)资源调配技术框架，包括高速�
 
 2.[Thanos](https://github.com/improbable-eng/thanos)
 
-![Thanos](http://kuring.me/images/Thanos-logo_fullmedium.png)
+![Thanos](https://kuring.oss-cn-beijing.aliyuncs.com/images/Thanos-logo_fullmedium.png)
 
 Prometheus作为Google内部监控系统Borgmon的开源实现版本，存在高可用和历史数据存储两个致命的缺点，Thanos利用Sidecar等技术来解决Prometheus的缺点。
 
@@ -45,13 +45,13 @@ dP    dP `88888P'   dP   `88888P' dP    dP `88888P' `88888P'   dP
 
 5.[asciiflow](http://asciiflow.com/)
 
-![asciiflow](http://kuring.me/images/asciiflow.png)
+![asciiflow](https://kuring.oss-cn-beijing.aliyuncs.com/images/asciiflow.png)
 
 写博客的往往都比较痛恨图片的存储问题，尤其是使用markdown语法写作的，图片往往需要图床来存储，常常跟文章不在一起存储。asciiflow是较为小众的一款ascii图形工具，可以应付较为简单的图形绘制，直接以文字的形式呈现简单图形，省去了存储图片的繁琐。
 
 6.[processon](https://www.processon.com)
 
-![processon](http://kuring.me/images/processon.gif)
+![processon](https://kuring.oss-cn-beijing.aliyuncs.com/images/processon.gif)
 
 免费的在线图行绘制协作工具，支持流程图、思维导图等多种图形，有类似visio的使用体验，同时是web版的，支持多人协作。我目前在使用，不过免费版有使用限制。
 

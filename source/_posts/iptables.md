@@ -26,7 +26,7 @@ iptables是用户态的工具，用于向netfilter中添加规则从而实现报
 * PREROUTING 链：报文到达本机，进行路由决策之前
 * POSTROUTING 链：报文由本机发出，进行路由决策之后
 
-![image](http://kuring.me/images/iptables1.png)
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/images/iptables1.png)
 
 从chain的角度考虑数据包的流向：
 
@@ -100,7 +100,7 @@ postrouting链中的规则存在的表：mangle nat
 
 raw表中的规则可以被链使用：prerouting output
 
-![image](http://kuring.me/images/iptables2.png)
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/images/iptables2.png)
 
 表的名字为小写，链的名字为大写
 

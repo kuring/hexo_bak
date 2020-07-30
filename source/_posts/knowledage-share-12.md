@@ -32,7 +32,7 @@ Golang中的ast、parser、token包可用来对golang的源码进行语法分析
 
 3.[KubeEdge](https://kubeedge.io)
 
-![https://github.com/kubeedge/kubeedge/blob/master/docs/images/kubeedge_arch.png](https://kuring.me/images/kubeedge_arch.png)
+![https://github.com/kubeedge/kubeedge/blob/master/docs/images/kubeedge_arch.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/kubeedge_arch.png)
 
 IoT目前正在大力发展，边缘设备的计算能力在逐渐增强，同时处理的数据量的需求正在快速增加，而数据中心的数据处理能力、网络带宽、扩展能力并没有太多的增强，未来势必会将部分计算能力下放到边缘设备，以降低数据中心的成本。
 

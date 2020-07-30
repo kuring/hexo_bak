@@ -4,7 +4,7 @@ date: 2018-12-06 23:58:09
 tags:
 ---
 
-![](https://kuring.me/images/jinshanling.jpeg)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/images/jinshanling.jpeg)
 
 题图为金山岭长城，明代著名抗倭名将戚继光从南方调任至此修筑，为明长城之精华，
 
@@ -12,13 +12,13 @@ tags:
 
 1.[GoAccess](https://goaccess.io/)
 
-![http://rt.goaccess.io/?20180926071813&ref=hpimg](https://kuring.me/images/goaccess-bright.png)
+![http://rt.goaccess.io/?20180926071813&ref=hpimg](https://kuring.oss-cn-beijing.aliyuncs.com/images/goaccess-bright.png)
 
 一款开源的实时分析nginx日志的工具，并拥有一个比较强大的dashboard。
 
 2.[Wayne](https://github.com/Qihoo360/wayne)
 
-![https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/dashboard-ui.png](https://kuring.me/images/wayne-dashboard-ui.png)
+![https://raw.githubusercontent.com/wiki/Qihoo360/wayne/image/dashboard-ui.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/wayne-dashboard-ui.png)
 
 360开源的kubernetes的多集群管理平台。
 
@@ -52,7 +52,7 @@ java版的开源熔断工具Hystrix宣布停止开发，并推荐了Resilience4j
 
 10.[dive](https://github.com/wagoodman/dive)
 
-![https://github.com/wagoodman/dive/blob/master/.data/demo.gif](https://kuring.me/images/dive.gif)
+![https://github.com/wagoodman/dive/blob/master/.data/demo.gif](https://kuring.oss-cn-beijing.aliyuncs.com/images/dive.gif)
 
 docker images不是一个单独的文件存储在宿主机上，而是采用分层设计，以便于多个镜像之间复用相同的层数据。dive可以用来分析docker image的每一层的具体组成。
 

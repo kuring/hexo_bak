@@ -86,7 +86,7 @@ CMD [ "world" ]
 
 更复杂的情况可以参照下图：
 
-![https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact](https://kuring.me/images/entrypoint-cmd.png)
+![https://docs.docker.com/engine/reference/builder/#understand-how-cmd-and-entrypoint-interact](https://kuring.oss-cn-beijing.aliyuncs.com/images/entrypoint-cmd.png)
 
 ## 如何查看ENTRYPOINT和CMD
 
