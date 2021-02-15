@@ -1,10 +1,8 @@
 ---
-title: r6400-reset
+title: 网件R6400V2重新刷回官方系统教程
 date: 2021-02-16 02:59:38
 tags:
 ---
-
-# 网件R6400V2重新刷回官方系统教程
 
 之前购买的网件R6400V2路由器刷到了梅林系统，但一直以来信号都特别差，甚至都比不过最便宜的水星路由器，想重新刷回官方系统看下是否是梅林系统的问题。本文记录下重新刷回梅林系统的操作步骤。
 
@@ -21,7 +19,7 @@ tags:
 在梅林系统的界面上找到固件升级的地方，将下载的固件上传。
 
 
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/12633732/1613404377988-574820ca-49d9-4556-802e-cd63021fda4d.png#align=left&display=inline&height=781&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1562&originWidth=2004&size=1481536&status=done&style=none&width=1002)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/reset-1.png)
 结果悲剧的事情发生了，路由器出现了不断重启的状态，并且没有无线信号。猜测可能是因为固件用的是R6400，而非R6400V2导致的。或者是因为是用无线网络升级的原因，导致升级到一半网断掉了，从而导致失败了。
 
 
@@ -41,13 +39,11 @@ tags:
 
 
 以管理员身份运行命令行工具，执行nmrpflash.exe -L后找到本机的网卡net1。
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/12633732/1613409570012-d4b4fd63-6457-478f-bd12-680493882670.png#align=left&display=inline&height=442&margin=%5Bobject%20Object%5D&name=image.png&originHeight=442&originWidth=677&size=52417&status=done&style=none&width=677)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/reset-2.png)
 执行nmrpflash命令后，立即重启路由器，如果第一次提示Timeout，可以立即执行该命令，如果出现下图的提示，说明命令执行成功。
-![image.png](https://cdn.nlark.com/yuque/0/2021/png/12633732/1613414921812-61b71d04-0876-4059-83ad-2e5d82880a4b.png#align=left&display=inline&height=754&margin=%5Bobject%20Object%5D&name=image.png&originHeight=754&originWidth=669&size=84221&status=done&style=none&width=669)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/r6400/reset-3.png)
 # 参考文档
 
 - [万能网件R6400刷回最近官方固件的方法](http://mr.mw/share/136.html)（不适用于R6400V2）
 - [网件通用救砖，超详细教程](https://koolshare.cn/thread-142232-1-1.html)
 - [Netgear 网件系列路由器救砖工具](https://roov.org/2019/07/netgear-unbrick-utility/#comment-37190)
-
-
