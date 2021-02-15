@@ -436,12 +436,17 @@ $ modprobe nf_log_ipv4
 $ sysctl net.netfilter.nf_log.2
 ```
 
-要开启icmp协议的追踪
+要开启icmp协议的追踪，执行如下的命令
 
 ```
 iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
 iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
 ```
+
+- --dport: 目的端口
+- --sport: 源端口
+- -s: 源ip
+- -d: 目的ip
 
 可以通过如下的命令看到插入的iptabels规则：
 
