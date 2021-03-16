@@ -52,7 +52,6 @@ func parseConfig(configReader io.Reader) (*Config, error) {
 <thead><tr><th>Bad</th><th>Good</th></tr></thead>
 <tbody>
 <tr><td>
-
 ```go
 // package foo
 
@@ -72,9 +71,7 @@ func use() {
   }
 }
 ```
-
 </td><td>
-
 ```go
 // package foo
 
@@ -94,7 +91,6 @@ if err := foo.Open(); err != nil {
   }
 }
 ```
-
 </td></tr>
 </tbody></table>
 
@@ -173,7 +169,6 @@ error类型仅包含一个字符串类型的信息，如果函数的调用栈信
 <thead><tr><th>Bad</th><th>Good</th></tr></thead>
 <tbody>
 <tr><td>
-
 ```go
 // err: failed to call api: connection refused
 s, err := store.New()
@@ -183,7 +178,6 @@ if err != nil {
 }
 ```
 </td><td>
-
 ```go
 // err: call api: connection refused
 s, err := store.New()
@@ -192,21 +186,16 @@ if err != nil {
         "new store: %s", err)
 }
 ```
-
 <tr><td>
-
 ```
 failed to create new store: failed to call api: connection refused
 error中会有很多的冗余信息
 ```
-
 </td><td>
-
 ```
 new store: call api: connection refused
 error中没有冗余信息，同时包含了调用栈信息
 ```
-
 </td></tr>
 </tbody></table>
 
@@ -219,23 +208,18 @@ error中没有冗余信息，同时包含了调用栈信息
 <thead><tr><th>Bad</th><th>Good</th></tr></thead>
 <tbody>
 <tr><td>
-
 ```go
 t := i.(string)
 ```
-
 </td><td>
-
 ```go
 t, ok := i.(string)
 if !ok {
   // handle the error gracefully
 }
 ```
-
 </td></tr>
 </tbody></table>
-
 
 ## panic
 用于处理运行时的异常情况。<br />![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/220839/1615386682235-b67733ca-036d-40d3-a895-c6b65a58f9d3.png#align=left&display=inline&height=563&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1060&originWidth=887&size=418096&status=done&style=none&width=471)<br />使用原则
@@ -261,9 +245,7 @@ func main() {
   run(os.Args[1:])
 }
 ```
-
 </td><td>
-
 ```go
 func run(args []string) error {
   if len(args) == 0 {
@@ -280,7 +262,6 @@ func main() {
   }
 }
 ```
-
 </td></tr>
 </tbody></table>
 
