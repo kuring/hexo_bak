@@ -48,12 +48,13 @@ func parseConfig(configReader io.Reader) (*Config, error) {
 
 - 不要在客户端判断error中的包含字符串信息。
 
+<table>
+<thead><tr><th>Bad</th><th>Good</th></tr></thead>
+<tbody>
+<tr><td>
 
-
-
-| Bad | Good |
-| --- | --- |
-| // package foo
+```go
+// package foo
 
 func Open() error {
   return errors.New("could not open")
@@ -69,7 +70,13 @@ func use() {
       panic("unknown error")
     }
   }
-} | // package foo
+}
+```
+
+</td><td>
+
+```go
+// package foo
 
 var ErrCouldNotOpen = errors.New("could not open")
 
@@ -80,13 +87,16 @@ func Open() error {
 // package bar
 
 if err := foo.Open(); err != nil {
-  if err == foo.ErrCouldNotOpen {
+  if errors.Is(err, foo.ErrCouldNotOpen) {
     // handle
   } else {
     panic("unknown error")
   }
-} |
+}
+```
 
+</td></tr>
+</tbody></table>
 
 
 当然也可以使用自定义error类型，但此时由于要实现自定义error类型，代码量会增加。
@@ -159,32 +169,72 @@ error类型仅包含一个字符串类型的信息，如果函数的调用栈信
 
 <br />使用fmt.Errorf()来封装error信息，基于已经存在的error再产生一个新的error类型，需要避免error中包含冗余信息。<br />
 
+<table>
+<thead><tr><th>Bad</th><th>Good</th></tr></thead>
+<tbody>
+<tr><td>
 
-| Bad | Good |
-| --- | --- |
-| // err: failed to call api: connection refuseds, err := store.New()
+```go
+// err: failed to call api: connection refused
+s, err := store.New()
 if err != nil {
     return fmt.Errorf(
         "failed to create new store: %s", err)
-} | // err: call api: connection refuseds, err := store.New()
+}
+```
+</td><td>
+
+```go
+// err: call api: connection refused
+s, err := store.New()
 if err != nil {
     return fmt.Errorf(
         "new store: %s", err)
-} |
-| failed to create new store: failed to call api: connection refused<br />error中会有很多的冗余信息 | new store: call api: connection refused<br />error中没有冗余信息，同时包含了调用栈信息 |
+}
+```
+
+<tr><td>
+
+```
+failed to create new store: failed to call api: connection refused
+error中会有很多的冗余信息
+```
+
+</td><td>
+
+```
+new store: call api: connection refused
+error中没有冗余信息，同时包含了调用栈信息
+```
+
+</td></tr>
+</tbody></table>
 
 但使用fmt.Errorf()来全新封装的error信息的缺点也非常明显，丢失了最初的err信息，已经在中间转换为了全新的err。
 
 ## 类型断言
 类型转换如果类型不正确，会导致程序crash，必须使用类型判断来判断类型的正确性。<br />
 
+<table>
+<thead><tr><th>Bad</th><th>Good</th></tr></thead>
+<tbody>
+<tr><td>
 
-| Bad | Good |
-| --- | --- |
-| t := i.(string) | t, ok := i.(string)
+```go
+t := i.(string)
+```
+
+</td><td>
+
+```go
+t, ok := i.(string)
 if !ok {
   // handle the error gracefully
-} |
+}
+```
+
+</td></tr>
+</tbody></table>
 
 
 ## panic
@@ -194,12 +244,13 @@ if !ok {
 - 即使使用panic后，一定要使用recover会捕获异常
 - 在测试用例中可以使用panic
 
+<table>
+<thead><tr><th>Bad</th><th>Good</th></tr></thead>
+<tbody>
+<tr><td>
 
-
-
-| Bad | Good |
-| --- | --- |
-| func run(args []string) {
+```go
+func run(args []string) {
   if len(args) == 0 {
     panic("an argument is required")
   }
@@ -208,7 +259,13 @@ if !ok {
 
 func main() {
   run(os.Args[1:])
-} | func run(args []string) error {
+}
+```
+
+</td><td>
+
+```go
+func run(args []string) error {
   if len(args) == 0 {
     return errors.New("an argument is required")
   }
@@ -221,8 +278,11 @@ func main() {
     fmt.Fprintln(os.Stderr, err)
     os.Exit(1)
   }
-} |
+}
+```
 
+</td></tr>
+</tbody></table>
 
 ## client-go
 client-go利用队列来进行重试<br />
@@ -241,4 +301,5 @@ kube-builder为client-go的更上次封装，本质上跟client-go利用队列�
 - 在编写代码时增加防御式编程意识，不能靠契约式编程。一个比较简单的判断错误处理情况的方法，看下代码中if语句占用的比例。[https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kubelet_volumes.go](https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kubelet_volumes.go)
 - 需求的评估周期中，不仅要考虑到软件开发完成的时间，同时要考虑到单元测试（单元测试用例的编写需要较长的时间）和集成测试的时间
 - 单元测试覆盖率提升，测试场景要考虑到各种异常场景
+
 
