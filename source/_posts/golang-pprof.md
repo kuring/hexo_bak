@@ -33,3 +33,5 @@ make install
 ![调用关系图](https://kuring.oss-cn-beijing.aliyuncs.com/images/pprof_graph.png)
 
 ![火焰图](https://kuring.oss-cn-beijing.aliyuncs.com/images/pprof_flame.png)
+
+同样也可以在本机访问远程的程序暴露的pprof数据，使用命令如：go tool pprof -http :9090  http://10.66.161.43:10245/debug/pprof/heap
