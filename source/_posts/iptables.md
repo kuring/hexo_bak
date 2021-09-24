@@ -4,7 +4,9 @@ date: 2018-01-31 23:25:12
 tags:
 ---
 
-# netfilter与iptables的关系
+# 概要
+
+## netfilter与iptables的关系
 
 linux在内核中对数据包过滤和修改的模块为netfilter，netfilter模块本身并不对数据包进行过滤，只是允许将过滤数据包或修改数据包的函数hook到内核网络协议栈的适当位置。
 
@@ -16,7 +18,9 @@ iptables是用户态的工具，用于向netfilter中添加规则从而实现报
 
 概念：tables -> chains -> rules
 
-# chain
+# iptabels介绍
+
+## chain
 
 每个表都由一组内置的链，还可以添加用户自定义链，只是用户自定义链没有钩子可以触发，需要从其他链通过`-j`即JUMP进行触发。
 
@@ -36,13 +40,13 @@ iptables是用户态的工具，用于向netfilter中添加规则从而实现报
 
 当一个网络包进入一台机器的时候，首先拿下 MAC 头看看，是不是我的。如果是，则拿下 IP 头来。得到目标 IP 之后呢，就开始进行路由判断。在路由判断之前，这个节点我们称为 PREROUTING。如果发现 IP 是我的，包就应该是我的，就发给上面的传输层，这个节点叫作 INPUT。如果发现 IP 不是我的，就需要转发出去，这个节点称为 FORWARD。如果是我的，上层处理完毕完毕后，一般会返回一个处理结果，这个处理结果会发出去，这个节点称为 OUTPUT，无论是 FORWARD 还是 OUTPUT，都是路由判断之后发生的，最后一个节点是 POSTROUTING。
 
-# table
+## table
 
 有了chain的概念后，为了便于chain中rule的管理，又引入了table的概念，用于存放相同功能的rule，不同功能的rule放到不同的table中。
 
 包括：filter nat mangle raw
 
-## filter
+### filter
 
 默认表，管理本机数据包的进出，用于实现包的过滤，对应内核模块iptables_filter
 
@@ -50,7 +54,7 @@ input：想要进入linux主机的包
 output：linux主机要发送的包
 forward：传递包到后端计算机，与nat table关联较多
 
-## nat
+### nat
 
 管理后端主机进出，与linux主机没有关系，与linux后的主机有关
 
@@ -58,15 +62,15 @@ prerouting：进行路由判断之前的规则(dnat/redirect)
 postrouting：路由判断之后执行的规则(snat/masquerade)
 output：与发出去的包有关
 
-## mangle
+### mangle
 
 较少使用，用于拆解报文，修改数据包，并重新封装。
 
-## raw
+### raw
 
 raw表的主要作用是允许我们给某些特定的数据包打上标记。
 
-# rule
+## rule
 
 包含了匹配条件和处理动作。
 
@@ -82,11 +86,11 @@ raw表的主要作用是允许我们给某些特定的数据包打上标记。
 * snat：源地址转换，必须要指定SNAT地址，即--to-source参数，可以是单个ip，也可以是网段
 * masquerade: 源地址伪装，跟snat类似，不需要指定SNAT地址，会自动从服务器上获取SNAT的ip地址。如果有多个网卡的情况下，会使用路由选择算法。
 
-# table filter rule的关系
+## table filter rule的关系
 
 这三者之间的关系还是相当的绕。
 
-## 链中的规则存在的表
+### 链中的规则存在的表
 
 chain中存放了rule，某些chain中注定不包含某些rule。例如prerouting链中的rule仅存在于nat raw mangle三张表中。
 
@@ -96,7 +100,7 @@ forward链中的规则存在的表：mangle filter
 output链中的规则存在的表：raw mangle filter nat
 postrouting链中的规则存在的表：mangle nat
 
-## 表中的规则可以被哪些链使用
+### 表中的规则可以被哪些链使用
 
 raw表中的规则可以被链使用：prerouting output
 
@@ -104,9 +108,9 @@ raw表中的规则可以被链使用：prerouting output
 
 表的名字为小写，链的名字为大写
 
-# command
+# 常用操作
 
-## query
+## 查询
 
 * -t 用于指定要操作的表，支持raw mangle filter nat，省略-t选项，默认使用filter表
 * -L 列出rule
@@ -137,9 +141,61 @@ raw表中的规则可以被链使用：prerouting output
 
 `iptables -D 链名 规则编号`，其中规则编号可以通过`--line-number`查看到。
 
-# 实战 基本规则管理
+## trace
 
-## 插入规则
+开启trace功能
+
+```
+# centos7 系统下有效，centos6下内核模块为ipt_LOG
+$ modprobe nf_log_ipv4
+
+# 用来验证module是否加载成功
+$ sysctl net.netfilter.nf_log.2
+```
+
+要开启icmp协议的追踪，执行如下的命令
+
+```
+iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
+iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
+```
+
+- --dport: 目的端口
+- --sport: 源端口
+- -s: 源ip
+- -d: 目的ip
+
+可以通过如下的命令看到插入的iptabels规则：
+
+```
+iptables -t raw -nvL --line-number
+```
+
+追踪日志最终会在/var/log/message或者/var/log/kern下看到：
+
+```
+Feb  6 11:22:04 c43k09006.cloud.k09.am17 kernel: TRACE: raw:PREROUTING:policy:3 IN=docker0 OUT= PHYSIN=bond0.9 MAC=02:42:30:fb:43:94:5c:c9:99:de:c4:8b:08:00 SRC=10.45.8.10 DST=10.45.4.99 LEN=84 TOS=0x00 PREC=0x00 TTL=62 ID=25550 DF PROTO=ICMP TYPE=0 CODE=0 ID=24191 SEQ=2
+```
+
+格式这块的含义如下：
+
+"TRACE: tablename:chainname:type:rulenum " where type can be "rule" for plain rule, "return" for implicit rule at the end of a user defined chain and "policy" for the policy of the built in chains.
+
+环境清理，删除刚刚创建的规则即可，其中1为规则的编号：
+
+```
+# 可以通过此来查询之前创建的规则编号
+iptables -t raw --line-number -nvL
+# 删除规则
+iptables -t raw -D PREROUTING 1
+iptables -t raw -D OUTPUT 1
+```
+
+# 实战 
+
+## 试验1 基本规则管理
+
+### 插入规则
 
 ```
 # 清空filter表中的input链规则
@@ -198,7 +254,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 4        0     0 ACCEPT     all  --  *      *       192.168.33.1         0.0.0.0/0
 ```
 
-## 删除规则
+### 删除规则
 
 接下在上面实验的基础上测试删除规则
 
@@ -220,7 +276,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 1       11   936 DROP       all  --  *      *       192.168.33.1         0.0.0.0/0
 ```
 
-## 修改规则
+### 修改规则
 
 在上面实验的基础上修改规则
 
@@ -237,7 +293,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 [vagrant@localhost ~]$ sudo iptables -t filter -P INPUT DROP
 ```
 
-## 保存规则
+### 保存规则
 
 防火墙的所有修改都是临时的，重启系统后会失效。iptables会读取/etc/sysconfig/iptables中的规则。
 
@@ -249,9 +305,9 @@ num   pkts bytes target     prot opt in     out     source               destina
 [root@localhost system]# iptables-restore < /etc/sysconfig/iptables
 ```
 
-# 实验二 各类匹配条件的使用
+## 实验二 各类匹配条件的使用
 
-## 匹配条件
+### 匹配条件
 
 ```
 # 可一次性插入两条规则
@@ -277,19 +333,19 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 DROP       all  --  *      *      !10.0.2.0/24          0.0.0.0/0
 ```
 
-## 协议类型
+### 协议类型
 
 使用-p来指定协议类型，支持tcp udp icmp等，不指定时默认匹配所有协议
 
-## 网卡接口
+### 网卡接口
 
 `-i`来指定从某个网卡进入的流量，仅使用于PREROUTING INPUT FORWARD三条链。
 
 `-o`来指定从某个网络流出的流量，仅适用于FORWARD OUTPUT POSTROUTING三条链。
 
-# 实验三 扩展模块
+## 实验三 扩展模块
 
-## 端口
+### 端口
 
 使用了扩展模块tcp udp，默认可以省略
 
@@ -307,7 +363,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 REJECT     tcp  --  *      *       192.168.33.1         0.0.0.0/0            tcp dpts:22:25 reject-with icmp-port-unreachable
 ```
 
-## iprange扩展模块
+### iprange扩展模块
 
 iprange扩展模块可以指定一段连续的ip地址范围。
 
@@ -321,7 +377,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            source IP range 192.168.33.1-192.168.33.10
 ```
 
-## string扩展模块
+### string扩展模块
 
 匹配报文中包含的字符串
 
@@ -334,7 +390,7 @@ num   pkts bytes target     prot opt in     out     source               destina
 1        0     0 REJECT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            STRING match  "XXOO" ALGO name bm TO 65535 reject-with icmp-port-unreachable
 ```
 
-## 其他扩展
+### 其他扩展
 
 time扩展用来根据时间段进行匹配
 
@@ -346,7 +402,7 @@ tcp扩展中可以使用`--tcp-flags`可根据tcp flag进行匹配
 
 state扩展可根据tcp的连接状态进行匹配
 
-# 实验四 自定义链
+## 实验四 自定义链
 
 ```
 # 创建自定义链 IN_WEB
@@ -424,55 +480,6 @@ iptables: Directory not empty.
 [root@localhost vagrant]# iptables -X WEB
 ```
 
-# trace
-
-开启trace功能
-
-```
-# centos7 系统下有效，centos6下内核模块为ipt_LOG
-$ modprobe nf_log_ipv4
-
-# 用来验证module是否加载成功
-$ sysctl net.netfilter.nf_log.2
-```
-
-要开启icmp协议的追踪，执行如下的命令
-
-```
-iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
-iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
-```
-
-- --dport: 目的端口
-- --sport: 源端口
-- -s: 源ip
-- -d: 目的ip
-
-可以通过如下的命令看到插入的iptabels规则：
-
-```
-iptables -t raw -nvL --line-number
-```
-
-追踪日志最终会在/var/log/message或者/var/log/kern下看到：
-
-```
-Feb  6 11:22:04 c43k09006.cloud.k09.am17 kernel: TRACE: raw:PREROUTING:policy:3 IN=docker0 OUT= PHYSIN=bond0.9 MAC=02:42:30:fb:43:94:5c:c9:99:de:c4:8b:08:00 SRC=10.45.8.10 DST=10.45.4.99 LEN=84 TOS=0x00 PREC=0x00 TTL=62 ID=25550 DF PROTO=ICMP TYPE=0 CODE=0 ID=24191 SEQ=2
-```
-
-格式这块的含义如下：
-
-"TRACE: tablename:chainname:type:rulenum " where type can be "rule" for plain rule, "return" for implicit rule at the end of a user defined chain and "policy" for the policy of the built in chains.
-
-环境清理，删除刚刚创建的规则即可，其中1为规则的编号：
-
-```
-# 可以通过此来查询之前创建的规则编号
-iptables -t raw --line-number -nvL
-# 删除规则
-iptables -t raw -D PREROUTING 1
-iptables -t raw -D OUTPUT 1
-```
 
 # ref
 
