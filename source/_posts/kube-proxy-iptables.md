@@ -144,32 +144,50 @@ pkts bytes target     prot opt in     out     source               destination
 
 ## 使用nodeport访问的情况
 
-k8s针对NodePort创建了KUBE-NODEPORTS链，在包离开宿主机发往目的pod时还会做一次snat，最终pod看到的源ip地址为node的ip。
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-clusterip.png)
+
+nodeport都是被外部访问的情况，入口位于PREROUTING链上。执行 `iptables -nvL PREROUTING  -t nat`：
 
 ```
-# PREROUTING阶段规则
--A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-MARK-MASQ
--A KUBE-NODEPORTS -p tcp -m comment --comment "default/nginx-svc:80" -m tcp --dport 31080 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
-
-# POSTROUTING阶段规则，仅NodePort模式会用到
--A KUBE-POSTROUTING -m comment --comment "kubernetes service traffic requiring SNAT" -m mark --mark 0x4000/0x4000 -j MASQUERADE
+pkts bytes target         prot opt in     out     source               destination         
+349K   21M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */
 ```
 
-上面用到了KUBE-MARK-MASQ链
+在KUBE-SERVICES链的最后一条规则为跳转到KUBE-NODEPORTS链
 
 ```
-# 设置mark
--A KUBE-MARK-MASQ -j MARK --set-xmark 0x4000/0x4000
+ 4079  246K KUBE-NODEPORTS  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service nodeports; NOTE: this must be the last rule in this chain */ ADDRTYPE match dst-type LOCAL
 ```
 
-KUBE-MARK-MASQ链的作用仅为mark，很多地方都有调用该链，如使用NodePort访问Service的KUBE-NODEPORTS链。
+执行`iptables -nvL KUBE-NODEPORTS -t nat`， 查看KUBE-NODEPORTS链 
+```
+pkts bytes target                     prot opt in     out     source               destination         
+0     0    KUBE-MARK-MASQ             tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ tcp dpt:30080
+0     0    KUBE-SVC-Y5VDFIEGM3DY2PZE  tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ tcp dpt:30080
+```
+
+其中KUBE-MARK-MASQ链只有一条规则，即打上0x4000的标签。
 
 ```
-# 匹配mark
--A KUBE-POSTROUTING -m comment --comment "kubernetes service traffic requiring SNAT" -m mark --mark 0x4000/0x4000 -j MASQUERADE
+pkts bytes target     prot opt in     out     source               destination         
+0     0    MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
 ```
 
-上面的匹配mark规则在POSTROUTING阶段，用于匹配mark为0x4000/0x4000的数据包，并进行一次MASQUERADE转换，将ip包替换为宿主上的ip地址。
+自定义链KUBE-SVC-Y5VDFIEGM3DY2PZE的内容如下，跟clusterip的规则是重叠的：
+```
+pkts bytes target     prot opt in     out     source               destination         
+0    0     KUBE-SEP-IFV44I3EMZAL3LH3  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ statistic mode random probability 0.50000000000
+0    0     KUBE-SEP-6PNQETFAD2JPG53P  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */
+```
+
+KUBE-SEP-IFV44I3EMZAL3LH3的内容为，会经过一次DNAT操作:
+```
+pkts bytes target          prot opt in     out     source               destination         
+0    0     KUBE-MARK-MASQ  all  --  *      *       172.16.3.3           0.0.0.0/0            /* default/nginx-svc:80 */
+0    0     DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ tcp to:172.16.3.3:80
+```
+
+跟clusterip一样，会在POSTROUTING阶段匹配mark为0x4000/0x4000的数据包，并进行一次MASQUERADE转换，将ip包替换为宿主上的ip地址。
 
 加入这里不做MASQUERADE，流量发到目的的pod后，pod回包时目的地址为发起端的源地址，而发起端的源地址很可能是在k8s集群外部的，此时pod发回的包是不能回到发起端的。NodePort跟ClusterIP的最大不同就是NodePort的发起端很可能是在集群外部的，从而这里必须做一层SNAT转换。
 
