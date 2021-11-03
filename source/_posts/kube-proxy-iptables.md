@@ -6,7 +6,7 @@ tags:
 
 kube-proxy默认使用iptables规则来做k8s集群内部的负载均衡，本文通过例子来分析创建的iptabels规则。
 
-主要的自定义链涉及到一下一些：
+主要的自定义链涉及到：
 
 - KUBE-SERVICES： 访问集群内服务的CLusterIP数据包入口，根据匹配到的目标ip+port将数据包分发到相应的KUBE-SVC-xxx链上。一个Service对应一条规则。由OUTPUT链调用。
 - KUBE-NODEPORTS: 用来匹配nodeport端口号，并将规则转发到KUBE-SVC-xxx。一个NodePort类型的Service一条。在KUBE-SERVICES链的最后被调用
@@ -19,7 +19,7 @@ kube-proxy默认使用iptables规则来做k8s集群内部的负载均衡，本�
 创建nginx deployment
 
 ```yaml
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -62,37 +62,85 @@ spec:
       port: 8000
       protocol: TCP
       targetPort: 80
-      nodePort: 31080
+      nodePort: 30080
   selector:
     app: nginx-svc
   sessionAffinity: None
   type: NodePort
 ```
 
+环境信息如下：
+- 容器网段：172.20.0.0/16
+- Service ClusterIP cidr: 192.168.0.0/20
+- k8s版本：
+
 提交后创建出来的信息如下：
+- Service ClusterIP：192.168.103.148
+- nginx pod的两个ip地址：172.16.3.3 172.16.4.4
 
-- Service ClusterIP：192.168.249.119
-- nginx pod的两个ip地址：10.254.9.148 10.254.6.217
+## 从宿主机上访问ClusterIP
 
-## 使用clusterip访问的情况
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-clusterip.png)
 
-通过下面的KUBE-SERVICES链匹配到KUBE-SVC-xxx链，后面的iptabels规则会跟nodeport一致，经过了一次dnat转换，其源ip地址并不会发生变化。
+要想详细知道iptabels的执行情况，可以通过iptables的trace功能。如何开启trace功能可以参考：http://kuring.me/post/iptables/。
+
+从本机请求ClusterIP的数据包会经过iptables的链：OUTPUT -> POSTROUTING
+
+执行 `iptables -nvL OUTPUT -t nat` 可以看到如下的iptables规则命令
 
 ```
--A KUBE-SERVICES ! -s 10.254.0.0/18 -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-MARK-MASQ
--A KUBE-SERVICES -d 192.168.249.119/32 -p tcp -m comment --comment "default/nginx-svc:80 cluster IP" -m tcp --dport 8000 -j KUBE-SVC-Y5VDFIEGM3DY2PZE
-
-# 使用random模块，50%概率进入到KUBE-SEP-JY4YVH4LP7UWS56K链中，50%概率进入到KUBE-SEP-JELAHTLD2S3MLAIG
--A KUBE-SVC-Y5VDFIEGM3DY2PZE -m statistic --mode random --probability 0.50000000000 -j KUBE-SEP-JY4YVH4LP7UWS56K
--A KUBE-SVC-Y5VDFIEGM3DY2PZE -j KUBE-SEP-JELAHTLD2S3MLAIG
-
--A KUBE-SEP-JY4YVH4LP7UWS56K -s 10.254.6.217/32 -j KUBE-MARK-MASQ
-# DNAT规则
--A KUBE-SEP-JY4YVH4LP7UWS56K -p tcp -m tcp -j DNAT --to-destination 10.254.6.217:80
-
--A KUBE-SEP-JELAHTLD2S3MLAIG -s 10.254.9.148/32 -j KUBE-MARK-MASQ
--A KUBE-SEP-JELAHTLD2S3MLAIG -p tcp -m tcp -j DNAT --to-destination 10.254.9.148:80
+pkts bytes target         prot opt in     out     source               destination         
+17M  1150M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */
 ```
+
+执行 `iptables -nvL KUBE-SERVICES -t nat` 可以查看自定义链的具体内容，里面包含了多条规则，其中跟当前Service相关的规则如下。
+
+```
+pkts bytes target                     prot opt in     out     source               destination
+1    60    KUBE-SVC-Y5VDFIEGM3DY2PZE  tcp  --  *      *       0.0.0.0/0            192.168.103.148      /* default/nginx-svc:80 cluster IP */ tcp dpt:8000
+```
+
+执行 `iptables -nvL KUBE-SVC-Y5VDFIEGM3DY2PZE -t nat` 查看自定义链的具体规则
+
+```
+pkts  bytes target                     prot opt in     out     source               destination
+0     0     KUBE-SEP-IFV44I3EMZAL3LH3  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ statistic mode random probability 0.50000000000
+1    60     KUBE-SEP-6PNQETFAD2JPG53P  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */
+```
+
+上述规则会按照特定的概率将流量均等的执行自定义链的规则，两个自定义的链的规则跟endpoint相关，执行 `iptables -nvL  KUBE-SEP-IFV44I3EMZAL3LH3 -t nat`可查看endpoint级别的iptabels规则。dnat操作会修改数据包的目的地址和端口，从clusterip+service port修改为访问pod ip+pod端口。
+
+```
+pkts bytes target          prot opt in     out     source               destination
+0     0    KUBE-MARK-MASQ  all  --  *      *       172.16.3.3           0.0.0.0/0            /* default/nginx-svc:80 */
+0     0    DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ tcp to:172.16.3.3:80
+```
+
+会在dnat操作之前为对数据包执行打标签操作。KUBE-MARK-MASQ 自定义链为对数据包打标记的自定义规则，执行 `iptables -nvL  KUBE-MARK-MASQ -t nat`
+
+```
+pkts bytes target     prot opt in     out     source               destination         
+ 1    60   MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK or 0x4000
+```
+
+接下来看一下POSTROUTING链上的规则，`iptables -nvL  POSTROUTING -t nat`。
+
+```
+pkts bytes target            prot opt in     out     source               destination         
+205K   13M KUBE-POSTROUTING  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes postrouting rules */
+```
+
+继续看一下KUBE-POSTROUTING链的内容，`iptables -nvL  KUBE-POSTROUTING -t nat`，其中最后一条的MASQUERADE指令的操作实际上为SNAT操作。
+
+```
+Chain KUBE-POSTROUTING (1 references)
+pkts bytes target     prot opt in     out     source               destination         
+6499  398K RETURN     all  --  *      *       0.0.0.0/0            0.0.0.0/0            mark match ! 0x4000/0x4000
+   1    60 MARK       all  --  *      *       0.0.0.0/0            0.0.0.0/0            MARK xor 0x4000
+   1    60 MASQUERADE  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service traffic requiring SNAT */
+```
+
+即从本机访问service clusterip的数据包，在output链上经过了dnat操作，在postrouting链上经过了snat操作后，最终会发往目标pod。pod在处理完请求后，回的数据包最终会经过nat的逆过程返回到本机。
 
 ## 使用nodeport访问的情况
 
