@@ -80,11 +80,12 @@ spec:
 
 ## 从宿主机上访问ClusterIP
 
-![image](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-clusterip.png)
+从本机请求ClusterIP的数据包会经过iptables的链：OUTPUT -> POSTROUTING
 
 要想详细知道iptabels的执行情况，可以通过iptables的trace功能。如何开启trace功能可以参考：http://kuring.me/post/iptables/。
 
-从本机请求ClusterIP的数据包会经过iptables的链：OUTPUT -> POSTROUTING
+![image](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-clusterip.png)
+
 
 执行 `iptables -nvL OUTPUT -t nat` 可以看到如下的iptables规则命令
 
@@ -142,7 +143,9 @@ pkts bytes target     prot opt in     out     source               destination
 
 即从本机访问service clusterip的数据包，在output链上经过了dnat操作，在postrouting链上经过了snat操作后，最终会发往目标pod。pod在处理完请求后，回的数据包最终会经过nat的逆过程返回到本机。
 
-## 使用nodeport访问的情况
+## 外部访问nodeport
+
+从外部访问本机的nodeport数据包会经过iptables的链：PREROUTING -> FORWARD -> POSTROUTING
 
 ![image](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-proxy-clusterip.png)
 
@@ -187,6 +190,25 @@ pkts bytes target          prot opt in     out     source               destinat
 0    0     DNAT            tcp  --  *      *       0.0.0.0/0            0.0.0.0/0            /* default/nginx-svc:80 */ tcp to:172.16.3.3:80
 ```
 
+在经过了PREROUTING链后，接下来会判断目的ip地址不是本机的ip地址，接下来会经过FORWARD链。在FORWARD链上，仅做了一件事情，就是将前面大了0x4000的数据包允许转发。
+
+```
+pkts bytes target              prot opt in     out     source               destination         
+0    0 KUBE-FORWARD            all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */
+0    0 KUBE-SERVICES           all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes service portals */
+0    0 KUBE-EXTERNAL-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate NEW /* kubernetes externally-visible service portals */
+```
+
+KUBE-FORWARD的内容如下：
+
+```
+pkts bytes target     prot opt in     out     source               destination         
+0     0    DROP       all  --  *      *       0.0.0.0/0            0.0.0.0/0            ctstate INVALID
+0     0    ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding rules */ mark match 0x4000/0x4000
+0     0    ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack pod source rule */ ctstate RELATED,ESTABLISHED
+0     0    ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes forwarding conntrack pod destination rule */ ctstate RELATED,ESTABLISHED
+```
+
 跟clusterip一样，会在POSTROUTING阶段匹配mark为0x4000/0x4000的数据包，并进行一次MASQUERADE转换，将ip包替换为宿主上的ip地址。
 
 加入这里不做MASQUERADE，流量发到目的的pod后，pod回包时目的地址为发起端的源地址，而发起端的源地址很可能是在k8s集群外部的，此时pod发回的包是不能回到发起端的。NodePort跟ClusterIP的最大不同就是NodePort的发起端很可能是在集群外部的，从而这里必须做一层SNAT转换。
@@ -214,3 +236,9 @@ pkts bytes target          prot opt in     out     source               destinat
 -A KUBE-SEP-GP4UCOZEF3X7PGLR -s 10.149.112.46/32 -j KUBE-MARK-MASQ
 -A KUBE-SEP-GP4UCOZEF3X7PGLR -p tcp -m tcp -j DNAT --to-destination 10.149.112.46:80
 ```
+
+## 缺点
+
+1. iptables规则特别乱，一旦出现问题非常难以排查
+2. 由于iptables规则是串行执行，算法复杂度为O(n)，一旦iptables规则多了后，性能将非常差。
+3. iptables规则提供的负载均衡功能非常有限，不支持较为复杂的负载均衡算法。
