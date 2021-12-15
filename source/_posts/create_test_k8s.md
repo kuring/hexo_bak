@@ -35,6 +35,7 @@ mv kubectl /usr/bin/
 kubectl completion bash >/etc/bash_completion.d/kubectl
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
+source ~/.bashrc
 
 # 安装helm
 wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
