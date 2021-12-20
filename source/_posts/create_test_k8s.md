@@ -23,6 +23,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker && systemctl start docker
+yum install vim -y
 ```
 
 # 安装kubectl kind helm
@@ -32,6 +33,7 @@ systemctl enable docker && systemctl start docker
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
 mv kubectl /usr/bin/
+yum install -y bash-completion
 kubectl completion bash >/etc/bash_completion.d/kubectl
 echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
