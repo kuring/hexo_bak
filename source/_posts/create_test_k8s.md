@@ -39,6 +39,10 @@ echo 'alias k=kubectl' >>~/.bashrc
 echo 'complete -F __start_kubectl k' >>~/.bashrc
 source ~/.bashrc
 
+# 安装kustomize
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+mv /root/kustomize /usr/bin/
+
 # 安装helm
 wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
 tar zvxf helm-v3.7.2-linux-amd64.tar.gz
