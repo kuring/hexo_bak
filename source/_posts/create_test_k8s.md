@@ -34,14 +34,10 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 chmod +x kubectl
 mv kubectl /usr/bin/
 yum install -y bash-completion
-kubectl completion bash >/etc/bash_completion.d/kubectl
-echo 'alias k=kubectl' >>~/.bashrc
-echo 'complete -F __start_kubectl k' >>~/.bashrc
-source ~/.bashrc
-
-# 安装kustomize
-curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
-mv /root/kustomize /usr/bin/
+echo 'source <(kubectl completion bash)' >>~/.bash_profile
+echo 'alias k=kubectl' >>~/.bash_profile
+echo 'complete -F __start_kubectl k' >>~/.bash_profile
+source ~/.bash_profile
 
 # 安装helm
 wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
@@ -67,4 +63,22 @@ networking:
   apiServerPort: 6443
 EOF
 kind create cluster --config kind.conf
+```
+
+# 其他周边工具
+
+```
+# 安装kustomize
+curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+mv /root/kustomize /usr/bin/
+
+# 安装golang
+mkdir /opt/gopath
+mkdir /opt/go
+echo 'export GOROOT=/opt/go' >> ./bash_profile
+echo 'export GOPATH=/opt/gopath' >> ./bash_profile
+echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> ./bash_profile
+
+# 安装controller-gen，会将controller-gen命令安装到GOPATH/bin目录下
+go install sigs.k8s.io/controller-tools/cmd/controller-gen@latest
 ```
