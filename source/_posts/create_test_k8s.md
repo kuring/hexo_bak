@@ -58,13 +58,15 @@ mv ./kind /usr/bin/
 
 # 创建集群
 
+其中将apiServerAddress指定为了本机，即创建出来的k8s集群仅允许本集群内访问
+
 ```
 cat > kind.conf <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: kind
 networking:
-  apiServerAddress: "0.0.0.0"
+  apiServerAddress: "127.0.0.1"
   apiServerPort: 6443
 EOF
 kind create cluster --config kind.conf
