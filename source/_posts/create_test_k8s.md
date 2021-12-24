@@ -1,5 +1,5 @@
 ---
-title: ecs主机上快速创建测试k8s集群
+title: ecs的Linux主机上快速创建测试k8s集群
 date: 2021-12-15 21:32:00
 tags:
 ---
@@ -23,7 +23,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker && systemctl start docker
-yum install vim -y
+yum install vim git -y
 ```
 
 # 安装kubectl kind helm
@@ -44,6 +44,11 @@ wget https://get.helm.sh/helm-v3.7.2-linux-amd64.tar.gz
 tar zvxf helm-v3.7.2-linux-amd64.tar.gz
 mv linux-amd64/helm /usr/bin/
 rm -rf linux-amd64
+
+# 安装kubectx kubens
+git clone https://github.com/ahmetb/kubectx /tmp/kubectx
+cp /tmp/kubectx/kubens /usr/bin/kns
+cp /tmp/kubectx/kubectx /usr/bin/kctx
 
 # 安装kind
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
