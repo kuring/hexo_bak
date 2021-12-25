@@ -49,6 +49,9 @@ rm -rf linux-amd64
 git clone https://github.com/ahmetb/kubectx /tmp/kubectx
 cp /tmp/kubectx/kubens /usr/bin/kns
 cp /tmp/kubectx/kubectx /usr/bin/kctx
+wget https://github.com/junegunn/fzf/releases/download/0.29.0/fzf-0.29.0-linux_amd64.tar.gz
+tar zvxf fzf-0.29.0-llinux_amd64.tar.gz
+mv fzf /usr/local/bin/
 
 # 安装kind
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
@@ -58,7 +61,7 @@ mv ./kind /usr/bin/
 
 # 创建集群
 
-其中将apiServerAddress指定为了本机，即创建出来的k8s集群仅允许本集群内访问
+其中将apiServerAddress指定为了本机，即创建出来的k8s集群仅允许本集群内访问。如果要是需要多个k8s集群之间的互访场景，由于kind拉起的k8s运行在docker容器中，而docker容器使用的是容器网络，此时如果设置apiserver地址为127.0.0.1，那么集群之间就没法直接通讯了，此时需要指定一个可以在docker容器中访问的宿主机ip地址。
 
 ```
 cat > kind.conf <<EOF
