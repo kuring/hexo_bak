@@ -11,8 +11,8 @@ tags:
 GitHub Star：891
 
 # 架构
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/220839/1639066788546-b021e785-3f58-47cd-bb30-9c8a5ac4ef18.png#clientId=u289d04e6-9fbc-4&from=paste&height=4052&id=u82dc4f13&margin=%5Bobject%20Object%5D&name=image.png&originHeight=4052&originWidth=9878&originalType=binary&ratio=1&size=1276952&status=done&style=none&taskId=ub879c65e-9439-400c-bb53-2ea5300ac7b&width=9878)
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/220839/1640000510415-5a4a5f4d-839d-4f88-a596-d71b30dc20dc.png#clientId=u4901eb2d-65e0-4&from=paste&height=602&id=u6276b904&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1204&originWidth=1150&originalType=binary&ratio=1&size=320626&status=done&style=none&taskId=u16966425-0127-4e47-a0ef-ba705e2dce9&width=575)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/clusternet1.png)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/clusternet2.png)
 包含clusternet-hub和clusternet-agent两个组件。
 
 clusternet-hub部署在父集群，用途：
@@ -298,7 +298,7 @@ config, err := rest.InClusterConfig()
 ```
 
 # 应用发布
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/220839/1639570841095-d4b51dab-27f7-4af0-8d75-ec238a736955.png#clientId=u4264ed0c-e245-4&from=paste&height=1774&id=u756dec6b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1774&originWidth=4291&originalType=binary&ratio=1&size=807653&status=done&style=none&taskId=u4638343a-e536-4413-b12c-6aa4794ab5b&width=4291)
+![image.png](https://kuring.oss-cn-beijing.aliyuncs.com/images/clusternet3.png)
 在主集群提交如下的yaml文件
 ```powershell
 apiVersion: apps.clusternet.io/v1alpha1
