@@ -23,7 +23,7 @@ yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker && systemctl start docker
-yum install vim git -y
+yum install vim git make -y
 ```
 
 # 安装kubectl kind helm
@@ -34,6 +34,7 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 chmod +x kubectl
 mv kubectl /usr/bin/
 yum install -y bash-completion
+echo -e '\n# kubectl' >> ~/.bash_profile
 echo 'source <(kubectl completion bash)' >>~/.bash_profile
 echo 'alias k=kubectl' >>~/.bash_profile
 echo 'complete -F __start_kubectl k' >>~/.bash_profile
@@ -49,14 +50,16 @@ rm -rf linux-amd64
 git clone https://github.com/ahmetb/kubectx /tmp/kubectx
 cp /tmp/kubectx/kubens /usr/bin/kns
 cp /tmp/kubectx/kubectx /usr/bin/kctx
-wget https://github.com/junegunn/fzf/releases/download/0.29.0/fzf-0.29.0-linux_amd64.tar.gz
-tar zvxf fzf-0.29.0-llinux_amd64.tar.gz
-mv fzf /usr/local/bin/
+wget https://github.com/junegunn/fzf/releases/download/0.29.0/fzf-0.29.0-linux_amd64.tar.gz -P /tmp
+tar zvxf /tmp/fzf-0.29.0-llinux_amd64.tar.gz -C /tmp/
+mv /tmp/fzf /usr/local/bin/
 
 # 安装kind
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.11.1/kind-linux-amd64
 chmod +x ./kind
-mv ./kind /usr/bin/
+mv ./kind /usr/local/bin/
+echo -e "\n# kind" >> ~/.bash_profile
+echo 'source <(kind completion bash)' >>~/.bash_profile
 ```
 
 # 创建集群
@@ -80,14 +83,17 @@ kind create cluster --config kind.conf
 ```
 # 安装kustomize
 curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
-mv /root/kustomize /usr/bin/
+mv kustomize /usr/local/bin/
 
 # 安装golang
+wget https://go.dev/dl/go1.17.5.linux-amd64.tar.gz -P /opt
+tar zvxf /opt/go1.17.5.linux-amd64.tar.gz -C /opt/
 mkdir /opt/gopath
-mkdir /opt/go
-echo 'export GOROOT=/opt/go' >> ./bash_profile
-echo 'export GOPATH=/opt/gopath' >> ./bash_profile
-echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> ./bash_profile
+echo -e '\n# golang' >> ~/.bash_profile
+echo 'export GOROOT=/opt/go' >> ~/.bash_profile
+echo 'export GOPATH=/opt/gopath' >> ~/.bash_profile
+echo 'export PATH=$PATH:$GOPATH/bin:$GOROOT/bin' >> ~/.bash_profile
+source ~/.bash_profile
 
 # 安装controller-gen，会将controller-gen命令安装到GOPATH/bin目录下
 go install sigs.k8s.io/controller-tools/cmd/controller-gen@latest
