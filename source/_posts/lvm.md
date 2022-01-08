@@ -446,7 +446,9 @@ lvcreate --type striped --stripes 2 --stripesize 32k -L 250G -n lv1 vg1
 
 ## 镜像逻辑卷 Mirror Logic Volume
 
-类似于raid1。可以解决磁盘的单点问题，
+类似于raid1。可以解决磁盘的单点问题，一块磁盘挂掉后不至于丢失数据。
+
+通过使用`--type mirror`来指定为镜像模式，-m参数来指定冗余的数量。
 
 # ref
 
