@@ -12,15 +12,15 @@ ipv6特性在k8s中作为一个特定的feature IPv6DualStack来管理。在1.15
 alpha版本需要通过kube-apiserver、kube-controller-manager、kubelet和kube-proxy的--feature-gates="IPv6DualStack=true"命令来开启该特性，beta版本该特性默认开启。<br />​
 
 kube-apiserver：
-- --service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>
+- `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
 
 kube-controller-manager:
-- --cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>
-- --service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>
-- --node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
+- `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+- `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+- `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` 对于 IPv4 默认为 /24，对于 IPv6 默认为 /64
 
 kube-proxy:
-- --cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>
+- `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
 
 # 使用kind创建k8s集群
 
