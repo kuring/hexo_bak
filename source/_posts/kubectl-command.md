@@ -1,5 +1,5 @@
 ---
-title: kubectl常用命令总结
+title: kubectl常用命令
 date: 2022-01-18 15:10:14
 tags:
 ---
