@@ -80,4 +80,4 @@ endpoints:
 - [https://tencentcloudcontainerteam.github.io/2019/11/26/service-topology/](https://tencentcloudcontainerteam.github.io/2019/11/26/service-topology/)
 - [https://kubernetes.io/zh/docs/concepts/services-networking/endpoint-slices/](https://kubernetes.io/zh/docs/concepts/services-networking/endpoint-slices/)
 - [使用 EndpointSlice 扩展 Kubernetes 网络](https://zhuanlan.zhihu.com/p/245165617)
-
+- [Running in multiple zones](https://kubernetes.io/docs/setup/best-practices/multiple-zones/)
