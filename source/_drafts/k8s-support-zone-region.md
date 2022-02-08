@@ -1,7 +1,7 @@
----
 title: k8s在region和zone方面的支持情况
-date: 2022-01-25 12:33:46
-tags:
+tags: []
+categories: []
+date: 2022-01-25 12:33:00
 ---
 
 k8s虽然已经发展了多个版本，但在多region和多zone的场景下支持还是相对比较弱的，且很多的特性在alpha版本就已经废弃，说明k8s官方对于region和zone方面的支持情况有很大的不确定性。业界支持多reigon和容灾的特性更多是从上层的应用层来解决。本文主要是介绍k8s自身以及社区在region和zone方面的支持情况。
