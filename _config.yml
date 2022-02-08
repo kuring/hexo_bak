@@ -83,8 +83,3 @@ search:
   format: html
   limit: 10000
 
-# hexo-admin authentification
-admin:
-  username: kuring
-  password_hash: $2a$10$pfV9y66pUUmkSmodNOlMbuzdVS1ZpHiYEYDsp74CVQ45ViwJ/R/h.
-  secret: my super secret phrase
