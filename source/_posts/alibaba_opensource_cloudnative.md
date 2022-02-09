@@ -18,7 +18,7 @@ author:
 
 在阶段三中，应用发布到k8s集群后，应用会对k8s集群有依赖，比如k8s管控组件的配置、使用的网络插件、应用的部署yaml文件，对镜像仓库和dockerd的配置也有所依赖。当前绝大多数应用发布是跟k8s集群部署完全独立的，即先部署k8s集群，然后再部署应用，跟阶段一的发布单机应用模式比较类似，先安装python运行环境，然后再启动应用。
 
-sealer项目是个非常有意思的开源项目，旨在解决k8s集群连同应用发布的自动化问题，可以实现类似docker镜像的方式将整个k8s集群连同应用一起打包成集群镜像，有了集群镜像后既可以标准化的发布到应用到各个地方。sealer深受docker的启发，提出的很多概念跟docker非常类似。
+sealer项目是个非常有意思的开源项目，旨在解决k8s集群连同应用发布的自动化问题，可以实现类似docker镜像的方式将整个k8s集群连同应用一起打包成集群镜像，有了集群镜像后既可以标准化的发布到应用到各个地方。sealer深受docker的启发，提出的很多概念跟docker非常类似，支持docker常见的子命令run、inspect、save、load、build、login、push、pull等。
 
 - Kubefile概念跟Dockerfile非常类似，且可以执行sealer build命令打包成集群镜像，语法也类似于Dockerfile。
 - CloudImage：集群镜像，将Kubefile打包后的产物，类比与dockerimage。基础集群镜像通常为裸k8s集群，跟docker基础镜像为裸操作系统一致。
