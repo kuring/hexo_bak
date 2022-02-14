@@ -1,9 +1,7 @@
----
 title: k8s ipv4/ipv6双栈
 date: 2022-01-16 23:41:33
 tags:
 ---
-
 # ipv6在k8s中的支持情况
 
 ipv6特性在k8s中作为一个特定的feature IPv6DualStack来管理。在1.15版本到1.20版本该feature为alpha版本，默认不开启。从1.21版本开始，该feature为beta版本，默认开启，支持pod和service网络的双栈。1.23版本变为稳定版本。
@@ -563,6 +561,13 @@ status:
     osImage: Ubuntu 21.04
     systemUUID: f7928fdb-32be-4b6e-8dfd-260b6820f067
 ```
+# Ingress
+
+Ingress为单独的pod，通常不需要单独适配。
+
+阿里云ACK的Nginx Ingress支持ipv6特性：https://help.aliyun.com/document_detail/378167.html
+
+
 # 引用
 
 - [https://kubernetes.io/docs/concepts/services-networking/dual-stack/](https://kubernetes.io/docs/concepts/services-networking/dual-stack/)
