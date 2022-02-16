@@ -1,9 +1,7 @@
----
 title: 证书技术
 date: 2022-01-07 10:34:15
 tags:
 ---
-
 # 创建自签名证书
 创建CA
 ```powershell
@@ -46,8 +44,9 @@ openssl x509 -req -in server.csr -out server.crt -days 3650 \
 ```
 使用ca校验证书是否通过
 ```powershell
-openssl verify -CAfile root.pem server.crt
+openssl verify -CAfile root.crt server.crt
 ```
+
 # 证书格式
 证书按照格式可以分为二进制和文本文件两种格式。
 
@@ -58,8 +57,9 @@ openssl verify -CAfile root.pem server.crt
 文本格式分为：
 
 1. *.pem：存放证书或者私钥。一般是*.key文件存放私钥信息。对于pem或者key文件，如果存在**——BEGIN CERTIFICATE——**，则说明这是一个证书文件。如果存在**—–BEGIN RSA PRIVATE KEY—–**，则说明这是一个私钥文件。
-1. *.key：用来存放私钥文件。
-1. *.crt：证书请求文件，格式的开头为：-----BEGIN CERTIFICATE REQUEST-----
+2. *.key：用来存放私钥文件。
+3. *.crt：证书请求文件，格式的开头为：-----BEGIN CERTIFICATE REQUEST-----
+
 ## 证书格式的转换
 将cert证书转换为pem格式
 ```powershell
@@ -67,6 +67,7 @@ openssl rsa -in server.key -text > server-key.pem
 openssl x509 -in server.crt -out server.pem
 ```
 将pem格式转换为cert格式
+
 # 证书的使用
 curl命令关于证书的用法：
 
@@ -80,5 +81,3 @@ curl命令关于证书的用法：
 - [https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4](https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4)
 - [https://coolshell.cn/articles/21708.html](https://coolshell.cn/articles/21708.html)
 - [https://help.aliyun.com/document_detail/160093.html](https://help.aliyun.com/document_detail/160093.html)
-
-
