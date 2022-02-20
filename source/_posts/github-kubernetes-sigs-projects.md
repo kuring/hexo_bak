@@ -3,6 +3,7 @@ date: 2022-02-14 23:21:37
 tags:
 author:
 ---
+
 # cluster-proportional-autoscaler
 
 项目地址：https://github.com/kubernetes-sigs/cluster-proportional-autoscaler
@@ -12,3 +13,38 @@ k8s默认提供了hpa机制，可以根据pod的负载情况来对workload进行
 该项目提供提供了类似pod水平扩容的机制，跟hpa不同的是，pod的数量由集群中的节点规模来自动扩缩容pod。特别适合负载跟集群规模的变化成正比的服务，比如coredns、nginx ingress等服务。
 
 hpa功能k8s提供了CRD来作为hpa的配置，本项目没有单独的CRD来定义配置，而是通过在启动的时候指定参数，或者配置放到ConfigMap的方式。而且一个cluster-proportional-autoscaler实例仅能针对一个workload。
+
+# [sig-storage-local-static-provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
+
+k8s提供了local pv功能可以用来给pod挂载本地的数据盘，具体的local pv的定义如下所示，pv中包含了要亲和的节点信息：
+
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+spec:
+  capacity:
+    storage: 100Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /mnt/disks/ssd1
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - example-node
+```
+
+但要使用local pv功能，必须要事先创建出pv才可以，k8s本身并没有提供动态创建pv的功能。
+
+该工具可以根据配置的规则，自动将机器上符合条件的磁盘创建出local pv以供后续创建出的pod使用。
+
+相关参考：[LocalVolume数据卷](https://help.aliyun.com/document_detail/178475.html)
