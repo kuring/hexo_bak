@@ -3,7 +3,6 @@ date: 2022-02-14 23:21:37
 tags:
 author:
 ---
-
 # cluster-proportional-autoscaler
 
 项目地址：https://github.com/kubernetes-sigs/cluster-proportional-autoscaler
@@ -46,5 +45,7 @@ spec:
 但要使用local pv功能，必须要事先创建出pv才可以，k8s本身并没有提供动态创建pv的功能。
 
 该工具可以根据配置的规则，自动将机器上符合条件的磁盘创建出local pv以供后续创建出的pod使用。
+
+另外，Rancher提供了一个类似的项目，[local-path-provisioner](https://github.com/rancher/local-path-provisioner)，该项目已经被拉起k8s开发环境的开源项目kind使用。
 
 相关参考：[LocalVolume数据卷](https://help.aliyun.com/document_detail/178475.html)
