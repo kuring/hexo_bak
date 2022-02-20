@@ -4,10 +4,16 @@ categories: []
 date: 2022-02-08 21:33:00
 author:
 ---
+# [open-local](https://github.com/alibaba/open-local)
+k8s对于本地磁盘设备的使用相对较弱，提供了emptyDir、hostPath和local pv的能力来使用本地磁盘设备，但这些功能并没有使用到k8s的动态创建pv的功能，即在pod在使用pvc之前，pv必须实现要创建出来。
+
+该项目提供了本地存储设备的动态供给能力，可以将本地的一块完整磁盘作为一个pv来动态创建。也可以将本地的磁盘切分成多块，通过lvm的方式来分配本地的不同pod来使用，以满足磁盘的共享，同时又有完整的磁盘quota能力。
+
+相关资料：[LVM数据卷](https://help.aliyun.com/document_detail/178476.html)
+
+
 # 集群镜像sealer
 项目地址：https://github.com/alibaba/sealer
-
-相关资料：[集群镜像：实现高效的分布式应用交付](https://mp.weixin.qq.com/s/0SBslzaMWtqn9H8Q57urNA)
 
 ![https://user-images.githubusercontent.com/8912557/117400612-97cf3a00-af35-11eb-90b9-f5dc8e8117b5.png](https://kuring.oss-cn-beijing.aliyuncs.com/common/sealer.png)
 
@@ -25,3 +31,5 @@ sealer项目是个非常有意思的开源项目，旨在解决k8s集群连同�
 - Clusterfile：要想运行CloudImage，需要配合Clusterfile文件来启动，类似于Docker Compose。Clusterfile跟Docker Compose一致，并不是必须的，也可以通过sealer run的方式来启动集群镜像。
 
 sealer要实现上述功能需要实现将k8s集群中的所有用到镜像全部打包到一个集群镜像中。
+
+相关资料：[集群镜像：实现高效的分布式应用交付](https://mp.weixin.qq.com/s/0SBslzaMWtqn9H8Q57urNA)
