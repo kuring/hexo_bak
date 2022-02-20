@@ -36,12 +36,19 @@ DNS.1 = localhost
 IP.2 = 127.0.0.1
 IP.3 = 10.66.3.6
 ```
+
 使用ca签发ssl证书，此时会产生server.crt文件，即为证书文件
 ```powershell
 openssl x509 -req -in server.csr -out server.crt -days 3650 \
   -CAcreateserial -CA root.crt -CAkey root.key \
   -CAserial serial -extfile server.ext
 ```
+
+查看证书文件内容
+```powershell
+openssl x509 -in server.crt   -noout -text
+```
+
 使用ca校验证书是否通过
 ```powershell
 openssl verify -CAfile root.crt server.crt

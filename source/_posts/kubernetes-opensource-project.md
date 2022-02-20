@@ -18,6 +18,18 @@ k8s的kube-controller-manager默认支持了hpa功能，即水平扩缩容。同
 
 该功能是为了重新利用k8s node的节点资源，在节点资源不足的时候可以动态创建资源，在节点资源空闲的时候可以自动回收资源。k8s node的创建和释放需要公有云平台的支持，该功能对接了多个公有云厂商的api。
 
+# [cloud-provider](https://github.com/kubernetes/cloud-provider)
+
+k8s的cloud provider功能用来跟云厂商对接以实现对k8s的node、LoadBalancer Service管理，比如LoadBalancer Service申请vip需要跟云厂商的LB API进行对接。
+
+在k8s 1.6版本之前，cloud provider的代码完全是耦合在k8s的kube-apiserver、kubelet、kube-contorller-manager的代码中的，如果要支持更多的云厂商，只能修改k8s的代码，扩展性比较差。
+
+从k8s 1.6版本之后，cloud provider作为单独的二进制组件来提供服务，并提供了接口定义。本项目为非二进制项目，仅包含k8s的cloud-provider机制的接口定义，为了让第三方的cloud-provider的实现项目引用接口定义方便，将kubernetes项目中的定义为单独的项目，且代码跟[kubernetes项目](https://github.com/kubernetes/kubernetes/tree/master/staging/src/k8s.io/cloud-provider)中的保持同步。
+
+参考资料：
+- [从 K8S 的 Cloud Provider 到 CCM 的演进之路](https://mp.weixin.qq.com/s/a_540yJ1EGVroJ9TpvYtPw)
+
+
 # Descheduler
 项目地址：https://github.com/kubernetes-sigs/descheduler
 
