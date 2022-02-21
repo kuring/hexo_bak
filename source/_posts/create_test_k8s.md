@@ -1,9 +1,7 @@
----
 title: ecs的Linux主机上快速创建测试k8s集群
 date: 2021-12-15 21:32:00
 tags:
 ---
-
 经常有快速创建一个测试k8s集群的场景，为了能够快速完成，整理了如下的命令，即可在主机上快速启动一个k8s集群。部分命令需要外网访问，推荐直接使用海外的主机。
 
 # 安装docker
@@ -116,3 +114,5 @@ echo -e '\n# kubectl krew' >> ~/.bash_profile
 echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
 ```
+
+# 参考资料

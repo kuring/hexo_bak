@@ -47,3 +47,10 @@ k8s的管控组件对于iaas层的node运行状态是完全不感知的，比如
 - 对于临时性故障，通过Event的方式上报
 
 node-problem-detector在将节点的故障信息上报给k8s后，通常会配合一些自愈系统搭配使用，比如Draino和Descheduler 。
+
+# [sample-apiserver](https://github.com/kubernetes/sample-apiserver)
+
+k8s提供了aggregated apiserver的方式来扩展api，该项目为一个简单的aaggregated apiserver的例子，可以直接编译出二进制文件。要想开发一个AA类型的服务，只需要frok一下该项目，并在项目的基础上进行修改即可完成。
+
+相关资料：
+- [Set up an Extension API Server](Set up an Extension API Server)

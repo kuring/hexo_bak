@@ -3,6 +3,15 @@ date: 2022-02-14 23:21:37
 tags:
 author:
 ---
+# [apiserver-builder-alpha](https://github.com/kubernetes-sigs/apiserver-builder-alpha)
+
+k8s提供了aggregated apiserver的方式来扩容api，该项目提供了代码生成器、基础library来供开发AA使用。
+
+该项目的定位跟kubebuilder比较类似，kubebuilder用来生成CRD的框架，该项目用来生成AA的框架。
+
+相关资料：
+- [Set up an Extension API Server](Set up an Extension API Server)
+
 # cluster-proportional-autoscaler
 
 项目地址：https://github.com/kubernetes-sigs/cluster-proportional-autoscaler
