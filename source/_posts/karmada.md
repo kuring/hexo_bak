@@ -443,7 +443,8 @@ member2   v1.22.0   Push   True    61m
 member3   v1.22.0   Pull   True    61m
 ```
 # 应用发布
-![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/220839/1641220295051-8d35ddc4-95fa-4c10-aef9-7fc35f30193c.png#clientId=u8741c8eb-b5b2-4&from=paste&height=577&id=olLAW&margin=%5Bobject%20Object%5D&name=image.png&originHeight=577&originWidth=591&originalType=binary&ratio=1&size=38109&status=done&style=none&taskId=u23fa87d3-d89f-44a1-b877-904e474204e&width=591)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/karmada-concepts.png)
+
 将context切换到karmada-host，在host集群部署应用nginx
 ```powershell
 $ export KUBECONFIG="$HOME/.kube/karmada.config"
@@ -499,6 +500,8 @@ nginx-6799fc88d8-4w2gc   member1   1/1     Running   0          4m16s
 nginx-6799fc88d8-j77f5   member2   1/1     Running   0          4m16s
 ```
 # 元集群访问子集群
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/karmada-aa.png)
+
 可以看到在karmada-apiserver上注册了AA服务，group为cluster.karmada.io
 ```yaml
 # kubectl --kubeconfig /root/.kube/karmada.config --context karmada-apiserver get  apiservice v1alpha1.cluster.karmada.io -o yaml 
