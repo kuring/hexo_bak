@@ -1,9 +1,7 @@
----
 title: k8s多集群管理方案 - clusternet
 date: 2021-12-26 21:44:17
 tags:
 ---
-
 # 简介
 
 腾讯云开源的k8s多集群管理方案，可发布应用到多个k8s集群。
@@ -202,7 +200,9 @@ spec:
 跟Base对象根据Localization和Globalization渲染得到的最终要发布到集群中的最终对象。
 
 # 安装
-在父集群执行如下命令：
+本文使用kind进行测试，使用kind创建两个k8s集群host和member1，两个集群的apiserver均监听在宿主机的端口，确保从一个集群可以访问到另外一个集群的apiserver。
+
+在父集群执行如下命令安装clusternet管控组件：
 ```powershell
 helm repo add clusternet https://clusternet.github.io/charts
 helm install clusternet-hub -n clusternet-system --create-namespace clusternet/clusternet-hub
@@ -382,4 +382,3 @@ spec:
 # 相关链接
 
 - [https://mp.weixin.qq.com/s/BSgb2uoAuHbxQOUvn8fEsA](https://mp.weixin.qq.com/s/BSgb2uoAuHbxQOUvn8fEsA)
-
