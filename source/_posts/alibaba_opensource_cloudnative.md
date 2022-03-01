@@ -4,6 +4,14 @@ categories: []
 date: 2022-02-08 21:33:00
 author:
 ---
+# [kube-eventer](https://github.com/AliyunContainerService/kube-eventer)
+
+![![https://user-images.githubusercontent.com/8912557/117400612-97cf3a00-af35-11eb-90b9-f5dc8e8117b5.png](https://kuring.oss-cn-beijing.aliyuncs.com/common/sealer.png)](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-eventer.png)
+
+k8s的Event会存放在etcd中，并跟对象关联。Event有一定的有效时常，默认为1小时。业界通常做法是将event存放在单独的etcd集群中，并将event的生命周期设长。对于异常类型的Event，是一种非常理想的告警机制。
+
+kube-eventer组件可以将k8s的event对象收集起来，可以发送到钉钉、kafka等数据sink端。
+
 # [log-pilot](https://github.com/AliyunContainerService/log-pilot)
 
 针对容器类型的服务研发的日志收集agent，可以在k8s pod上通过简单配置环境变量的方式即可采集日志，使用起来非常简洁。
