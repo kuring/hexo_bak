@@ -4,6 +4,10 @@ categories: []
 date: 2022-02-08 21:33:00
 author:
 ---
+# [log-pilot](https://github.com/AliyunContainerService/log-pilot)
+
+针对容器类型的服务研发的日志收集agent，可以在k8s pod上通过简单配置环境变量的方式即可采集日志，使用起来非常简洁。
+
 # [open-local](https://github.com/alibaba/open-local)
 k8s对于本地磁盘设备的使用相对较弱，提供了emptyDir、hostPath和local pv的能力来使用本地磁盘设备，但这些功能并没有使用到k8s的动态创建pv的功能，即在pod在使用pvc之前，pv必须实现要创建出来。
 
