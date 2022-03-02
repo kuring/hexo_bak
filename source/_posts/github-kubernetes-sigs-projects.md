@@ -22,6 +22,15 @@ k8s默认提供了hpa机制，可以根据pod的负载情况来对workload进行
 
 hpa功能k8s提供了CRD来作为hpa的配置，本项目没有单独的CRD来定义配置，而是通过在启动的时候指定参数，或者配置放到ConfigMap的方式。而且一个cluster-proportional-autoscaler实例仅能针对一个workload。
 
+# [prometheus-adapter](https://github.com/kubernetes-sigs/prometheus-adapter)
+
+k8s要实现hpa（水平自动扩容）的功能，需要监控指标。k8s的监控指标分为核心指标和自定义指标两大类。其中核心指标由metrics-server组件从kubelet、cadvisor等组件来获取，并通过aggregated apiserver的形式暴露给k8s，aggregated api的group信息为metrics.k8s.io。
+
+自定义监控指标则由group custom.metrics.k8s.io对通过aggregated api暴露。本项目即为自定义监控指标的aggregated apiserver的实现。
+
+相关参考：[](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics
+
+
 # [sig-storage-local-static-provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
 
 k8s提供了local pv功能可以用来给pod挂载本地的数据盘，具体的local pv的定义如下所示，pv中包含了要亲和的节点信息：
