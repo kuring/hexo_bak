@@ -12,6 +12,12 @@ k8s的Event会存放在etcd中，并跟对象关联。Event有一定的有效时
 
 kube-eventer组件可以将k8s的event对象收集起来，可以发送到钉钉、kafka等数据sink端。
 
+# [kubernetes-cronhpa-controller](https://github.com/AliyunContainerService/kubernetes-cronhpa-controller)
+
+k8s提供了hpa机制，可以针对pod的监控信息对pod进行扩缩容。该组件提供了定期扩缩容的机制，可以定期对pod的数量进行设置。
+
+相关资料：[容器定时伸缩（CronHPA）](https://help.aliyun.com/document_detail/151557.htm?spm=a2c4g.11186623.0.0.48b151bb3ZWte9#task-2391975)
+
 # [log-pilot](https://github.com/AliyunContainerService/log-pilot)
 
 针对容器类型的服务研发的日志收集agent，可以在k8s pod上通过简单配置环境变量的方式即可采集日志，使用起来非常简洁。

@@ -28,7 +28,7 @@ k8s要实现hpa（水平自动扩容）的功能，需要监控指标。k8s的�
 
 自定义监控指标则由group custom.metrics.k8s.io对通过aggregated api暴露。本项目即为自定义监控指标的aggregated apiserver的实现。
 
-相关参考：[](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics
+相关参考：[Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)
 
 
 # [sig-storage-local-static-provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
