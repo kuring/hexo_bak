@@ -5,11 +5,14 @@ date: 2022-02-09 20:12:00
 author:
 ---
 在k8s官方的Github kubernetes group下除了k8s的核心组件外，还有很多开源项目，本文用来简要分析这些开源项目的用途。
+# [apimachinery](https://github.com/kubernetes/apimachinery)
 
-# autoscaler
-项目地址：https://github.com/kubernetes/autoscaler
+关于k8s的scheme等的sdk项目，代码跟kubernetes项目的如下路径保持同步：
+https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apimachinery
 
-跟k8s的弹性扩缩容相关的组件。
+# [autoscaler](https://github.com/kubernetes/autoscaler)
+
+跟k8s的弹性扩缩容相关的组件，有如下两个功能：
 
 ## vpa（pod垂直扩缩容）
 k8s的kube-controller-manager默认支持了hpa功能，即水平扩缩容。同时k8s还提供了vpa功能，即垂直扩缩容，会根据pod历史的资源占用，修改pod的request值，并不会修改pod的limit值。之所以k8s没有默认提供vpa功能，原因是因为vpa实现要复杂很多，需要通过webhook的技术来在pod创建的时候修改pod的request值。vpa的功能通常用于大型单体应用。
