@@ -12,15 +12,21 @@ k8s提供了aggregated apiserver的方式来扩容api，该项目提供了代码
 相关资料：
 - [Set up an Extension API Server](Set up an Extension API Server)
 
-# cluster-proportional-autoscaler
+# [cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)
 
-项目地址：https://github.com/kubernetes-sigs/cluster-proportional-autoscaler
 
 k8s默认提供了hpa机制，可以根据pod的负载情况来对workload进行自动的扩缩容。同时以单独的autoscaler项目提供了vpa功能的支持。
 
 该项目提供提供了类似pod水平扩容的机制，跟hpa不同的是，pod的数量由集群中的节点规模来自动扩缩容pod。特别适合负载跟集群规模的变化成正比的服务，比如coredns、nginx ingress等服务。
 
 hpa功能k8s提供了CRD来作为hpa的配置，本项目没有单独的CRD来定义配置，而是通过在启动的时候指定参数，或者配置放到ConfigMap的方式。而且一个cluster-proportional-autoscaler实例仅能针对一个workload。
+
+# [kube-batch](https://github.com/kubernetes-sigs/kube-batch)
+
+k8s的调度器扩展，实现了Gang Scheduling特性（一组pod必须同时被调度成功，或者处于pending状态），适用于批处理系统。
+
+由于该组件是以单独调度器的形式存在，会跟k8s默认的kube-scheduler并存，因为两个调度器之间并不能相互感知，在两个调度器并存的情况下会存在一定的冲突。
+
 
 # [prometheus-adapter](https://github.com/kubernetes-sigs/prometheus-adapter)
 
@@ -30,6 +36,11 @@ k8s要实现hpa（水平自动扩容）的功能，需要监控指标。k8s的�
 
 相关参考：[Horizontal Pod Autoscaling](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-custom-metrics)
 
+# [scheduler-plugins](https://github.com/kubernetes-sigs/scheduler-plugins)
+
+k8s从1.16版本开始提供了新的调度框架Kubernetes Schduling Framework机制，用户可以基于此项目来开发自己的插件。该项目可以直接构建出kube-scheduler的新镜像。
+
+相关参考：[进击的Kubernetes调度系统（一）：Scheduling Framework](https://developer.aliyun.com/article/766273)
 
 # [sig-storage-local-static-provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner)
 
