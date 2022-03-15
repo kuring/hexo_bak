@@ -4,6 +4,17 @@ categories: []
 date: 2022-02-08 21:33:00
 author:
 ---
+# [ackdistro](https://github.com/AliyunContainerService/ackdistro)
+
+阿里云的k8s发行版，跟阿里云的ack采用了相同的源码。该项目采用[sealer](#sealer)来部署k8s集群，并通过sealer支持k8s集群的扩容、缩容节点等运维操作。该项目并没有将k8s相关的源码开源，而主要维护了安装k8s集群需要的yaml文件、helm chart。
+
+ack的k8s发行版比较简洁，并没有公有云ack的丰富的组件。除了k8s原生的几个组件外，网络插件集成了[hybridnet](#hybridnet)，存储插件集成了[open-local](#open-local)。
+
+# [hybridnet](https://github.com/alibaba/hybridnet)
+
+容器网络插件，支持underlay网络和overlay网络，且可以支持一个k8s集群内的网络同时支持overlay网络和underlay网络。underlay网络模式下，可以支持vlan网络，也可以支持bgp网络。
+
+
 # [kube-eventer](https://github.com/AliyunContainerService/kube-eventer)
 
 ![![https://user-images.githubusercontent.com/8912557/117400612-97cf3a00-af35-11eb-90b9-f5dc8e8117b5.png](https://kuring.oss-cn-beijing.aliyuncs.com/common/sealer.png)](https://kuring.oss-cn-beijing.aliyuncs.com/common/kube-eventer.png)
@@ -30,8 +41,7 @@ k8s对于本地磁盘设备的使用相对较弱，提供了emptyDir、hostPath�
 相关资料：[LVM数据卷](https://help.aliyun.com/document_detail/178476.html)
 
 
-# 集群镜像sealer
-项目地址：https://github.com/alibaba/sealer
+# [sealer](https://github.com/alibaba/sealer)
 
 ![https://user-images.githubusercontent.com/8912557/117400612-97cf3a00-af35-11eb-90b9-f5dc8e8117b5.png](https://kuring.oss-cn-beijing.aliyuncs.com/common/sealer.png)
 
