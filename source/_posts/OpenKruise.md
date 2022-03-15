@@ -4,6 +4,9 @@ tags:
 author:
 ---
 OpenKruise是阿里云开源的一系列基于k8s的扩展组件的集合，其中包含了像增强版的workload、sidecar容器管理、高可用性防护等特性，包含了很多的“黑科技”。
+
+如果k8s的kube-controller-manager组件可以提供非常强的扩展能力，可以实现自定义的Deployment、StatefulSet的controller，而不是使用原生的kube-controller-manager的功能，类似于实现自定义的调度器扩展功能。那么很有可能OpenKruise的实现方案就不再会采用CRD扩展的方式，而是直接在原生的Deployment、StatefulSet等对象上通过annotation的方式来实现。
+
 ## 安装
 可以直接使用helm的方式安装
 ```yaml
