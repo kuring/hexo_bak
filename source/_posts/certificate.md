@@ -2,7 +2,7 @@ title: 证书技术
 date: 2022-01-07 10:34:15
 tags:
 ---
-# 创建自签名证书
+# 使用openssl创建自签名证书
 创建CA
 ```powershell
 openssl genrsa -out root.key 4096
@@ -53,6 +53,20 @@ openssl x509 -in server.crt   -noout -text
 ```powershell
 openssl verify -CAfile root.crt server.crt
 ```
+
+# 使用cfssl签发证书
+
+cfssl是CloudFlare开源的一款tls工具，使用go语言编写，地址：https://github.com/cloudflare/cfssl。
+
+## 安装
+
+mac用户：brew install cfssl
+
+linux用户可以直接下载二进制文件：https://github.com/cloudflare/cfssl/releases
+
+## 签发证书
+
+待补充
 
 # 证书格式
 证书按照格式可以分为二进制和文本文件两种格式。

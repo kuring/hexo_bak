@@ -41,6 +41,16 @@ EOF
 docker run -d --restart=always -p 3128:3128 -p 3129:3129 --net=host -v /var/log:/var/log -v /etc/3proxy/3proxy.cfg:/etc/3proxy/3proxy.cfg --name 3proxy 3proxy/3proxy
 ```
 
+## 设置代理
+
+### 终端设置代理
+
+shell支持如下的代理环境变量:
+```
+export http_proxy=http://localhost:1080
+export https_proxy=http://localhost:1080
+```
+
 ## 相关链接
 
 - https://github.com/3proxy/3proxy

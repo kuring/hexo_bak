@@ -19,3 +19,11 @@ author:
 ## 将公钥copy到要免密登录的服务器
 
 执行 `ssh-copy-id $user@$ip` 即可将本地的公钥文件放到放到要免密登录服务器的 $HOME/.ssh/authorized_keys 文件中。至此，免密登录的配置就完成了。
+
+# rsync
+
+rsync的常用命令：
+
+```
+rsync -avzP --delete $local_idr  $user@$remote:$remote_dir
+```

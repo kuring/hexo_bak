@@ -1,9 +1,7 @@
----
 title: iptables基本知识
 date: 2018-01-31 23:25:12
 tags:
 ---
-
 # 概要
 
 ## netfilter与iptables的关系
@@ -130,17 +128,22 @@ raw表中的规则可以被链使用：prerouting output
 
 ## 修改
 
--F: 清空规则
--I: 表示插入规则
--A: 表示以追加的方式插入规则
+- -F: 清空规则
+- -I: 表示插入规则
+- -A: 表示以追加的方式插入规则
+- `--dport`: 目的端口
+- `--sport`: 源端口
+- -s: 源ip
+- -d: 目的ip
+- `--match-set`：匹配ipset
 
 `iptables -F INPUT`：清空filter表中的INPUT链中的所有规则。
 
 ## 删除
 
--D: 删除一条规则
-
-`iptables -D 链名 规则编号`，其中规则编号可以通过`--line-number`查看到。
+- -D: 删除规则，`iptables -D 链名 规则编号`，其中规则编号可以通过`--line-number`查看到。
+- -F: 清空规则，`iptables -F 链名 -t 表名`
+- -X: 删除链 `iptables -X 链名 -t 表名`
 
 ## trace
 
@@ -160,11 +163,6 @@ $ sysctl net.netfilter.nf_log.2
 iptables -t raw -A OUTPUT -p icmp -m comment --comment "TRACE" -j TRACE
 iptables -t raw -A PREROUTING -p icmp -m comment --comment "TRACE" -j TRACE
 ```
-
-- --dport: 目的端口
-- --sport: 源端口
-- -s: 源ip
-- -d: 目的ip
 
 可以通过如下的命令看到插入的iptabels规则：
 
