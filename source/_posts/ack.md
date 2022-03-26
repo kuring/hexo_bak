@@ -11,10 +11,10 @@ ACK的一些组件列表可以参见：[组件概述](https://help.aliyun.com/do
 
 - 专有版Kubernetes：master和worker阶段均需要创建
 - 托管版Kubernetes：只需要创建worker节点，master节点通过ack托管
-- Serverless Kubernetes：master节点和worker阶段均不需要创建
+- Serverless Kubernetes：master节点和worker节点均不需要自己创建
 
 # 节点管理
-| 大类 | 特性 |  |
+| 大类 | 特性 | 描述 |
 | --- | --- | --- |
 | 节点 | 节点自动扩缩容 | 完全利用k8s的autoscaler实现，提供了白屏的配置功能。[https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md?spm=a2c4g.11186623.0.0.5e09135f2AAa2u&file=FAQ.md](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md?spm=a2c4g.11186623.0.0.5e09135f2AAa2u&file=FAQ.md) |
 |  | 节点资源变配 | master和worker节点的资源变配，通过调用ecs的变配规格接口来实现。 |
@@ -44,20 +44,20 @@ ACK的一些组件列表可以参见：[组件概述](https://help.aliyun.com/do
 |  | 通过巡检来检查集群中存在的安全隐患的pod | 无 |
 
 # 可观测性
-| 大类 |  |  |
+| 大类 | 功能项 | 描述 |
 | --- | --- | --- |
 | 日志 | 日志采集功能基于logtail实现，可以采集容器日志 | 类似于开源组件log-pilot，仅需要配置环境变量，即可对日志进行收集。也可以通过AliyunLogConfig CR旁路的对日志采集进行配置。 |
-|  | coredns日志 | 收集coredns日志 |
+| 日志 | coredns日志 | 收集coredns日志 |
 | 监控 | 基于arms产品支持应用性能监控 |  |
-|  | 基于ahas产品实现的架构感知监控 |  |
-|  | node节点异常监控 | npd将节点异常信息产生k8s的event |
-|  | k8s event监控 | kube-eventer收集k8s的event |
+| 监控 | 基于ahas产品实现的架构感知监控 |  |
+| 监控 | node节点异常监控 | npd将节点异常信息产生k8s的event |
+| 监控 | k8s event监控 | kube-eventer收集k8s的event |
 
 # 操作系统
 Container OS：为容器场景而生的操作系统，操作系统镜像大大精简，提供了安全加固能力，不支持单个软件包的升级，软件包只能跟操作系统一起原子升级。
 安全容器katacontainer
 # 容器&镜像
-| 大类 | 特性 |  |
+| 大类 | 特性 | 描述 |
 | --- | --- | --- |
 | 镜像 | 容器镜像服务ACR | 使用公有云的容器镜像服务ACR |
 |  | 验证容器镜像 | 基于开源组件kritis的kritis-validation-hook组件通过webhook的方式对镜像进行验证，确保镜像安全 |
@@ -83,7 +83,7 @@ Container OS：为容器场景而生的操作系统，操作系统镜像大大�
 | 负载感知调度 | 负载感知调度 | 在pod调度时，参考node节点历史的负载信息，优先将pod调度到负载较低的节点上，避免出现单个节点负载过高的情况。 | 避免node的资源使用率不均 | 通过调度器扩展实现，pod要开启该特性需要增加特性的annotation。 |
 
 # 网络
-| 大类 | 特性 |  |
+| 大类 | 特性 | 描述 |
 | --- | --- | --- |
 | 容器网络 | terway网络 | 基于ENI实现，支持ipvlan模式，基于ipvlan和eBPF实现。NetworkPolicy基于eBPF实现。 |
 |  | terway网络的Hubble组件 | 基于eBPF实现的网络流量可视化 |
@@ -102,7 +102,7 @@ Container OS：为容器场景而生的操作系统，操作系统镜像大大�
 
 ![image.png](https://intranetproxy.alipay.com/skylark/lark/0/2022/png/220839/1645347493244-2af51b21-0150-48e4-a15e-0585d5a59852.png#clientId=ub8a97252-9d7b-4&from=paste&height=916&id=ufabccb6c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=916&originWidth=2458&originalType=binary&ratio=1&size=143128&status=done&style=none&taskId=uf542f250-6209-4734-8564-306faaaaca5&width=2458)
 
-# 本地存储
+## 本地存储
 
 1. LVM数据卷功能，基于lvm来动态创建pv
 1. QuotaPath，基于ext4的quota特性实现的本地存储的quota隔离功能
@@ -115,6 +115,16 @@ Container OS：为容器场景而生的操作系统，操作系统镜像大大�
 1. 可根据磁盘的使用水位支持云盘的自动扩容，该功能通过额外的组件storage-operator来实现，策略存放到了额外的CRD StorageAutoScalerPolicy。跟k8s的hpa和vpa功能相比，该功能没有自动缩容的功能。
 1. 使用k8s的存储快照功能实现了存储快照。k8s定义了VolumeSnapshotContent（类似pv）、VolumeSnapshot（类似pvc）和VolumeSnapshotClass（类似StorageClass）三个类型来实现打快照功能，快照的恢复则借助pvc的spec.dataSource字段实现。
 1. 加密云盘功能，同样借助云上能力实现。使用时，仅需要在StorageClass的parameters参数中指定加密参数即可。
+
+# Serverless Kubernetes（ASK）
+
+ACK提供了k8s以及k8s的管理功能，其中k8s的master节点需要单独创建和维护，每个k8s集群使用的资源是完全独立的。在ASK中，用户仅需要创建k8s集群，而不需要关心k8s集群的核心组件具体是怎么创建的。
+
+在实际上，k8s的核心组件如etcd、kube-apiserver、kube-scheduler、kube-controller-manager可能是以pod的形式运行在另外的k8s集群之上，即所谓的k8s on k8s（KOK）的方案。而且这部分组件是多个k8s集群混部的，对用户完全屏蔽了实现细节，用户仅需要聚焦在如何使用k8s即可。
+
+对于k8s的node节点，用户同样不需要创建，可以认为k8s的节点资源是无限多的。ask采用了virtual kubelet的技术创建了一个虚拟的k8s node节点 `virtual-kubelet-${region}-${zone}`，整个k8s集群仅有一个节点。因为只有一个k8s节点，实际上k8s的管控作用会大大弱化，尤其是kube-scheduler，因为只有一个k8s节点，不存在pod调度的问题。
+
+用户创建的pod资源，实际上会部署在阿里云产品弹性容器实例ECI上。新创建ask集群完成后，再到ECI上即可看到有默认的容器创建出来。ECI了创建容器的功能，给用户暴露的功能是跟k8s无关的，而ask相当于是给用户提供了以k8s的方式来创建容器。
 
 # 其他
 集群成本分析
