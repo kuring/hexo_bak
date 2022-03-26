@@ -1,10 +1,8 @@
----
 title: TCP TIME_WAIT
 date: 2018-12-17 23:02:09
 tags:
 ---
-
-## time_wait
+## time_wait状态
 
 客户端在收到服务器端发送的FIN报文后发送ACK报文，并进入TIME_WAIT状态，等待2MSL（最大报文生存时间）后才断开连接，MSL在Linux中值为30s。
 
@@ -15,7 +13,7 @@ tags:
 
 过多的危害：在客户端占用过多的端口号
 
-## 解决思路
+## time_wait过多的解决思路
 
 1. 将`net.ipv4.tcp_max_tw_buckets`值调小，当TIME_WAIT的数量到达该值后，TIME_WAIT状态会被清除，相当于没有遵守tcp协议
 2. 修改TCP_TIMEWAIT_LEN的值，但需要重新编译内核，非常不建议修改
@@ -25,7 +23,13 @@ tags:
 
 tcp有个tcp时间戳选项，第一个是发送方的当前时钟时间戳（4个字节），第二个4字节为从远程主机接收到的最新时间戳
 
-## tcp_tw_reuse
+## 相关内核参数
+
+### tcp_timestamp
+
+
+
+### tcp_tw_reuse
 
 tcp_tw_reuse意思为主动关闭连接的一方可以复用之前的time_wait状态的连接。
 
@@ -35,7 +39,7 @@ tcp_tw_reuse意思为主动关闭连接的一方可以复用之前的time_wait�
 
 该选项适用的范围为作为客户端主动断开连接，复用客户端的time_wait的状态，对服务端无影响。
 
-## tcp_tw_recycle
+### tcp_tw_recycle
 
 内核会在一个RTO的时间内快速销毁掉time_wait状态，RTO时间为数据包重传的超时时间，该时间通过RTT动态计算，远小于2MSL。
 
@@ -46,6 +50,7 @@ tcp_tw_reuse意思为主动关闭连接的一方可以复用之前的time_wait�
 *弊端*：如果客户端在NAT网络中，如果配置了tcp_tw_recycle，可能会出现在一个RTO的时间内，只有一个客户端和自己连接成功的情况。
 
 4.10之后，Linux内核修改了时间戳生成机制，该选项已经抛弃。
+
 
 ## In Action
 
@@ -68,7 +73,7 @@ keepalive 200;
 
 如果keepalive连接过少，此时由于使用的是http1.1的协议，upstream端不会主动断开连接，nginx会主动断开连接，此时nginx端的time_wait就会过多，会占用端口号，导致nginx端没有端口号可以使用。
 
-## ref
+## 引用
 
 * [关于 Nginx upstream keepalive 的说明
 ](https://www.nosa.me/2014/12/18/%E5%85%B3%E4%BA%8E-nginx-upstream-keepalive-%E7%9A%84%E8%AF%B4%E6%98%8E/)

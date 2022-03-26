@@ -25,3 +25,14 @@ author:
 
 参考：https://cloudevents.io/
 
+
+## 弹性容器实例ECI
+
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/aliyun/eci.jpg)
+
+该产品的功能比较简单，相当于提供了管控页面来创建k8s的pod，具体pod部署在哪里用户不需要关心，提供了非常好的弹性能力，充分发挥了云的优势。
+
+具体在实现层面，实际上会以pod的形式部署在阿里云维护的公共k8s集群中，且容器的网络在用户指定的vpc中。
+
+除了给用户提供直接创建容器实例外，还有很大一部分功能是给Serverless Kubernetes（ASK）和容器服务（ACK）来提供弹性扩缩容的功能。
+
