@@ -118,6 +118,9 @@ Container OS：为容器场景而生的操作系统，操作系统镜像大大�
 
 # Serverless Kubernetes（ASK）
 
+适用场景：
+1. 业务要求高弹性，如互联网在线服务存在波峰波谷特别明显
+
 ACK提供了k8s以及k8s的管理功能，其中k8s的master节点需要单独创建和维护，每个k8s集群使用的资源是完全独立的。在ASK中，用户仅需要创建k8s集群，而不需要关心k8s集群的核心组件具体是怎么创建的。
 
 在实际上，k8s的核心组件如etcd、kube-apiserver、kube-scheduler、kube-controller-manager可能是以pod的形式运行在另外的k8s集群之上，即所谓的k8s on k8s（KOK）的方案。而且这部分组件是多个k8s集群混部的，对用户完全屏蔽了实现细节，用户仅需要聚焦在如何使用k8s即可。
@@ -125,6 +128,11 @@ ACK提供了k8s以及k8s的管理功能，其中k8s的master节点需要单独�
 对于k8s的node节点，用户同样不需要创建，可以认为k8s的节点资源是无限多的。ask采用了virtual kubelet的技术创建了一个虚拟的k8s node节点 `virtual-kubelet-${region}-${zone}`，整个k8s集群仅有一个节点。因为只有一个k8s节点，实际上k8s的管控作用会大大弱化，尤其是kube-scheduler，因为只有一个k8s节点，不存在pod调度的问题。
 
 用户创建的pod资源，实际上会部署在阿里云产品弹性容器实例ECI上。新创建ask集群完成后，再到ECI上即可看到有默认的容器创建出来。ECI了创建容器的功能，给用户暴露的功能是跟k8s无关的，而ask相当于是给用户提供了以k8s的方式来创建容器。
+
+ask还集成了knative，用户可以使用knative的Serving和Eventing的功能来实现社区通用的serverless服务。
+
+相关链接：
+- [全新的网关能力增强](https://mp.weixin.qq.com/s/3zxbdvx2LmeAjt74xqhVbw)
 
 # 其他
 集群成本分析
