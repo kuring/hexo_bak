@@ -51,6 +51,7 @@ No rules
 2. 查看文件 cat /proc/sys/net/ipv4/tcp_retries2。
 3. 使用vim打开文件 vim /proc/sys/net/ipv4/tcp_retries2。
 4. 执行 ausearch -f /proc/sys/net/ipv4/tcp_retries2 命令查看，可以看到如下的日志
+
 ```
 $ ausearch -f /proc/sys/net/ipv4/tcp_retries1
 ----
