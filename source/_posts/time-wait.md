@@ -27,7 +27,7 @@ tcp有个tcp时间戳选项，第一个是发送方的当前时钟时间戳（4�
 
 ### tcp_timestamp
 
-
+用来控制tcp option字段，发送方在发送报文时会将当前时钟的时间值放入到时间戳字段。
 
 ### tcp_tw_reuse
 
