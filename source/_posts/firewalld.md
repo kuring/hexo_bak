@@ -148,7 +148,7 @@ public
 该命令会自动修改/etc/firewalld/firewalld.conf配置文件中的DefaultZone字段。
 
 ```
-$ firewall-cmd --list-all
+$ firewall-cmd --set-default-zone=trusted
 ```
 
 ### 查看当前配置规则
