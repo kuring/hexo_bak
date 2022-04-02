@@ -114,5 +114,3 @@ echo -e '\n# kubectl krew' >> ~/.bash_profile
 echo 'export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"' >> ~/.bash_profile
 source ~/.bash_profile
 ```
-
-# 参考资料

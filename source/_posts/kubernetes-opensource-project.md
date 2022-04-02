@@ -42,6 +42,11 @@ k8s的pod调度完全动态的，kube-scheduler组件在调度pod的时候会根
 
 Descheduler组件用来解决pod的重新调度问题，可以根据配置的一系列的规则来触发驱逐pod，让pod可以重新调度，从而使k8s集群内的pod尽可能达到最优状态，有点类似于计算机在运行了一段时间后的磁盘脆片整理功能。Descheduler组件可以以job、cronjob或者deployment的方式运行在k8s集群中。
 
+# [kubernetes-template-project](https://github.com/kubernetes/kubernetes-template-project)
+
+用来存放了k8s项目的标准模板，里面包含了一些必要的文件，新建的项目可以fork该项目。
+
+
 # node-problem-detector(npd)
 项目地址：https://github.com/kubernetes/node-problem-detector
 

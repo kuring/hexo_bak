@@ -12,6 +12,10 @@ k8s提供了aggregated apiserver的方式来扩容api，该项目提供了代码
 相关资料：
 - [Set up an Extension API Server](Set up an Extension API Server)
 
+# [cluster-api-provider-nested](https://github.com/kubernetes-sigs/cluster-api-provider-nested/tree/main/virtualcluster?spm=a2c4g.11186623.0.0.23054a15YVTwkg)
+
+在同一个k8s集群内提供多租户的特性，每个租户具有独立的api-server、controller-manager和scheduler。
+
 # [cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler)
 
 
