@@ -14,6 +14,9 @@ ack的k8s发行版比较简洁，并没有公有云ack的丰富的组件。除�
 
 容器网络插件，支持underlay网络和overlay网络，且可以支持一个k8s集群内的网络同时支持overlay网络和underlay网络。underlay网络模式下，可以支持vlan网络，也可以支持bgp网络。
 
+# [image-syncer](https://github.com/AliyunContainerService/image-syncer)
+
+镜像仓库同步工具，用于两个镜像仓库之间的数据同步。在公有云的产品ack one中有所应用。
 
 # [kube-eventer](https://github.com/AliyunContainerService/kube-eventer)
 

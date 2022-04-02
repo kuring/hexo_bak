@@ -134,5 +134,13 @@ ask还集成了knative，用户可以使用knative的Serving和Eventing的功能
 相关链接：
 - [全新的网关能力增强](https://mp.weixin.qq.com/s/3zxbdvx2LmeAjt74xqhVbw)
 
+# 分布式云容器平台ACK One
+
+ack one提供了两个相对独立的功能，一个是第三方k8s集群的注册，另外一个是k8s多集群的管理和应用发布。两个功能的入口也未统一，其中一个是在ack界面，另外一个是在分布式云容器平台ack one。
+
+第三方k8s集群的注册，允许用户将自己的k8s集群注册到ack上，可以从ack上来管理用户的k8s集群，而且可以部署一些ack自己的组件到用户的k8s集群上面。需要在用户的k8s集群部署一个ack-cluster-agent的服务，在用户的k8s集群跟ack可达的情况下，即可完成用户k8s集群的托管。
+
+k8s多集群的管理功能，底层直接使用了kubevela项目，实现了k8s多集群的管理、多集群的应用发布功能。
+
 # 其他
 集群成本分析
