@@ -67,4 +67,4 @@ kruise-mutating-webhook-configuration   11         17m
 ## 资料
 
 - [https://openkruise.io/zh/docs/installation](https://openkruise.io/zh/docs/installation)
-- [https://mp.weixin.qq.com/s/0YulmrteQSARXHa2NOBLeA](https://mp.weixin.qq.com/s/0YulmrteQSARXHa2NOBLeA）
+- [如何基于 OpenKruise 打破原生 Kubernetes 中的容器运行时操作局限？](https://mp.weixin.qq.com/s/0YulmrteQSARXHa2NOBLeA)

@@ -3,6 +3,8 @@ date: 2022-03-17 15:54:47
 tags:
 author:
 ---
+# pod状态
+
 ## 1. 前置检查
 在排查异常状态的pod错误之前，可以先检查一下node状态，执行`kubectl get node`查看是否所有的node状态都正常。
 
@@ -110,3 +112,6 @@ status:
 说明该pod没有调度成功，在predicate的MatchNodeSelector阶段失败了，没有匹配上node节点。
 
 在k8s 1.21之前的版本，存在bug，节点重启后可能遇到过问题，将pod delete后重新调度可以解决。https://github.com/kubernetes/kubernetes/issues/92067
+
+# 参考
+- [常见的Pod异常状态及处理方式](https://help.aliyun.com/document_detail/412618.html#section-7gv-3tf-paf)

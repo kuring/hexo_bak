@@ -6,6 +6,8 @@ tags:
 
 # 安装docker
 
+下面命令可以安装最新版本的docker-ce
+
 ```shell
 yum remove docker \
                   docker-client \
@@ -23,6 +25,25 @@ yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker && systemctl start docker
 yum install vim git make -y
 ```
+
+如果要安装特定版本的docker-ce，可以使用如下方法。
+
+使用如下命令查询yum源中的docker-ce版本
+
+```
+yum list docker-ce --showduplicates | sort -r
+Last metadata expiration check: 0:00:27 ago on Sat 09 Apr 2022 12:39:09 AM CST.
+docker-ce.x86_64                3:20.10.9-3.el8                 docker-ce-stable
+docker-ce.x86_64                3:20.10.8-3.el8                 docker-ce-stable
+docker-ce.x86_64                3:20.10.7-3.el8                 docker-ce-stable
+docker-ce.x86_64                3:20.10.6-3.el8                 docker-ce-stable
+```
+
+选择特定版本的docker-ce和docker-ce-cli，执行如下命令
+```
+yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd.io
+```
+
 
 # 安装kubectl kind helm
 

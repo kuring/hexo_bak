@@ -1,4 +1,4 @@
-title: iptables基本知识
+title: iptables基础知识
 date: 2018-01-31 23:25:12
 tags:
 ---
