@@ -3,6 +3,32 @@ date: 2022-03-28 11:20:03
 tags:
 author:
 ---
+## ps
+
+最常用的为`ps -ef`和`ps aux`命令，两者的输出结果差不多，其中`ps -ef`为System V Style风格，`ps aux`为BSD风格，现在ps命令两者均支持。
+
+```
+$ps aux
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+www-data       1  0.0  0.0    212     8 ?        Ss   Apr09   0:00 /usr/bin/dumb-init -- /nginx-ingress-controller
+www-data       6  0.9  0.3 813500 100456 ?       Ssl  Apr09  67:20 /nginx-ingress-controller --publish-service
+www-data      33  0.0  0.7 458064 242252 ?       S    Apr09   0:53 nginx: master process /usr/local/nginx/sbin/nginx -c /etc/nginx/nginx.conf
+www-data   46786  0.0  0.7 459976 239996 ?       S    17:57   0:00 rollback logs/eagleeye.log interval=60 adjust=600
+www-data   46787  1.4  0.8 559120 283328 ?       Sl   17:57   2:07 nginx: worker process
+www-data   46788  1.1  0.8 558992 284772 ?       Sl   17:57   1:38 nginx: worker process
+www-data   46789  0.0  0.7 452012 237152 ?       S    17:57   0:01 nginx: cache manager process
+www-data   46790  0.0  0.8 490832 267600 ?       S    17:57   0:00 nginx: x
+www-data   47357  0.0  0.0  60052  1832 pts/2    R+   20:21   0:00 ps aux
+```
+
+每个列的值如下：
+- %MEM：占用内存百分比
+- VSZ: 进程使用的虚拟内存量（KB）
+- RSS：进程占用的固定内存量，驻留在页中的（KB）
+- STAT：进程的状态
+- TIME：进程实际使用的cpu运行时间
+
+
 ## pssh
 
 该工具的定位是在多台主机上批量执行pssh命令。
