@@ -1,6 +1,8 @@
-title: knative
-date: 2022-04-01 21:16:52
+title: knative（个人笔记）
 tags:
+  - 个人笔记
+categories: []
+date: 2022-04-01 21:16:00
 author:
 ---
 # 理论

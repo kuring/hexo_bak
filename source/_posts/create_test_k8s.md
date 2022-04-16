@@ -86,12 +86,14 @@ echo 'source <(kind completion bash)' >>~/.bash_profile
 其中将apiServerAddress指定为了本机，即创建出来的k8s集群仅允许本集群内访问。如果要是需要多个k8s集群之间的互访场景，由于kind拉起的k8s运行在docker容器中，而docker容器使用的是容器网络，此时如果设置apiserver地址为127.0.0.1，那么集群之间就没法直接通讯了，此时需要指定一个可以在docker容器中访问的宿主机ip地址。
 
 ```
+if=eth0
+ip=`ifconfig $if|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 cat > kind.conf <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: kind
 networking:
-  apiServerAddress: "127.0.0.1"
+  apiServerAddress: "$ip"
   apiServerPort: 6443
 EOF
 kind create cluster --config kind.conf
