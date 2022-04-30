@@ -15,6 +15,12 @@ Google开源的一款可以在容器内部通过Dockerfile构建docker镜像的�
 
 kaniko则重新实现根据Dockerfile构建镜像的功能，使得构建镜像不再依赖docker daemon。随着gitops的流程，CI工具也正逐渐on k8s部署，kaniko正好可以在k8s的环境中根据Dockerfile完成镜像的打包过程，并将镜像推送到镜像仓库中。
 
+## [arc42](https://arc42.org/overview)
+
+架构文档模板
+
+相关链接：https://topic.atatech.org/articles/205083?spm=ata.21736010.0.0.18c23b50NAifwr#tF1lZkHm
+
 
 # 文章
 

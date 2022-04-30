@@ -3,6 +3,22 @@ date: 2022-03-28 11:20:03
 tags:
 author:
 ---
+## curl
+
+- --local-port：指定源端口号
+
+## history
+
+bash会将历史命令记录到文件.bash_history中，通过history命令可以查看到历史执行的命令。但history在默认情况下，仅会显示命令，不会展示出执行命令的时间。history命令可以根据环境变量HISTTIMEFORMAT来显示时间，要想显示时间可以执行如下的命令：
+
+```
+HISTTIMEFORMAT='%F %T ' history
+```
+
+## lrzsz
+
+CentOS rpm包地址：https://rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/lrzsz-0.12.20-36.el7.x86_64.rpm
+
 ## ps
 
 最常用的为`ps -ef`和`ps aux`命令，两者的输出结果差不多，其中`ps -ef`为System V Style风格，`ps aux`为BSD风格，现在ps命令两者均支持。

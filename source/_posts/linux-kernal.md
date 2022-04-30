@@ -43,6 +43,7 @@ Linux的内核参数均位于/proc/sys目录下，涉及到如下几个目录：
 | --- | --- |
 | net.ipv4.ip_local_reserved_ports | 随机端口的黑名单列表，系统在发起连接时，不使用该内核参数内的端口号 |
 | net.ipv4.ip_local_port_range | 随机端口的白名单范围，网络连接可以作为源端口的最小和最大端口限制 |
+| net.ipv4.rp_filter | 是否开启对数据包源地址的校验, 收到包后根据source ip到route表中检查是否否和最佳路由，否的话扔掉这个包。这次如下值：<br>1. 不开启源地址校验<br> 2. 开启严格的反向路径校验。对每个进来的数据包，校验其反向路径是否是最佳路径。如果反向路径不是最佳路径，则直接丢弃该数据包。<br> 3. 开启松散的反向路径校验。对每个进来的数据包，校验其源地址是否可达，即反向路径是否能通（通过任意网口），如果反向路径不通，则直接丢弃该数据包。该内核参数 net.ipv4.conf.all.log_martians 可以来控制是否打开日志，日志打开后可以在/var/log/message中观察到。 |
 
 ## 内核参数在k8s的支持情况
 | 大类 | 子类 | 备注 |
@@ -61,7 +62,7 @@ Linux的内核参数均位于/proc/sys目录下，涉及到如下几个目录：
 - net.*（内核中可以在容器命名空间里被更改的网络配置项相关参数）。然而也有一些特例 （例如，net.netfilter.nf_conntrack_max 和 net.netfilter.nf_conntrack_expect_max 可以在容器命名空间里被更改，但它们是非命名空间的）。
 
 k8s在pod中声明内核参数的方式如下：
-```json
+```yaml
 apiVersion: v1 
 kind: Pod 
 metadata:   
