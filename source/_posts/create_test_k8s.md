@@ -25,7 +25,7 @@ yum install docker-ce docker-ce-cli containerd.io -y
 systemctl enable docker && systemctl start docker
 yum install vim git make -y
 ```
-## 安装特性版本的docker
+## 安装特定版本的docker
 
 如果要安装特定版本的docker-ce，可以使用如下方法。
 

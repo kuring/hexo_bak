@@ -12,6 +12,10 @@ audit为linux内核安全体系的重要组成部分，用来记录内核的系�
  - auditctl: 面向用户的工具，类似于iptables命令
  - auditd: 负责将审计信息写入到/var/
  
+## 启动auditd服务
+
+auditd作为单独的服务运行在系统上，Redhat系统使用`systemctl start auditd`启动服务，启动后通过 `ps -ef | grep auditd`查看进程是否启动成功。
+ 
 ## auditctl
 
 查看auditd的运行状态
@@ -62,3 +66,10 @@ type=PATH msg=audit(1648442688.159:6232591): item=0 name="/proc/sys/net/ipv4/" i
 type=CWD msg=audit(1648442688.159:6232591):  cwd="/root"
 type=SYSCALL msg=audit(1648442688.159:6232591): arch=c000003e syscall=2 success=yes exit=3 a0=11687a0 a1=241 a2=1a4 a3=7ffe33dc14e0 items=2 ppid=8375 pid=8629 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts1 ses=250225 comm="vim" exe="/usr/bin/vim" key=(null)
 ```
+
+### 监控文件夹变化
+
+监控文件夹同样采用跟上述文件相同的方式，但有个问题是如果文件夹下内容较多，会一起监控，从而导致audit的log内容过多。
+
+## 参考文档
+[RedHat auditd文档](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/chap-system_auditing)

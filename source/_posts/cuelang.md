@@ -1,4 +1,4 @@
-title: cue语言（学习笔记）
+title: cue语言（个人笔记）
 date: 2022-05-04 23:24:34
 tags:
 author:
