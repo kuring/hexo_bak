@@ -53,6 +53,7 @@ yum install docker-ce-<VERSION_STRING> docker-ce-cli-<VERSION_STRING> containerd
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x kubectl
 mv kubectl /usr/bin/
+# 如果找不到rpm包，可以通过网络安全 rpm -ivh http://mirror.centos.org/centos/7/os/x86_64/Packages/bash-completion-2.1-8.el7.noarch.rpm
 yum install -y bash-completion
 echo -e '\n# kubectl' >> ~/.bash_profile
 echo 'source <(kubectl completion bash)' >>~/.bash_profile

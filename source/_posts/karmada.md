@@ -443,7 +443,7 @@ member2   v1.22.0   Push   True    61m
 member3   v1.22.0   Pull   True    61m
 ```
 # 应用发布
-![](https://kuring.oss-cn-beijing.aliyuncs.com/common/karmada-concepts.png)
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/karama-concepts.png)
 
 将context切换到karmada-host，在host集群部署应用nginx
 ```powershell
@@ -695,4 +695,3 @@ pull模式针对的场景是中心集群无法直接子集群的场景。每个�
 ​
 
 ​
-

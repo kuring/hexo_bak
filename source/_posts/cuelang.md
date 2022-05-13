@@ -120,5 +120,6 @@ parameter:{
 执行 cue export deployment.cue -e template --out yaml 可获取到渲染结果。
 
 # 引用
-[Getting Started](https://cuelang.org/docs/install/)
-[CUE语言基础入门](https://kubevela.io/zh/docs/platform-engineers/cue/basic)
+- [Getting Started](https://cuelang.org/docs/install/)
+- [CUE语言基础入门](https://kubevela.io/zh/docs/platform-engineers/cue/basic)
+- [Cuetorials](https://cuetorials.com/zh/introduction/)
