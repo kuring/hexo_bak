@@ -51,6 +51,8 @@ virtual kubelet服务通过在k8s集群上创建虚拟node，当一个pod调度�
 
 CloudEvents定义了一种通用的方式描述事件数据的规范，由CNCF的Serverless工作组提出。阿里云的事件总线EventBridge基于此规范提供了比较好商业化产品。
 
+相关链接：[EventBridge 事件总线及 EDA 架构解析](https://mp.weixin.qq.com/s/SdpMLCaRSGsFnm08PjBxEA)
+
 ## 9. [kubectl-who-can](https://github.com/aquasecurity/kubectl-who-can)
 
 在k8s系统中，通常会通过RBAC的机制来配置某个账号拥有某种权限，但如果反过来要查询某个权限被哪些账号所拥有，就会麻烦很多。

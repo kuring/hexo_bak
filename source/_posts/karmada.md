@@ -278,7 +278,7 @@ spec:
       - member1
       - member2
     replicaScheduling:
-      replicaDivisionPreference: Weighted
+      replicaDivisionPreference: Weighted·
       replicaSchedulingType: Divided
       weightPreference:
         staticWeightList:

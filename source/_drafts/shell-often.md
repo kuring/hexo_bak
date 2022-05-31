@@ -6,6 +6,7 @@ author:
 ## curl
 
 - --local-port：指定源端口号
+- --proxy：指定本地代理，例如：http://127.0.0.1:52114
 
 ## history
 

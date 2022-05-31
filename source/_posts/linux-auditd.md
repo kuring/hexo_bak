@@ -71,5 +71,20 @@ type=SYSCALL msg=audit(1648442688.159:6232591): arch=c000003e syscall=2 success=
 
 监控文件夹同样采用跟上述文件相同的方式，但有个问题是如果文件夹下内容较多，会一起监控，从而导致audit的log内容过多。
 
+### 监控系统定期reboot
+
+执行如下命令：
+
+```
+auditctl -w /bin/systemctl -p rwxa -k systemd_call
+auditctl -a always,exit -F arch=b64 -S reboot -k reboot_call
+```
+
+待系统重启后执行如下命令：
+
+```
+ausearch -f reboot
+```
+
 ## 参考文档
 [RedHat auditd文档](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/chap-system_auditing)
