@@ -120,6 +120,9 @@ source ~/.bash_profile
 
 # 安装controller-gen，会将controller-gen命令安装到GOPATH/bin目录下
 go install sigs.k8s.io/controller-tools/cmd/controller-gen@latest
+
+# 安装dlv工具
+go install github.com/go-delve/delve/cmd/dlv@latest
 ```
 
 ## 安装krew

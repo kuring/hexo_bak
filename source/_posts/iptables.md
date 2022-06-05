@@ -111,6 +111,8 @@ raw表中的规则可以被链使用：prerouting output
 
 ## 查询
 
+iptables 查询默认的表为filter，默认会列出表中所有链的规则
+
 * -t 用于指定要操作的表，支持raw mangle filter nat，省略-t选项，默认使用filter表
 * -L 列出rule
 * -v 可查看更详细的信息
