@@ -127,4 +127,4 @@ $ docker info
 
 ## 参考资料
 
-- [Image Manifest V 2, Schema 2](
+- [Image Manifest V 2, Schema 2](https://docs.docker.com/registry/spec/manifest-v2-2/)
