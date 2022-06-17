@@ -2,7 +2,6 @@ title: CNCF Landscape解读
 tags: []
 categories: []
 date: 2022-06-10 00:14:00
-
 author:
 ---
 # 什么是CNCF Landscape？
@@ -17,13 +16,15 @@ CNCF Landscape为CNCF的一个重要项目，为了帮助企业和个人开发�
 
 路线图的目的是指导用户使用云原生技术的路径和开源项目。其中包括了10个步骤。
 
-TODO：需要有个简化版图形
-
 
 # CNCF Landscape愿景图
 
 将云原生技术进行了分层分类，可以非常清晰的将云原生技术展示给用户。类似于软件架构中，又称“方块图”、“砌砖图”。
 ![](https://landscape.cncf.io/images/landscape.png)
+
+精简版图形如下：
+
+![](https://kuring.oss-cn-beijing.aliyuncs.com/common/cncf_landscape2.png)
 
 ## 供给层（provisioning）
 
@@ -229,7 +230,7 @@ CNCF项目包括：
 | Service Mesh Interface   | 沙箱     |                    |
 | Service Mesh Performance | 沙箱     |                    |
 
-## 应用定义和
+## 应用定义和应用部署
 
 ### 数据库
 
@@ -241,11 +242,82 @@ CNCF项目包括：
 
 ### 流式计算和消息
 
-
+| CNCF项目                               | 项目阶段 | 项目介绍                               |
+| -------------------------------------- | -------- | -------------------------------------- |
+| [CloudEvents](https://cloudevents.io/) | 孵化     | 仅描述了事件的数据规范，并非具体的实现 |
+| NATS                                   | 孵化     |                                        |
+| Pravega                                | 沙箱     |                                        |
+| Strimzi                                | 沙箱     |                                        |
+| Tremor                                 | 沙箱     |                                        |
 
 ### 应用定义和镜像构建
 
+| CNCF项目                                                     | 项目阶段 | 项目介绍                                                     |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| Artifact Hub                                                 | 沙箱     |                                                              |
+| Backstage                                                    | 孵化     |                                                              |
+| Buildpacks                                                   | 孵化     |                                                              |
+| Devfile                                                      | 沙箱     |                                                              |
+| Helm                                                         | 毕业     | k8s的应用打包工具                                            |
+| Krator                                                       | 沙箱     |                                                              |
+| KubeVela                                                     | 沙箱     | 阿里云开源的基于OAM的应用模型的实现，用来做应用的发布，同时支持多集群 |
+| KubeVirt                                                     | 孵化     |                                                              |
+| KUDO                                                         | 沙箱     |                                                              |
+| Nocalhost                                                    | 沙箱     |                                                              |
+| [Operator Framework]([https://operatorframework.io](https://operatorframework.io/)) | 孵化     | 用来开发基于k8s CRD的operator框架，功能跟k8s亲生的kubebuilder非常相似 |
+| Porter                                                       |          |                                                              |
+| sealer                                                       | 沙箱     | 阿里云开源的集群部署工具，理念比较先进，通过升维的方式可以通过类似Dockerfile的方式来构建集群镜像，并可以通过类似docker run的方式一键拉起完成的一套基于k8s的集群环境 |
+| Serverless Workflow                                          |          |                                                              |
+| Telepresence                                                 |          |                                                              |
+
 ### 持续集成和持续交付
+
+| CNCF项目                                | 项目阶段 | 项目介绍                                                     |
+| --------------------------------------- | -------- | ------------------------------------------------------------ |
+| Argo                                    | 孵化     | k8s上应用广泛的工作流引擎                                    |
+| Brigade                                 | 沙箱     |                                                              |
+| Flux                                    | 孵化     | gitops工具                                                   |
+| Keptn                                   | 孵化     |                                                              |
+| OpenGitOps                              | 沙箱     |                                                              |
+| [OpenKruise](https://openkruise.io/zh/) | 沙箱     | 基于k8s能力扩展的组件，通过CRD的方式定义了很多对象，用来增强k8s的workload能力。该组件放到该领域下有些不合适。 |
+
+## 可观测和分析
+
+### 监控
+
+| CNCF项目                                                     | 项目阶段 | 项目介绍                                                     |
+| ------------------------------------------------------------ | -------- | ------------------------------------------------------------ |
+| Cortex                                                       | 孵化     |                                                              |
+| Fonio                                                        | 沙箱     |                                                              |
+| Kuberhealthy                                                 | 沙箱     | k8s的巡检工具，用来检查k8s的健康状态。支持以插件的方式接入巡检脚本。 |
+| [OpenMetrics](https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md) | 沙箱     | 从Prometheus项目中发展出来的监控数据格式标准，该项目仅定义标准，非实现。 |
+| Pixie                                                        | 沙箱     |                                                              |
+| Prometheus                                                   | 毕业     | 云原生领域事实上的监控标准                                   |
+| Skooner                                                      | 沙箱     |                                                              |
+| Thanos                                                       | 孵化     | prometheus的集群化方案                                       |
+| Trickster                                                    | 沙箱     |                                                              |
+
+### 日志
+
+| CNCF项目                            | 项目阶段 | 项目介绍     |
+| ----------------------------------- | -------- | ------------ |
+| [Fluentd](https://www.fluentd.org/) | 毕业     | 日志收集工具 |
+
+### 分布式会话跟踪
+
+| CNCF项目                                   | 项目阶段 | 项目介绍                                                     |
+| ------------------------------------------ | -------- | ------------------------------------------------------------ |
+| Jaeger                                     | 毕业     | User开源的完整的分布式会话跟踪项目                           |
+| [OpenTelemetry](https://opentelemetry.io/) | 孵化     | 同时集成了监控、日志和分布式会话跟踪三个领域的数据收集工具，大有一统可观察性领域的趋势。 |
+| [OpenTracing](https://opentracing.io/)     | 归档     | 已经完全被OpenTelemetry取代                                  |
+
+### 混沌引擎 
+
+| CNCF项目   | 项目阶段 | 项目介绍 |
+| ---------- | -------- | -------- |
+| Chaos Mesh | 孵化     |          |
+| Chaosblade | 沙箱     |          |
+| Litmus     | 沙箱     |          |
 
 # 参考资料
 
