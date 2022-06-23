@@ -7,6 +7,7 @@ author:
 
 - --local-port：指定源端口号
 - --proxy：指定本地代理，例如：http://127.0.0.1:52114
+- -d：指定body，如果body比较小，可以直接指定`-d 'login=emma＆password=123'`，也可以通过指定文件的方式 `-d '@data.txt'`
 
 ## history
 
