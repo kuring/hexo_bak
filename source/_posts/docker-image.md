@@ -15,6 +15,14 @@ author:
 }
 ```
 
+最好的方式为开启docker daemon的特性，修改 /etc/docker/daemon.json 文件：
+
+```json
+{
+  "experimental": true
+}
+```
+
 例如执行 `docker manifest inspect golang:alpine` 可以看到golang 官方的docker镜像包含了多架构信息，每个架构下会对应一个sha256值。
 
 ```
