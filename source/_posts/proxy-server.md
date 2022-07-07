@@ -51,6 +51,12 @@ export http_proxy=http://localhost:1080
 export https_proxy=http://localhost:1080
 ```
 
+如果是 socks5 代理同样可以使用上述两个环境变量：
+```
+export http_proxy=socks5://localhost:1080
+export https_proxy=socks5://localhost:1080
+```
+
 ## 相关链接
 
 - https://github.com/3proxy/3proxy

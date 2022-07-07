@@ -304,7 +304,7 @@ Manifest为json格式的描述文件，包含了如下三个用途：
 
 ## 容器运行时标准
 
-用来定义容器的配置、运行环境和声明周期。其中runc为容器运行时的官方实现，其主要代码来源为docker的容器运行时，kara-containers也有对应的OCI实现。
+用来定义容器的配置、运行环境和声明周期。runc为容器运行时的官方实现，其主要代码来源为docker的容器运行时，kara-containers也有对应的OCI实现。
 
 参考文档：[opencontainers/runtime-spec](https://github.com/opencontainers/runtime-spec)
 
@@ -509,7 +509,9 @@ Manifest为json格式的描述文件，包含了如下三个用途：
 }
 ```
 
+## k8s支持情况
 
+K8s可以通过 pod 的spec.runtimeClassName 来指定 oci runtime 的实现方式。
 
 ## 参考
 
