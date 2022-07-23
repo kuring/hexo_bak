@@ -4,7 +4,7 @@ tags:
 author:
 ---
 
-/etc/resolv.conf文件为Linux主机的DNS配置文件。
+/etc/resolv.conf文件为Linux主机的DNS配置文件，在 Linux 主机上可以执行 `man resolv.conf` 查看帮助信息。
 
 ## 配置文件说明
 
@@ -47,6 +47,8 @@ sortlist 130.155.160.0/255.255.240.0 130.155.0.0
 options option ...
 ```
 
+- inet6: 应用程序在执行系统调用 gethostbyname 时，会优先执行 AAAA 记录的查询。如果查询不到 ipv6 地址，再去查询 ipv4 地址。
+
 ## 参考资料
 
-- [resolv.conf(5) — Linux manual page]([resolv.conf(5) - Linux manual page (man7.org)](https://man7.org/linux/man-pages/man5/resolv.conf.5.html))
+- [resolv.conf(5) - Linux manual page (man7.org)](https://man7.org/linux/man-pages/man5/resolv.conf.5.html)

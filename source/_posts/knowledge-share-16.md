@@ -1,5 +1,5 @@
 title: 技术分享第16期
-date: 2022-04-15 19:09:08
+date: 2022-07-23 16:09:08
 tags:
 author:
 ---
@@ -11,13 +11,15 @@ author:
 
 Google开源的一款可以在容器内部通过Dockerfile构建docker镜像的工具。
 
-`docker build`命令可以根据Dockerfile构建出docker镜像，但该操作实际上是由docker daemon进程完成。如果`docker build`命令在docker容器中执行，由于容器中并没有docker daemon进程，因此直接执行`docker build`肯定会失败。
+我们知道`docker build`命令可以根据Dockerfile构建出docker镜像，但该操作实际上是由docker daemon进程完成。如果`docker build`命令在docker容器中执行，由于容器中并没有docker daemon进程，因此直接执行`docker build`肯定会失败。
 
-kaniko则重新实现根据Dockerfile构建镜像的功能，使得构建镜像不再依赖docker daemon。随着gitops的流程，CI工具也正逐渐on k8s部署，kaniko正好可以在k8s的环境中根据Dockerfile完成镜像的打包过程，并将镜像推送到镜像仓库中。
+kaniko则重新实现了Dockerfile构建镜像的功能，使得构建镜像不再依赖docker daemon。随着gitops的流程，CI工具也正逐渐on k8s部署，kaniko正好可以在k8s的环境中根据Dockerfile完成镜像的打包过程，并将镜像推送到镜像仓库中。
 
 ## [arc42](https://arc42.org/overview)
 
-架构文档模板
+![](https://kuring.oss-cn-beijing.aliyuncs.com/knowledge/arc42-overview-V8.png)
+
+技术人员在写架构文档的时候，遇到最多的问题是该如何组织技术文档的结构，arc42 提供了架构文档的模板，将架构文档分为了 12 个章节，每个章节又包含了多个子章节，用来帮助技术人员更好的编写架构文档。
 
 相关链接：https://topic.atatech.org/articles/205083?spm=ata.21736010.0.0.18c23b50NAifwr#tF1lZkHm
 
@@ -79,7 +81,7 @@ k8s中的pod默认的时区跟pod的镜像有关，跟pod宿主机所在的时�
 
 2. [程序员必备的思维能力：结构化思维](https://mp.weixin.qq.com/s/F0KoDD9er7MNKYo-5POfsA)
 
-结构化思维不仅对于程序员，对于职场中的很多职业都非常重要，无论是沟通、汇报、晋升，还是写代码结构化思维都非常重要。本文深度剖析了金字塔原理以及如何应用，非常值得一读。
+结构化思维不仅对于程序员，对于职场中的很多职业都非常重要，无论是沟通、汇报、晋升，还是写代码结构化思维都非常重要。本文深度剖析了金字塔原理以及如何应用，非常值得一读。文章的作者将公众号的文章整理为了《程序员底层思维》一书，推荐大家阅读。
 
 3. [中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide)
 

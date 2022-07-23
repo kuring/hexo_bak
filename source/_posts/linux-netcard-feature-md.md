@@ -32,6 +32,48 @@ MTU是指一个以太网帧能够携带的最大数据部分的大小，并不�
 
 GRO是LRO的升级版，正在逐渐取代LRO。运行与内核态，不再依赖于硬件。
 
+## RSS hash 特性
+
+网卡可以根据数据包放到不同的网卡队列来处理，并可以根据不同的数据协议来设置不同的值。
+
+注意：该特性并非所有的网卡都支持
+
+下面命令为查询 udp 协议的设置，可以看到 hash 的策略为根据源 ip 地址和目的 ip 地址。
+
+```
+$ ethtool -n eth0 rx-flow-hash udp4
+UDP over IPV4 flows use these fields for computing Hash flow key:
+IP SA
+IP DA
+```
+
+可以使用 `ethtool -N eth0 rx-flow-hash udp4 sdfn`来修改hash 策略，`sdfn`对应的含义如下：
+
+```
+m   Hash on the Layer 2 destination address of the rx packet.
+v   Hash on the VLAN tag of the rx packet.
+t   Hash on the Layer 3 protocol field of the rx packet.
+s   Hash on the IP source address of the rx packet.
+d   Hash on the IP destination address of the rx packet.
+f   Hash on bytes 0 and 1 of the Layer 4 header of the rx packet.
+n   Hash on bytes 2 and 3 of the Layer 4 header of the rx packet.
+r   Discard all packets of this flow type. When  this  option  is
+    set, all other options are ignored.
+```
+
+修改完成后再查看网卡的 hash 策略如下：
+
+```
+$ ethtool -n eth0 rx-flow-hash udp4
+UDP over IPV4 flows use these fields for computing Hash flow key:
+IP SA
+IP DA
+L4 bytes 0 & 1 [TCP/UDP src port]
+L4 bytes 2 & 3 [TCP/UDP dst port]
+```
+
+
+
 ## 参考文章
 
 - [关于MTU，这里也许有你不知道的地方](https://segmentfault.com/a/1190000019206098)

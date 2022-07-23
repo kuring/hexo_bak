@@ -563,15 +563,38 @@ status:
 ```
 # Ingress
 
-Ingress为单独的pod，通常不需要单独适配。
+Ingress 可以通过开关 `disable-ipv6` 来控制是否开启 ipv6，默认 ipv6 开启。
 
-阿里云ACK的Nginx Ingress支持ipv6特性：https://help.aliyun.com/document_detail/378167.html
+在开启 ipv6 的情况下，如果 nginx ingress 的 pod 本身没有ipv6 的 ip地址，则在 nginx 的配置文件中并不会监听 ipv6 的端口号。
+
+```
+        listen 80  ;
+        listen 443  ssl http2 ;
+```
+
+如果 nginx ingress 的 pod 本身包含 ipv6 地址，则 nginx 的配置文件如下：
+
+```
+        listen 80  ;
+        listen [::]:80  ;
+        listen 443  ssl http2 ;
+        listen [::]:443  ssl http2 ;
+```
+
+
+
+
+
+参考资料：
+
+- 阿里云ACK的Nginx Ingress支持ipv6特性：https://help.aliyun.com/document_detail/378167.html
+- [Nginx Ingress 支持 ipv6]([ConfigMap - NGINX Ingress Controller (kubernetes.github.io)](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#disable-ipv6))
 
 
 # 引用
 
 - [https://kubernetes.io/docs/concepts/services-networking/dual-stack/](https://kubernetes.io/docs/concepts/services-networking/dual-stack/)
 - [https://kubernetes.io/docs/tasks/network/validate-dual-stack/](https://kubernetes.io/docs/tasks/network/validate-dual-stack/)
-- ​[https://kind.sigs.k8s.io/docs/user/configuration/](https://kind.sigs.k8s.io/docs/user/configuration/)
+- [https://kind.sigs.k8s.io/docs/user/configuration/](https://kind.sigs.k8s.io/docs/user/configuration/)
 
-​<br />
+<br />

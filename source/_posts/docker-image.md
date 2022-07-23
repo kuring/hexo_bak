@@ -100,6 +100,8 @@ author:
 }
 ```
 
+gcr.io 可以在 console 上直接看到信息，比如: [nginx镜像](https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/ingress-nginx%2Fnginx@sha256:1ef404b5e8741fe49605a1f40c3fdd8ef657aecdb9526ea979d1672eeabd0cd9/details?tab=pull)
+
 ### 多架构镜像的构建
 
 可以使用docker buildx命令，比如 `docker buildx build -t <image-name> --platform=linux/arm64,linux/amd64 . --push` 可以同时构建出arm64和amd64的镜像。
