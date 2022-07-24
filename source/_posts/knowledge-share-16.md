@@ -1,8 +1,13 @@
 title: 技术分享第16期
 date: 2022-07-23 16:09:08
 tags:
+
 author:
 ---
+![](https://kuring.oss-cn-beijing.aliyuncs.com/knowledge/header-16.jpg)
+
+题图为望京傍晚的天气，夕阳尽情散发着落山前的最后余光，层次分明的云朵映射在建筑物的上熠熠生辉。上班族结束了一天紧张的工作，朝着地铁站的方向奔向自己的家，这才是城市生活该有的模样。不过可惜的是，对于很多打工族而言，一天的工作还远未结束，晚饭后仍要坐在灯火通明的写字楼内或为生活或为梦想挥霍着自己的时光。
+
 # 资源
 
 ## [kaniko](https://github.com/GoogleContainerTools/kaniko)
@@ -13,7 +18,7 @@ Google开源的一款可以在容器内部通过Dockerfile构建docker镜像的�
 
 我们知道`docker build`命令可以根据Dockerfile构建出docker镜像，但该操作实际上是由docker daemon进程完成。如果`docker build`命令在docker容器中执行，由于容器中并没有docker daemon进程，因此直接执行`docker build`肯定会失败。
 
-kaniko则重新实现了Dockerfile构建镜像的功能，使得构建镜像不再依赖docker daemon。随着gitops的流程，CI工具也正逐渐on k8s部署，kaniko正好可以在k8s的环境中根据Dockerfile完成镜像的打包过程，并将镜像推送到镜像仓库中。
+kaniko则重新实现了Dockerfile构建镜像的功能，使得构建镜像不再依赖docker daemon。随着gitops的技术普及，CI工具也正逐渐on k8s部署，kaniko正好可以在k8s的环境中根据Dockerfile完成镜像的打包过程，并将镜像推送到镜像仓库中。
 
 ## [arc42](https://arc42.org/overview)
 
@@ -52,7 +57,7 @@ k8s的命令行工具kubectl用来查看集群的整体资源情况往往操作�
 
 ![](https://kuring.oss-cn-beijing.aliyuncs.com/common/opa.png)
 
-OPA为一款开源的基于Rego语言的通用策略引擎，CNCF的毕业项目，可以用来实现一些基于策略的安全防护。比如在k8s中，要求pod的镜像必须为某个特定的registry，用户可以编写策略，一旦pod创建，OPA的gatekeeper组件通过webhook的方式来执行策略校验，一旦校验失败从而到会导致pod创建失败。
+OPA为一款开源的基于Rego语言的通用策略引擎，CNCF的毕业项目，可以用来实现一些基于策略的安全防护。比如在k8s中，要求pod的镜像必须为某个特定的registry，用户可以编写策略，一旦pod创建，OPA的gatekeeper组件通过webhook的方式来执行策略校验，一旦校验失败从而会导致pod创建失败。
 
 比如 [阿里云的ACK的gatekeeper](https://help.aliyun.com/document_detail/180803.html?spm=ata.21736010.0.0.3d7e50fddLMBB9) 就是基于OPA的实现。
 
