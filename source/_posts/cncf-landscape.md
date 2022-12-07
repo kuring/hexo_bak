@@ -317,7 +317,7 @@ CNCF项目包括：
 | [OpenTelemetry](https://opentelemetry.io/) | 孵化     | 同时集成了监控、日志和分布式会话跟踪三个领域的数据收集工具，大有一统可观察性领域的趋势。 |
 | [OpenTracing](https://opentracing.io/)     | 归档     | 已经完全被OpenTelemetry取代                                  |
 
-### 混沌引擎 
+### 混沌引擎
 
 | CNCF项目   | 项目阶段 | 项目介绍 |
 | ---------- | -------- | -------- |
@@ -331,10 +331,7 @@ CNCF项目包括：
 - [云原生全景图详解系列（一）：带你了解云原生技术图谱](https://mp.weixin.qq.com/s/RPuzsVOyFGtqPdcqZqF_1Q)
 - [云原生全景图详解系列（二）：供应层](https://mp.weixin.qq.com/s/NrW9-cJ1Lg-VF0WK8kPb7w)
 - [云原生全景图详解系列（三）：运行时层](https://mp.weixin.qq.com/s/Q3USUso_PqeTrpNW8mIDhA)
-- [云原生全景图详解系列（四）：编排和管理层
-](https://mp.weixin.qq.com/s/2G4uvqo9_mEbRPh9MfnUmw)
-- [云原生全景图详解系列（五）：应用程序定义和开发层
-](https://mp.weixin.qq.com/s/Zkj0jQC1QOXFLkhCc0zlug)
-- [云原生全景图详解（六）｜托管 Kubernetes 和 PaaS 解决什么问题
-](https://mp.weixin.qq.com/s/73AjqjDG7VuFjtYgCBhHDg)
+- [云原生全景图详解系列（四）：编排和管理层](https://mp.weixin.qq.com/s/2G4uvqo9_mEbRPh9MfnUmw)
+- [云原生全景图详解系列（五）：应用程序定义和开发层](https://mp.weixin.qq.com/s/Zkj0jQC1QOXFLkhCc0zlug)
+- [云原生全景图详解（六）｜托管 Kubernetes 和 PaaS 解决什么问题](https://mp.weixin.qq.com/s/73AjqjDG7VuFjtYgCBhHDg)
 - [云原生全景图详解（七）：可观察性是什么，有哪些相关工具](https://mp.weixin.qq.com/s/vJwqf9S8l9KpymmAAWACxw)

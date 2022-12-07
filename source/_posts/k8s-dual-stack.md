@@ -77,7 +77,7 @@ k8s的service网络为了支持双栈，新增加了几个字段。
 
 .spec.ipFamilyPolicy支持如下值：
 - SingleStack：默认值。会使用.spec.ipFamilies数组中配置的第一个协议来分配cluster ip。如果没有指定.spec.ipFamilies，会使用service-cluster-ip-range配置中第一个cidr中来配置地址。
-- PreferDualStack：如果当前k8s集群配置为单栈，则仅分配单栈ip地址。如果k8s集群为双栈，则分配双栈ip地址，此时跟RequireDualStack的行为保持一致。
+- PreferDualStack：如果 .spec.ipFamilies 没有设置，使用 k8s 集群默认的 ipFamily。
 - RequireDualStack：同时分配ipv4和ipv6地址。.spec.ClusterIP的值会从.spec.ClusterIPs选择第一个元素。
 
 ## service配置场景
