@@ -77,3 +77,9 @@ TOKEN变量可以直接使用kube-system下的admin账号。
 3. 执行 `echo "xxxx" | base64 -d` 即可获取到对应的token
 
 obj变量为要修改的service对象名称。
+
+## 8. 查看 secret 内容
+
+```
+kubectl get secret -n ark-system ark.cmdb.https.origin.tls -o jsonpath='{.data.ca\.pem}' | base64 -d
+```
