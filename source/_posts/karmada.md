@@ -1,6 +1,7 @@
 title: k8s多集群管理方案 - karmada
 date: 2022-02-22 20:16:25
-tags:
+tags: 多集群
+
 author:
 ---
 # 简介
@@ -694,4 +695,3 @@ push模式karmada会直接访问成员集群的kuba-apiserver。
 pull模式针对的场景是中心集群无法直接子集群的场景。每个子集群运行karmada-agent组件，一旦karmada-agent部署完成后就会自动向host集群注册，karmada-agent会watch host集群的karmada-es-<cluster name>下的cr，并在本集群部署。
 ​
 
-​

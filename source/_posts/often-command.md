@@ -10,6 +10,8 @@ shell的命令千千万，工作中总有些命令是经常使用到的，本文
 
 在python3环境下该命令变更为：`python3 -m http.server 8080`
 
+格式化 json: `cat 1.json | python -m json.tool`
+
 ## awk
 
 按照,打印出一每一列 `awk -F, '{for(i=1;i<=NF;i++){print $i;}}'`

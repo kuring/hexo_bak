@@ -1,7 +1,7 @@
 ---
 title: k8s多集群管理方案 - KubeFed V2
 date: 2022-01-09 11:33:15
-tags:
+tags: 多集群
 ---
 
 # 背景

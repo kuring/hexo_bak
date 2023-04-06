@@ -89,14 +89,19 @@ openssl x509 -in server.crt -out server.pem
 ```
 将pem格式转换为cert格式
 
+# 证书查看
+
+查看特定域名的证书内容：`echo | openssl s_client  -connect www.baidu.com:443 -servername www.baidu.com 2>/dev/null | openssl x509 -noout -text`
+
+获取特定域名的证书内容：`openssl s_client -servername www.baidu.com -connect www.baidu.com:443 </dev/null | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'`
+
 # 证书的使用
+
 curl命令关于证书的用法：
 
 - --cacert：指定ca来校验server端的证书合法性
 - --cert：指定客户端的证书文件，用在双向认证mTLS中
 - --key：私钥文件名，用在双向认证mTLS中
-
-在mTLS的双向认证中，可以使用如下的命令： curl
 
 # 参考链接
 - [https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4](https://gist.github.com/liuguangw/4d4b87b750be8edb700ff94c783b1dd4)

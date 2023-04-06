@@ -86,3 +86,17 @@ www-data   47357  0.0  0.0  60052  1832 pts/2    R+   20:21   0:00 ps aux
 ## wget
 
 - -P: 当下载文件时，可以指定本地的下载的目录
+
+## split
+
+split [-bl] file [prefix] 
+
+- -b, --bytes=SIZE：对file进行切分，每个小文件大小为SIZE。可以指定单位b,k,m。
+
+- -C,--bytes=SIZE：与-b选项类似，但是，切割时尽量维持每行的完整性。
+
+- prefix：分割后产生的文件名前缀。
+
+拆分文件：split -b 200m ip_config.gzip ip_config.gzip
+
+文件合并：cat ip_config.gzip* > ip_config.gzip

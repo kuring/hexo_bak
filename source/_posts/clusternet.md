@@ -1,6 +1,6 @@
 title: k8s多集群管理方案 - clusternet
 date: 2021-12-26 21:44:17
-tags:
+tags: 多集群
 ---
 # 简介
 

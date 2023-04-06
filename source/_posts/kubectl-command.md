@@ -83,3 +83,28 @@ obj变量为要修改的service对象名称。
 ```
 kubectl get secret -n ark-system ark.cmdb.https.origin.tls -o jsonpath='{.data.ca\.pem}' | base64 -d
 ```
+
+## 9. 修改 secret 或 cm 的内容
+
+很多场景下使用 `kubectl edit` 修改不能完全满足需求，比如某个 key 对应的 value 非常长且包含空格，很难直接编辑。可以通过导出 key 对应的 value 到文件，然后再重新 apply 的方式合入。
+
+导出 configmap 中特定的 key：
+
+```
+kubectl get cm -n kube-system  networkpolicy-config -o jsonpath='{.data.config\.yaml}' -o yaml 
+```
+
+修改完成后，将文件重新 apply cm
+
+```
+kubectl create --save-config cm  networkpolicy-config -n kube-system --from-file /tmp/config.yaml -o yaml --dry-run | kubectl apply -f -
+```
+
+
+
+## 9. 删除所有 pod（或特定状态 pod）
+
+```
+kubectl get pods --all-namespaces -o wide --no-headers | grep -v Running | awk '{print $1 " " $2}' | while read AA BB; do kubectl get pod -n $AA $BB --no-headers; done
+```
+
