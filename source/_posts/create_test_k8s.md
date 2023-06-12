@@ -94,6 +94,9 @@ cat > kind.conf <<EOF
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: kind
+nodes:
+- role: control-plane
+  image: kindest/node:v1.23.17 # 指定 k8s 版本
 networking:
   apiServerAddress: "$ip"
   apiServerPort: 6443
